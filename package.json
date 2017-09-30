@@ -7,7 +7,8 @@
     "clean": "node build/script.clean.js",
     "start": "node build/script.dev.js",
     "build": "node build/script.build.js",
-    "lint": "standard --fix 'src/**/*.js'"
+    "lint": "standard --fix 'src/**/*.js'",
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "babel-runtime": "^6.25.0",
@@ -49,6 +50,7 @@
     "glob": "^7.1.2",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.0",
+    "husky": "^0.14.3",
     "json-loader": "^0.5.7",
     "opn": "^5.0.0",
     "optimize-css-assets-webpack-plugin": "^3.0.0",

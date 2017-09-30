@@ -1,6 +1,4 @@
-# Quasar PWA App
-
-> A Quasar PWA project
+# Firefly Client
 
 ## Build Setup
 
@@ -9,11 +7,11 @@
 $ npm install
 
 # serve with hot reload at localhost:8081
-$ quasar dev
+$ npm start
 
 # build for production with minification
-$ quasar build
+$ npm run build
 
 # lint code
-$ quasar lint
+$ npm run lint
 ```
