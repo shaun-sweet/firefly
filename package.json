@@ -1,8 +1,8 @@
 {
-  "name": "Firefly",
+  "name": "firefly",
   "version": "0.0.1",
   "description": "Home Automation",
-  "author": "Your Name",
+  "author": "Shaun Sweet",
   "scripts": {
     "clean": "node build/script.clean.js",
     "start": "node build/script.dev.js",
