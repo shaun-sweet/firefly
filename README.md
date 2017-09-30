@@ -1,5 +1,5 @@
 # Firefly Client
-
+### Build Status: [![Build Status](https://travis-ci.com/shaun-sweet/firefly.svg?token=74neAvgp5t22bqyuF5Jk&branch=master)](https://travis-ci.com/shaun-sweet/firefly)
 ## Build Setup
 
 ``` bash
