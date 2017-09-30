@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-import Hello from '@/Hello.vue'
-
+import Profile from 'views/ProfileView.vue'
+import Login from 'views/LoginView.vue'
+import DeviceSettings from 'views/DeviceSettingsView'
+import HomeSettings from 'views/HomeSettingsView'
+import MessagesView from 'views/MessagesView'
+import RoutinesView from 'views/RoutinesView'
+import DevicesView from 'views/DevicesView'
 Vue.use(VueRouter)
 
 /*
@@ -28,6 +32,41 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: Hello }
+    {
+      name: 'login',
+      path: '/login',
+      component: Login
+    }, {
+      name: 'profile',
+      path: '/profile',
+      component: Profile
+    }, {
+      name: 'deviceSettings',
+      path: '/device-settings',
+      component: DeviceSettings
+    }, {
+      name: 'homeSettings',
+      path: '/home-settings',
+      component: HomeSettings
+    },
+    {
+      name: 'messagesView',
+      path: '/messages',
+      component: MessagesView
+    },
+    {
+      name: 'routinesView',
+      path: '/routines',
+      component: RoutinesView
+    },
+    {
+      name: 'devicesView',
+      path: '/devices',
+      component: DevicesView
+    },
+    {
+      path: '*',
+      redirect: '/devices'
+    }
   ]
 })

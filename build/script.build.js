@@ -44,8 +44,7 @@ webpack(webpackConfig, function (err, stats) {
 
   if (config.build.purifyCSS) {
     css.purify(finalize)
-  }
-  else {
+  } else {
     finalize()
   }
 })

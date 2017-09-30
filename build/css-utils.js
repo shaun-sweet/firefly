@@ -21,8 +21,7 @@ module.exports.styleLoaders = function (options) {
       if (/\?/.test(loader)) {
         loader = loader.replace(/\?/, '-loader?')
         extraParamChar = '&'
-      }
-      else {
+      } else {
         loader = loader + '-loader'
         extraParamChar = '?'
       }
@@ -34,8 +33,7 @@ module.exports.styleLoaders = function (options) {
         use: sourceLoader,
         fallback: 'vue-style-loader'
       })
-    }
-    else {
+    } else {
       return ['vue-style-loader', sourceLoader].join('!')
     }
   }
@@ -67,7 +65,7 @@ function getSize (size) {
   return (size / 1024).toFixed(2) + 'kb'
 }
 
-module.exports.purify = function(cb) {
+module.exports.purify = function (cb) {
   var css = glob.sync(path.join(__dirname, '../dist/**/*.css'))
   var js = glob.sync(path.join(__dirname, '../dist/**/*.js'))
 
