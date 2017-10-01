@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { getCurrentUser } from 'src/firebase'
 import Profile from 'views/ProfileView.vue'
 import Login from 'views/LoginView.vue'
 import DeviceSettings from 'views/DeviceSettingsView'
@@ -18,7 +19,7 @@ function load (component) {
 }
 */
 
-export default new VueRouter({
+const router = new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
    * it is only to be used only for websites.
@@ -70,3 +71,12 @@ export default new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (getCurrentUser() || to.path === '/login') {
+    return next()
+  }
+  console.error(`You aren't logged in`)
+  return next('/login')
+})
+export default router

@@ -10,15 +10,10 @@ const config = {
   storageBucket: 'firefly-beta-cdb9d.appspot.com',
   messagingSenderId: '893008059151'
 }
+
 firebase.initializeApp(config)
 
-// @params fn callback
-// {object} user
-
-export const attemptLogin = (email, password) => {
-  return firebase.auth().signInWithEmailAndPassword(email, password)
-}
-
-export const initFirebase = (fn) => {
-  firebase.auth().onAuthStateChanged(fn, error => error)
-}
+export const attemptLogin = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password)
+export const logout = () => firebase.auth().signOut()
+export const getCurrentUser = () => firebase.auth().currentUser
+export const getUserHomes = (userId) => firebase.database().ref(`users/${userId}/homes`).once('value')

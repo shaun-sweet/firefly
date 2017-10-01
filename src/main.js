@@ -11,14 +11,13 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 // require(`quasar/dist/quasar.ie.${__THEME}.css`)
 
 import Vue from 'vue'
-import Vuex from 'vuex'
+import store from 'src/store'
 import Quasar, * as All from 'quasar'
 import router from './router'
 import 'quasar-extras/material-icons'
 import 'quasar-extras/ionicons'
 
 Vue.config.productionTip = false
-Vue.use(Vuex)
 Vue.use(Quasar, {
   components: All,
   directives: All
@@ -36,5 +35,6 @@ if (__THEME === 'mat') {
 new Vue({
   el: '#q-app',
   router,
+  store,
   render: h => h(require('./App'))
 })
