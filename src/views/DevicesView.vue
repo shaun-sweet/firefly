@@ -9,67 +9,18 @@
       </div>
     </q-modal>
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <q-card>
-          <q-card-main>
-            {Device Name}
-            <q-icon class="options-menu" @click="$refs.deviceMenu.open()" name="ion-android-more-vertical" />
-            <q-toggle class="pull-right" v-model="checked" />
-          </q-card-main>
-        </q-card>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <q-card>
-          <q-card-main>
-            {Device Name}
-            <q-icon class="options-menu" @click="$refs.deviceMenu.open()" name="ion-android-more-vertical" />
-            <q-toggle class="pull-right" v-model="checked" />
-          </q-card-main>
-        </q-card>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <q-card>
-          <q-card-main>
-            {Device Name}
-            <q-icon class="options-menu" @click="$refs.deviceMenu.open()" name="ion-android-more-vertical" />
-            <q-toggle class="pull-right" v-model="checked" />
-          </q-card-main>
-        </q-card>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <q-card>
-          <q-card-main>
-            {Device Name}
-            <q-icon class="options-menu" @click="$refs.deviceMenu.open()" name="ion-android-more-vertical" />
-            <q-toggle class="pull-right" v-model="checked" />
-          </q-card-main>
-        </q-card>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <q-card>
-          <q-card-main>
-            {Device Name}
-            <q-icon class="options-menu" @click="$refs.deviceMenu.open()" name="ion-android-more-vertical" />
-            <q-toggle class="pull-right" v-model="checked" />
-          </q-card-main>
-        </q-card>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <q-card>
-          <q-card-main>
-            {Device Name}
-            <q-icon class="options-menu" @click="$refs.deviceMenu.open()" name="ion-android-more-vertical" />
-            <q-toggle class="pull-right" v-model="checked" />
-          </q-card-main>
-        </q-card>
-      </div>
+      <device />
 
     </div>
   </div>
 </template>
 
 <script>
+import Device from '@/Device'
 export default {
+  components: {
+    Device
+  },
   data () {
     return {
       checked: false

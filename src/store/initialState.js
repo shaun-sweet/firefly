@@ -3,6 +3,7 @@ export default function getInitialState () {
     id: null,
     displayName: '',
     email: '',
+    selectedHome: null,
     homes: {},
     devices: {}
   }

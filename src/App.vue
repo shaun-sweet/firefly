@@ -13,7 +13,12 @@
 
     <div slot="left">
       <q-list no-border link inset-delimiter>
-        <q-list-header>{User information and home}</q-list-header>
+        <q-list-header>
+          {{ emailAddress }}
+        </q-list-header>
+        <q-select v-model="select" 
+          stack-label="Selected Home"
+          :options="homesList" />
         <q-side-link item to="/devices">
           <q-item-side icon="ion-radio-waves" />
           <q-item-main label="Devices" sublabel="{count w state on?}" />
@@ -58,6 +63,14 @@
 <script>
 export default {
   name: 'app',
+  computed: {
+    homesList () {
+      return this.$store.getters.homesList
+    },
+    emailAddress () {
+      return this.$store.getters.user.email
+    }
+  },
   data () {
     return {
     }
