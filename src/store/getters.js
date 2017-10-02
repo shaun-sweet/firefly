@@ -7,7 +7,12 @@ export default {
     }
   },
   homesList (state) {
-    return Object.keys(state.homes).map(homeId => state.homes[homeId])
+    return Object.keys(state.homes).map(homeId => {
+      return {
+        label: state.homes[homeId].nickname,
+        value: homeId
+      }
+    })
   },
   defaultHome (state) {
     return Object.keys(state.homes).filter(home => Boolean(state.homes[home].relation))

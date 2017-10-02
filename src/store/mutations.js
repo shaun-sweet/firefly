@@ -19,5 +19,9 @@ export default {
     state.id = payload.uid
     state.email = payload.email
     state.displayName = payload.displayName
+  },
+
+  [types.ERROR_LOGIN] (state, payload) {
+    state.errors.login = payload.errorMsg
   }
 }

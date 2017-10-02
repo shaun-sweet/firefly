@@ -14,6 +14,9 @@ const config = {
 firebase.initializeApp(config)
 
 export const attemptLogin = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password)
+
 export const logout = () => firebase.auth().signOut()
+
 export const getCurrentUser = () => firebase.auth().currentUser
+
 export const getUserHomes = (userId) => firebase.database().ref(`users/${userId}/homes`).once('value')

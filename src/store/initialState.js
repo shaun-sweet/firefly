@@ -5,6 +5,9 @@ export default function getInitialState () {
     email: '',
     selectedHome: null,
     homes: {},
-    devices: {}
+    devices: {},
+    errors: {
+      login: ''
+    }
   }
 }

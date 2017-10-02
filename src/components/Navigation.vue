@@ -3,7 +3,12 @@
     <q-list-header>
       {{ emailAddress }}
     </q-list-header>
-    <q-select v-model="selectedHome" stack-label="Current Home" :options="homesList" />
+    <q-select 
+      separator
+      v-model="test" 
+      stack-label="Selected Home" 
+      :options="homesList"
+      @change="onChangeHandler" />
     <q-side-link item to="/devices">
       <q-item-side icon="ion-radio-waves" />
       <q-item-main label="Devices" sublabel="{count w state on?}" />
@@ -43,8 +48,19 @@ export default {
     'emailAddress',
     'selectedHome'
   ],
+  mounted () {
+    this.test = this.$store.getters.defaultHome[0]
+    console.log(this.test)
+  },
+  methods: {
+    onChangeHandler (event) {
+      console.log(event)
+    }
+  },
   data () {
-    return {}
+    return {
+      test: this.$store.getters.defaultHome[0]
+    }
   }
 }
 </script>

@@ -17,14 +17,15 @@
           <q-btn outline color="primary" icon="ion-checkmark-round">Send Email Verification</q-btn>
         </q-field>
         <p class="status" v-if="isLoggedIn">Firefly Sign-in Status: {{userEmail}} online</p>
-        <p v-if="!isLoggedIn && errorMessage">{{ errorMessage }}</p>
       </form>
     </div>
   </section>
 </template>
 
 <script>
-import { attemptLogin, logout, getUserHomes } from 'src/firebase'
+import { attemptLogin } from 'src/firebase'
+import { Toast } from 'quasar'
+import { ERROR_LOGIN } from 'src/store/mutation-types'
 
 export default {
   data () {
@@ -38,10 +39,8 @@ export default {
   },
   methods: {
     handleLogout () {
-      console.log('logging out')
+      this.$store.dispatch('logOut')
       this.isLoggedIn = false
-      logout()
-      this.$store.commit('LOG_USER_OUT')
     },
     login () {
       // TODO: for dev only, remove for production
@@ -53,20 +52,23 @@ export default {
       }
       attemptLogin(email, password)
         .then((response) => {
-          const uid = response.uid
-          const email = response.email
-          const displayName = response.displayName
-          this.$store.commit('SAVE_USER', { uid, email, displayName })
-          getUserHomes(uid)
-            .then((snap) => {
-              this.$store.commit('SAVE_USER_HOMES', snap.val())
-            })
-          this.isLoggedIn = true
+          this.$store.dispatch('getInitialAppState')
           this.userEmail = response.email
+          Toast.create.positive({
+            html: `Successfully Logged in!  <br />
+              Welcome back ${this.userEmail}`,
+            icon: 'ion-ios-checkmark'
+          })
+          this.isLoggedIn = true
         }, (err) => {
-          console.error(err)
+          const errorMsg = err.message
+          this.$store.commit(ERROR_LOGIN, { errorMsg })
+          this.errorMessage = this.$store.state.errors.login
+          Toast.create.negative({
+            html: this.errorMessage,
+            icon: 'ion-android-hand'
+          })
           this.isLoggedIn = false
-          this.errorMessage = err.message
         })
     }
   }
