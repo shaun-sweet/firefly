@@ -3,12 +3,16 @@
     <q-list-header>
       {{ emailAddress }}
     </q-list-header>
+    <q-list-header>
     <q-select 
       separator
+      id="homeSelector"
       v-model="selectedHome" 
       stack-label="Selected Home"
       @change="onChange"
       :options="homesList" />
+
+    </q-list-header>
     <q-side-link item to="/devices">
       <q-item-side icon="ion-radio-waves" />
       <q-item-main label="Devices" sublabel="{count w state on?}" />
@@ -72,4 +76,5 @@ export default {
 </script>
 
 <style  lang="stylus" scoped>
+
 </style>

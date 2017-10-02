@@ -1,16 +1,8 @@
 <template>
   <q-tabs no-pane-border v-model="selectedTab">
-    <q-tab slot="title" name="events" label="Events" default></q-tab>
     <q-tab slot="title" name="notifications" label="Notifications"></q-tab>
+    <q-tab slot="title" name="events" label="Events" default></q-tab>
     <div class="main-content">
-      <q-tab-pane name="events">
-        <q-list class="events" no-border>
-          <q-list-header>
-            <h5>Events</h5>
-          </q-list-header>
-          <event-message device="component" state="on" timestamp="today" />
-          </q-list>
-      </q-tab-pane>
 
       <q-tab-pane name="notifications">
         <q-list class="notifications" no-border>
@@ -21,6 +13,15 @@
             trigger="this is the thing triggered"
             timestamp="today" 
           />
+          </q-list>
+      </q-tab-pane>
+
+      <q-tab-pane name="events">
+        <q-list class="events" no-border>
+          <q-list-header>
+            <h5>Events</h5>
+          </q-list-header>
+          <event-message device="component" state="on" timestamp="today" />
           </q-list>
       </q-tab-pane>
     </div>

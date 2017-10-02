@@ -6,6 +6,7 @@ export default {
       id: state.id
     }
   },
+
   homesList (state) {
     return Object.keys(state.homes).map(homeId => {
       return {
@@ -14,6 +15,7 @@ export default {
       }
     })
   },
+
   defaultHome (state) {
     return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
   },
