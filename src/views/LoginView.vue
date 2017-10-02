@@ -59,6 +59,7 @@ export default {
               Welcome back ${this.userEmail}`,
             icon: 'ion-ios-checkmark'
           })
+          this.$router.push('/devices')
         }, (err) => {
           const errorMsg = err.message
           this.isLoggedIn = false
