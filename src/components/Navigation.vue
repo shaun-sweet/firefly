@@ -5,10 +5,9 @@
     </q-list-header>
     <q-select 
       separator
-      v-model="test" 
+      v-model="selectedHome" 
       stack-label="Selected Home" 
-      :options="homesList"
-      @change="onChangeHandler" />
+      :options="homesList" />
     <q-side-link item to="/devices">
       <q-item-side icon="ion-radio-waves" />
       <q-item-main label="Devices" sublabel="{count w state on?}" />
@@ -43,23 +42,23 @@
 
 <script>
 export default {
-  props: [
-    'homesList',
-    'emailAddress',
-    'selectedHome'
-  ],
-  mounted () {
-    this.test = this.$store.getters.defaultHome[0]
-    console.log(this.test)
+  beforeUpdate () {
+    console.log('selected home:', this.selectedHome)
+    if (!this.selectedHome) {
+      this.selectedHome = this.$store.getters.defaultHome[0]
+    }
   },
-  methods: {
-    onChangeHandler (event) {
-      console.log(event)
+  computed: {
+    homesList () {
+      return this.$store.getters.homesList
+    },
+    emailAddress () {
+      return this.$store.getters.user.email
     }
   },
   data () {
     return {
-      test: this.$store.getters.defaultHome[0]
+      selectedHome: ''
     }
   }
 }

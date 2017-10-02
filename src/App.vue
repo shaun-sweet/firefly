@@ -11,7 +11,7 @@
       </q-toolbar-title>
     </q-toolbar>
     <div slot="left">
-      <navigation :emailAddress="emailAddress" :homesList="homesList" :selectedHome="selectedHome" />
+      <navigation />
     </div>
     <router-view />
 
@@ -28,17 +28,6 @@ export default {
   name: 'app',
   components: {
     Navigation
-  },
-  computed: {
-    homesList () {
-      return this.$store.getters.homesList
-    },
-    emailAddress () {
-      return this.$store.getters.user.email
-    },
-    selectedHome () {
-      return this.$store.getters.defaultHome[0]
-    }
   },
   data () {
     return {

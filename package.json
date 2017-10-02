@@ -6,8 +6,9 @@
   "scripts": {
     "clean": "node build/script.clean.js",
     "start": "node build/script.dev.js",
-    "build": "node build/script.build.js",
     "lint": "standard --fix 'src/**/*.js'",
+    "deploy": "npm run build && cd /home/shaun/projects/firefly/public/dev/ && firebase deploy --only hosting",
+    "build": "node build/script.build.js && rm -r /home/shaun/projects/firefly/public/dev/ && mkdir /home/shaun/projects/firefly/public/dev/ &&  mv dist/* /home/shaun/projects/firefly/public/dev/",
     "test": "npm run build",
     "precommit": "npm run lint"
   },
