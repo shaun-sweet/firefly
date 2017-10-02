@@ -33,3 +33,4 @@ export default {
     state.devicesView = devicesViewList
   }
 }
+//  ci comment test
