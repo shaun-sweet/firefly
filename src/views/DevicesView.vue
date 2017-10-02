@@ -10,7 +10,6 @@
     </q-modal>
     <div class="row">
       <device />
-
     </div>
   </div>
 </template>
@@ -23,6 +22,7 @@ export default {
   },
   data () {
     return {
+      devicesViewList: this.$store.getters.devicesViewList,
       checked: false
     }
   }

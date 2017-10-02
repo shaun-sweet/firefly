@@ -52,23 +52,25 @@ export default {
       }
       attemptLogin(email, password)
         .then((response) => {
+          this.isLoggedIn = true
           this.$store.dispatch('getInitialAppState')
           this.userEmail = response.email
+
           Toast.create.positive({
             html: `Successfully Logged in!  <br />
               Welcome back ${this.userEmail}`,
             icon: 'ion-ios-checkmark'
           })
-          this.isLoggedIn = true
         }, (err) => {
           const errorMsg = err.message
+          this.isLoggedIn = false
           this.$store.commit(ERROR_LOGIN, { errorMsg })
           this.errorMessage = this.$store.state.errors.login
+
           Toast.create.negative({
             html: this.errorMessage,
             icon: 'ion-android-hand'
           })
-          this.isLoggedIn = false
         })
     }
   }

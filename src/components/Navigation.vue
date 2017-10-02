@@ -45,8 +45,10 @@ export default {
   beforeUpdate () {
     console.log('selected home:', this.selectedHome)
     if (!this.selectedHome) {
-      this.selectedHome = this.$store.getters.defaultHome[0]
+      this.selectedHome = this.$store.getters.defaultHome
     }
+  },
+  mounted () {
   },
   computed: {
     homesList () {

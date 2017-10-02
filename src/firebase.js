@@ -19,4 +19,8 @@ export const logout = () => firebase.auth().signOut()
 
 export const getCurrentUser = () => firebase.auth().currentUser
 
-export const getUserHomes = (userId) => firebase.database().ref(`users/${userId}/homes`).once('value')
+export const getUserHomes = (userId) => firebase.database().ref(`users/${userId}/homes`)
+  .once('value')
+
+export const getDevicesView = (homeId) => firebase.database().ref(`homeStatus/${homeId}/deviceViews`)
+  .once('value')

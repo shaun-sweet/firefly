@@ -15,6 +15,10 @@ export default {
     })
   },
   defaultHome (state) {
-    return Object.keys(state.homes).filter(home => Boolean(state.homes[home].relation))
+    return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
+  },
+
+  devicesViewList (state) {
+    return Object.keys(state.devicesView).map(deviceId => state.devicesView[deviceId])
   }
 }

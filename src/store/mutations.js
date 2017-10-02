@@ -23,5 +23,13 @@ export default {
 
   [types.ERROR_LOGIN] (state, payload) {
     state.errors.login = payload.errorMsg
+  },
+
+  [types.SET_SELECTED_HOME] (state, selectedHome) {
+    state.selectedHome = selectedHome
+  },
+
+  [types.SAVE_DEVICE_VIEW_LIST] (state, devicesViewList) {
+    state.devicesView = devicesViewList
   }
 }

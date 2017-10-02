@@ -7,6 +7,7 @@ module.exports = {
     src: path.resolve(__dirname, '../src'),
     assets: path.resolve(__dirname, '../src/assets'),
     '@': path.resolve(__dirname, '../src/components'),
+    types: path.resolve(__dirname, '../src/store/mutation-types.js'),
     variables: path.resolve(__dirname, '../src/themes/quasar.variables.styl')
   },
 

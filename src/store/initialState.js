@@ -6,6 +6,7 @@ export default function getInitialState () {
     selectedHome: null,
     homes: {},
     devices: {},
+    devicesView: {},
     errors: {
       login: ''
     }
