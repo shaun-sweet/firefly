@@ -6,7 +6,8 @@
     <q-select 
       separator
       v-model="selectedHome" 
-      stack-label="Selected Home" 
+      stack-label="Selected Home"
+      @change="onChange"
       :options="homesList" />
     <q-side-link item to="/devices">
       <q-item-side icon="ion-radio-waves" />
@@ -41,14 +42,18 @@
 </template>
 
 <script>
+import { SET_SELECTED_HOME } from 'types'
 export default {
   beforeUpdate () {
-    console.log('selected home:', this.selectedHome)
     if (!this.selectedHome) {
       this.selectedHome = this.$store.getters.defaultHome
     }
   },
-  mounted () {
+  methods: {
+    onChange (selectedHomeId) {
+      this.$store.commit(SET_SELECTED_HOME, selectedHomeId)
+      this.$store.dispatch('populateDevicesView', selectedHomeId)
+    }
   },
   computed: {
     homesList () {

@@ -53,9 +53,7 @@ export default {
       attemptLogin(email, password)
         .then((response) => {
           this.isLoggedIn = true
-          this.$store.dispatch('getInitialAppState')
           this.userEmail = response.email
-
           Toast.create.positive({
             html: `Successfully Logged in!  <br />
               Welcome back ${this.userEmail}`,

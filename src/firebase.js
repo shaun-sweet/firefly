@@ -15,6 +15,10 @@ firebase.initializeApp(config)
 
 export const attemptLogin = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password)
 
+export const onAuthStateChange = (cb) => {
+  firebase.auth().onAuthStateChanged(cb)
+}
+
 export const logout = () => firebase.auth().signOut()
 
 export const getCurrentUser = () => firebase.auth().currentUser

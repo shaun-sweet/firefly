@@ -10,6 +10,7 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 // require(`quasar/dist/quasar.ie`)
 // require(`quasar/dist/quasar.ie.${__THEME}.css`)
 
+import { onAuthStateChange } from 'src/firebase'
 import Vue from 'vue'
 import store from 'src/store'
 import Quasar, * as All from 'quasar'
@@ -29,7 +30,13 @@ if (__THEME === 'mat') {
 // import 'quasar-extras/material-icons'
 // import 'quasar-extras/ionicons'
 // import 'quasar-extras/fontawesome'
-// import 'quasar-extras/animate'
+// import 'quasar-extras/animate'\
+
+onAuthStateChange((user) => {
+  if (user) {
+    store.dispatch('getInitialAppState')
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

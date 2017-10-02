@@ -9,7 +9,11 @@
       </div>
     </q-modal>
     <div class="row">
-      <device />
+      <device 
+        v-for="device in devicesViewList" 
+        :key="device.ff_id"
+        :title="device.alias"
+      />
     </div>
   </div>
 </template>
@@ -20,9 +24,13 @@ export default {
   components: {
     Device
   },
+  computed: {
+    devicesViewList () {
+      return this.$store.getters.devicesViewList
+    }
+  },
   data () {
     return {
-      devicesViewList: this.$store.getters.devicesViewList,
       checked: false
     }
   }
