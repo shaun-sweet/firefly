@@ -52,7 +52,7 @@ export default {
   methods: {
     onChange (selectedHomeId) {
       this.$store.commit(SET_SELECTED_HOME, selectedHomeId)
-      this.$store.dispatch('populateDevicesView', selectedHomeId)
+      this.$store.dispatch('populateDevicesView', this.$store.state.selectedHome)
     }
   },
   computed: {
