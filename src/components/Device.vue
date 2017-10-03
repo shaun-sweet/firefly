@@ -1,26 +1,46 @@
 <template>
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-    <q-card>
+    <q-card @click="test()">
       <q-card-main>
         {{ title}}
         <q-icon class="options-menu" name="ion-android-more-vertical" />
-        <q-toggle class="pull-right" v-model="primary.state" />
+        <q-toggle class="pull-right" v-model="switchState" />
       </q-card-main>
     </q-card>
   </div>
 </template>
 
 <script>
+// const stateMap = {
+//   'on': true,
+//   'off': false
+// }
 export default {
   props: [
-    'title'
+    'title',
+    'ffId'
   ],
+  beforeUpdate (e) {
+    console.log('update hitting')
+  },
+  computed: {
+    primaryStateStatus () {
+      return this.$store.state.homes[this.$store.state.selectedHome].devicesViewList[this.ffId].primaryStateStatus === 'on'
+    }
+  },
   data () {
     return {
-      primary: {
-        state: false,
-        title: ''
-      }
+      switchState: this.$store.state.homes[this.$store.state.selectedHome].devicesViewList[this.ffId].primaryStateStatus === 'on'
+    }
+  },
+  methods: {
+
+    test () {
+      console.log('this is a test')
+      this.switchState = this.primaryStateStatus
+    },
+    determineState (status) {
+      return (status === 'on')
     }
   }
 }
@@ -28,17 +48,3 @@ export default {
 
 <style  lang="stylus" scoped>
 </style>
-
-
-// for each device... metadata > primary (which points to the type of action that is the primary) 
-//  actions > actionType (eg. alarm, battery, contact (like if a contact sensor has contact or not))
-// so an on/off device will have a type === "switch"
-// action title = label for title when pulling up the modal
-// can_command = is changable by the user (vs state reporting ie. if proxy sensor is going off or not)
-// can_request = can be used as a trigger (typically true)
-// color_mapping = has colors as the keys that point to an array with the various states
-// text_mapping = key = text to display, while the value is when to display them (based on states)
-// request = where front end/automation will target keywise to collect the data on that action.  
-// it grabs it from the deviceStatus
-
-//  context = description
