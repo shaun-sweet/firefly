@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { getCurrentUser } from 'src/firebase'
-import Profile from 'views/ProfileView.vue'
-import Login from 'views/LoginView.vue'
-import DeviceSettings from 'views/DeviceSettingsView'
-import HomeSettings from 'views/HomeSettingsView'
-import MessagesView from 'views/MessagesView'
-import RoutinesView from 'views/RoutinesView'
-import DevicesView from 'views/DevicesView'
+const Login = () => import('views/LoginView.vue')
+const DeviceSettings = () => import('views/DeviceSettingsView.vue')
+const HomeSettings = () => import('views/HomeSettingsView.vue')
+const MessagesView = () => import('views/MessagesView.vue')
+const RoutinesView = () => import('views/RoutinesView.vue')
+const DevicesView = () => import('views/DevicesView.vue')
+const Profile = () => import('views/ProfileView.vue')
 Vue.use(VueRouter)
 
 /*
