@@ -29,8 +29,16 @@ export default {
     state.selectedHome = selectedHome
   },
 
-  [types.SAVE_DEVICE_VIEW_LIST] (state, devicesViewList) {
+  [types.SAVE_DEVICE_VIEW_LIST] (state, { devicesViewList, homeId }) {
     state.devicesView = devicesViewList
+    state.homes[homeId].devicesViewList = devicesViewList
+  },
+
+  [types.DEVICE_PRIMARY_STATE_UPDATE] (state, { homeId, deviceId, primaryStateStatus }) {
+    state.homes[homeId].devicesViewList[deviceId] = {
+      ...state.homes[homeId].devicesViewList[deviceId],
+      primaryStateStatus
+    }
   }
 }
 //  ci comment test

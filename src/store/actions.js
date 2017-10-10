@@ -19,8 +19,44 @@ export default {
     commit(types.LOG_USER_OUT)
   },
 
-  populateDevicesView ({ commit }, homeId) {
+  subscribeToDevicePrimaryState ({ commit, state }, devicesViewList) {
+    const homeId = state.selectedHome
+    for (let deviceId in devicesViewList) {
+      const device = devicesViewList[deviceId]
+      const primaryActionType = device.metadata.primary
+      const payload = {
+        deviceId,
+        homeId,
+        primaryActionType
+      }
+      const onSuccess = (snap) => {
+        commit(types.DEVICE_PRIMARY_STATE_UPDATE, { primaryStateStatus: snap.val(), deviceId, homeId })
+      }
+      const onFail = (err) => {
+        console.error(err)
+      }
+      firebase.subscribeToDevicePrimaryState(payload, onSuccess, onFail)
+    }
+  },
+
+  populateDevicesView ({ commit, state, dispatch }, homeId) {
     firebase.getDevicesView(homeId)
-      .then(snap => commit(types.SAVE_DEVICE_VIEW_LIST, snap.val()))
+      .then((snap) => {
+        commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
+        return snap.val()
+      })
+      .then(devicesViewList => dispatch('subscribeToDevicePrimaryState', devicesViewList))
   }
 }
+// for each device... metadata > primary (which points to the type of action that is the primary)
+//  actions > actionType (eg. alarm, battery, contact (like if a contact sensor has contact or not))
+// so an on/off device will have a type === "switch"
+// action title = label for title when pulling up the modal
+// can_command = is changable by the user (vs state reporting ie. if proxy sensor is going off or not)
+// can_request = can be used as a trigger (typically true)
+// color_mapping = has colors as the keys that point to an array with the various states
+// text_mapping = key = text to display, while the value is when to display them (based on states)
+// request = where front end/automation will target keywise to collect the data on that action.
+// it grabs it from the deviceStatus
+
+//  context = description

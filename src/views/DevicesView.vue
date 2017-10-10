@@ -13,12 +13,14 @@
         v-for="device in devicesViewList" 
         :key="device.ff_id"
         :title="device.alias"
+        :device-id="device.ff_id"
       />
     </div>
   </div>
 </template>
 
 <script>
+
 import Device from '@/Device'
 export default {
   components: {
