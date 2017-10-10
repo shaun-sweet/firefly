@@ -46,6 +46,10 @@ export default {
         return snap.val()
       })
       .then(devicesViewList => dispatch('subscribeToDevicePrimaryState', devicesViewList))
+  },
+
+  toggleLight (_, payload) {
+    return firebase.toggleLight(payload)
   }
 }
 // for each device... metadata > primary (which points to the type of action that is the primary)
@@ -60,3 +64,5 @@ export default {
 // it grabs it from the deviceStatus
 
 //  context = description
+
+// Sending a command

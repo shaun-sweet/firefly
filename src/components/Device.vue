@@ -1,6 +1,6 @@
 <template>
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-    <q-card @click="test()">
+    <q-card>
       <q-card-main>
         {{ title}}
         <q-icon class="options-menu" name="ion-android-more-vertical" />
@@ -24,12 +24,19 @@ export default {
         return this.isActive(deviceState)
       },
       set (newVal) {
-        const payload = newVal ? 'on' : 'off'
+        const state = this.$store.state
+        const payload = {
+          command: newVal ? 'on' : 'off',
+          homeId: state.selectedHome,
+          deviceId: this.deviceId
+        }
+
         this.$store.commit('DEVICE_PRIMARY_STATE_UPDATE', {
           homeId: this.$store.state.selectedHome,
           deviceId: this.deviceId,
-          primaryStateStatus: payload
+          primaryStateStatus: payload.command
         })
+        this.$store.dispatch('toggleLight', payload)
       }
     }
   },

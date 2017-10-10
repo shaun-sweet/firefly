@@ -34,3 +34,9 @@ export const subscribeToDevicePrimaryState = (payload, onSuccess, onFail) => {
     .ref(`homeStatus/${payload.homeId}/deviceStatus/${payload.deviceId}/${payload.primaryActionType}`)
     .on('value', onSuccess, onFail)
 }
+
+export const toggleLight = (payload) => {
+  firebase.database()
+    .ref(`homeStatus/${payload.homeId}/commands/${payload.deviceId}`)
+    .set(payload.command)
+}
