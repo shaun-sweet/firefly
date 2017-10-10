@@ -11,35 +11,30 @@
 </template>
 
 <script>
-// const stateMap = {
-//   'on': true,
-//   'off': false
-// }
 export default {
   props: [
     'title',
-    'ffId'
+    'deviceId'
   ],
-  beforeUpdate (e) {
-    console.log('update hitting')
-  },
   computed: {
-    primaryStateStatus () {
-      return this.$store.state.homes[this.$store.state.selectedHome].devicesViewList[this.ffId].primaryStateStatus === 'on'
-    }
-  },
-  data () {
-    return {
-      switchState: this.$store.state.homes[this.$store.state.selectedHome].devicesViewList[this.ffId].primaryStateStatus === 'on'
+    switchState: {
+      get () {
+        const state = this.$store.state
+        const deviceState = state.homes[state.selectedHome].devicesViewList[this.deviceId].primaryStateStatus
+        return this.isActive(deviceState)
+      },
+      set (newVal) {
+        const payload = newVal ? 'on' : 'off'
+        this.$store.commit('DEVICE_PRIMARY_STATE_UPDATE', {
+          homeId: this.$store.state.selectedHome,
+          deviceId: this.deviceId,
+          primaryStateStatus: payload
+        })
+      }
     }
   },
   methods: {
-
-    test () {
-      console.log('this is a test')
-      this.switchState = this.primaryStateStatus
-    },
-    determineState (status) {
+    isActive (status) {
       return (status === 'on')
     }
   }
@@ -47,4 +42,5 @@ export default {
 </script>
 
 <style  lang="stylus" scoped>
+
 </style>

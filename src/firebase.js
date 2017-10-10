@@ -29,11 +29,8 @@ export const getUserHomes = (userId) =>
 export const getDevicesView = (homeId) => firebase.database().ref(`homeStatus/${homeId}/deviceViews`)
   .once('value')
 
-export const subscribeToDevicePrimaryState = (
-  { deviceId, homeId, primaryActionType },
-  onSuccess
-  , onFail
-) => {
-  firebase.database().ref(`homeStatus/${homeId}/deviceStatus/${deviceId}/${primaryActionType}`)
+export const subscribeToDevicePrimaryState = (payload, onSuccess, onFail) => {
+  firebase.database()
+    .ref(`homeStatus/${payload.homeId}/deviceStatus/${payload.deviceId}/${payload.primaryActionType}`)
     .on('value', onSuccess, onFail)
 }

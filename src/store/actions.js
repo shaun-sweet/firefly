@@ -20,8 +20,8 @@ export default {
   },
 
   subscribeToDevicePrimaryState ({ commit, state }, devicesViewList) {
+    const homeId = state.selectedHome
     for (let deviceId in devicesViewList) {
-      const homeId = state.selectedHome
       const device = devicesViewList[deviceId]
       const primaryActionType = device.metadata.primary
       const payload = {
@@ -45,9 +45,7 @@ export default {
         commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
         return snap.val()
       })
-      .then((devicesViewList) => {
-        dispatch('subscribeToDevicePrimaryState', devicesViewList)
-      })
+      .then(devicesViewList => dispatch('subscribeToDevicePrimaryState', devicesViewList))
   }
 }
 // for each device... metadata > primary (which points to the type of action that is the primary)
