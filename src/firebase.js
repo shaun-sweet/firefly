@@ -35,8 +35,14 @@ export const subscribeToDevicePrimaryState = (payload, onSuccess, onFail) => {
     .on('value', onSuccess, onFail)
 }
 
-export const toggleLight = (payload) => {
+export const toggleLight = ({ homeId, deviceId, command }) => {
   firebase.database()
-    .ref(`homeStatus/${payload.homeId}/commands/${payload.deviceId}`)
+    .ref(`homeStatus/${homeId}/commands/${deviceId}`)
+    .set(command)
+}
+
+export const zWaveCommand = (payload) => {
+  firebase.database()
+    .ref(`homeStatus/${payload.homeId}/commands/service_zwave`)
     .set(payload.command)
 }

@@ -14,6 +14,11 @@ export default function getInitialState () {
     devicesView: {},
     errors: {
       login: ''
+    },
+    appState: {
+      isLoading: false,
+      isFirstLogin: true,
+      isAddingZwave: false
     }
   }
 }
