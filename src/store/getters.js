@@ -16,6 +16,10 @@ export default {
     })
   },
 
+  selectedHome (state) {
+    return state.selectedHome
+  },
+
   defaultHome (state) {
     return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
   },

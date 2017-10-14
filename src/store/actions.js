@@ -29,7 +29,6 @@ export default {
         const primaryActionType = device.metadata.primary
         const ref = `homeStatus/${homeId}/deviceStatus/${deviceId}/${primaryActionType}`
         const onSuccess = (snap) => {
-          console.log(snap)
           commit(types.DEVICE_PRIMARY_STATE_UPDATE, { primaryStateStatus: snap.val(), deviceId, homeId })
         }
         const onFail = (err) => {
