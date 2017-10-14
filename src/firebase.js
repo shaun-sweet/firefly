@@ -52,8 +52,8 @@ export const zWaveCommand = (payload) => {
     .set(payload.command)
 }
 
-const getNotifications = (homeId) => db.ref(`homeStatus/${homeId}/notifications`).once('value')
+const getNotifications = (homeId) => db.ref(`homeStatus/${homeId}/notifications`).limitToFirst(100).once('value')
 
-const getEvents = (homeId) => db.ref(`homeStatus/${homeId}/events`).once('value')
+const getEvents = (homeId) => db.ref(`homeStatus/${homeId}/events`).limitToFirst(100).once('value')
 
 export const getMessages = homeId => Promise.all([getNotifications(homeId), getEvents(homeId)])

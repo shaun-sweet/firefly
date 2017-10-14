@@ -56,12 +56,12 @@ export default {
         this.notifications = Object.keys(notificationsObj).map((id) => {
           notificationsObj[id].id = id
           return notificationsObj[id]
-        })
+        }).reverse()
         this.events = Object.keys(eventsObj).map((id) => {
           eventsObj[id].id = id
           eventsObj[id].deviceAlias = get(state, `homes.${state.selectedHome}.devicesViewList.${eventsObj[id].ff_id}.alias`)
           return eventsObj[id]
-        })
+        }).reverse()
       })
   },
   methods: {

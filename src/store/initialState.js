@@ -11,6 +11,10 @@ export default function getInitialState () {
         // deviceId's as keys
       }
     },
+    messages: {
+      events: {},
+      notifications: {}
+    },
     devicesView: {},
     errors: {
       login: ''

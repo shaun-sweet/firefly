@@ -27,4 +27,14 @@ export default {
   devicesViewList (state) {
     return Object.keys(state.devicesView).map(deviceId => state.devicesView[deviceId])
   }
+
+  // notifications (state, getters) {
+  //   const selectedHome = state.homes[getters.selectedHome]
+  //   return Object.keys(selectedHome.notifications).map(id => selectedHome.notifications[id])
+  // },
+
+  // events (state, getters) {
+  //   const selectedHome = state.homes[getters.selectedHome]
+  //   return Object.keys(selectedHome.events).map(id => selectedHome.events[id])
+  // }
 }
