@@ -13,6 +13,8 @@ const config = {
 
 firebase.initializeApp(config)
 
+const db = firebase.database()
+
 export const attemptLogin = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password)
 
 export const onAuthStateChange = (cb) => {
@@ -24,25 +26,28 @@ export const logout = () => firebase.auth().signOut()
 export const getCurrentUser = () => firebase.auth().currentUser
 
 export const getUserHomes = (userId) =>
-  firebase.database().ref(`users/${userId}/homes`).once('value')
+  db
+    .ref(`users/${userId}/homes`).once('value')
 
-export const getDevicesView = (homeId) => firebase.database().ref(`homeStatus/${homeId}/deviceViews`)
+export const getDevicesView = (homeId) => db.ref(`homeStatus/${homeId}/deviceViews`)
   .once('value')
 
-export const subscribeToDevicePrimaryState = (payload, onSuccess, onFail) => {
-  firebase.database()
-    .ref(`homeStatus/${payload.homeId}/deviceStatus/${payload.deviceId}/${payload.primaryActionType}`)
+export const subscribeToDevicePrimaryState = (ref, onSuccess, onFail) => {
+  db
+    .ref(ref)
     .on('value', onSuccess, onFail)
 }
 
 export const toggleLight = ({ homeId, deviceId, command }) => {
-  firebase.database()
+  db
     .ref(`homeStatus/${homeId}/commands/${deviceId}`)
     .set(command)
 }
 
+export const subscriptionCleanup = (subLocation) => db.ref(subLocation).off()
+
 export const zWaveCommand = (payload) => {
-  firebase.database()
+  db
     .ref(`homeStatus/${payload.homeId}/commands/service_zwave`)
     .set(payload.command)
 }

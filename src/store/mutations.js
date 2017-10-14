@@ -39,6 +39,13 @@ export default {
       ...state.homes[homeId].devicesViewList[deviceId],
       primaryStateStatus
     }
+  },
+
+  [types.CLEANUP_SUBSCRIPTIONS] (state) {
+    state.appState.activeSubscriptions = []
+  },
+
+  [types.ADD_SUBSCRIPTION] (state, payload) {
+    state.appState.activeSubscriptions.push(payload)
   }
 }
-//  ci comment test

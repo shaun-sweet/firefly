@@ -1,5 +1,6 @@
 import * as types from './mutation-types'
 import * as firebase from 'src/firebase'
+import each from 'lodash/each'
 
 export default {
   getInitialAppState ({ commit, getters, dispatch, state }) {
@@ -14,7 +15,8 @@ export default {
       .then(() => dispatch('populateDevicesView', state.selectedHome))
   },
 
-  logOut ({ commit }) {
+  logOut ({ commit, dispatch }) {
+    dispatch('subscriptionCleanup')
     firebase.logout()
     commit(types.LOG_USER_OUT)
   },
@@ -23,19 +25,19 @@ export default {
     const homeId = state.selectedHome
     for (let deviceId in devicesViewList) {
       const device = devicesViewList[deviceId]
-      const primaryActionType = device.metadata.primary
-      const payload = {
-        deviceId,
-        homeId,
-        primaryActionType
+      if (device.export_ui) {
+        const primaryActionType = device.metadata.primary
+        const ref = `homeStatus/${homeId}/deviceStatus/${deviceId}/${primaryActionType}`
+        const onSuccess = (snap) => {
+          console.log(snap)
+          commit(types.DEVICE_PRIMARY_STATE_UPDATE, { primaryStateStatus: snap.val(), deviceId, homeId })
+        }
+        const onFail = (err) => {
+          console.error(err)
+        }
+        commit(types.ADD_SUBSCRIPTION, ref)
+        firebase.subscribeToDevicePrimaryState(ref, onSuccess, onFail)
       }
-      const onSuccess = (snap) => {
-        commit(types.DEVICE_PRIMARY_STATE_UPDATE, { primaryStateStatus: snap.val(), deviceId, homeId })
-      }
-      const onFail = (err) => {
-        console.error(err)
-      }
-      firebase.subscribeToDevicePrimaryState(payload, onSuccess, onFail)
     }
   },
 
@@ -46,6 +48,15 @@ export default {
         return snap.val()
       })
       .then(devicesViewList => dispatch('subscribeToDevicePrimaryState', devicesViewList))
+  },
+
+  subscriptionCleanup ({ state, commit }) {
+    // Removes firebase subscriptions
+    each(state.appState.activeSubscriptions, (subLocation) => {
+      firebase.subscriptionCleanup(subLocation)
+    })
+    // Removes local store of what the current subscriptions are
+    commit('CLEANUP_SUBSCRIPTIONS')
   },
 
   toggleLight (_, payload) {
