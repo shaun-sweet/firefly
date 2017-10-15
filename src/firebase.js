@@ -15,48 +15,41 @@ firebase.initializeApp(config)
 
 const db = firebase.database()
 
-export const attemptLogin = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password)
+export const attemptLogin = (email, password) =>
+  firebase.auth().signInWithEmailAndPassword(email, password)
 
-export const onAuthStateChange = (cb) => {
+export const onAuthStateChange = (cb) =>
   firebase.auth().onAuthStateChanged(cb)
-}
 
 export const logout = () => firebase.auth().signOut()
 
 export const getCurrentUser = () => firebase.auth().currentUser
 
 export const getUserHomes = (userId) =>
-  db
-    .ref(`users/${userId}/homes`).once('value')
+  db.ref(`users/${userId}/homes`).once('value')
 
 export const getDevicesView = (homeId) =>
   db.ref(`homeStatus/${homeId}/deviceViews`).once('value')
 
-export const subscribeToDevicePrimaryState = (ref, onSuccess, onFail) => {
-  db
-    .ref(ref)
-    .on('value', onSuccess, onFail)
-}
-
 export const toggleLight = ({ homeId, deviceId, command }) => {
-  db
-    .ref(`homeStatus/${homeId}/commands/${deviceId}`)
-    .set(command)
+  db.ref(`homeStatus/${homeId}/commands/${deviceId}`).set(command)
 }
 
 export const subscriptionCleanup = (subLocation) => db.ref(subLocation).off()
 
 export const zWaveCommand = (payload) => {
-  db
-    .ref(`homeStatus/${payload.homeId}/commands/service_zwave`)
-    .set(payload.command)
+  db.ref(`homeStatus/${payload.homeId}/commands/service_zwave`).set(payload.command)
 }
 
-const getNotifications = (homeId) => db.ref(`homeStatus/${homeId}/notifications`).limitToFirst(100).once('value')
+const getNotifications = (homeId) =>
+  db.ref(`homeStatus/${homeId}/notifications`).limitToFirst(100).once('value')
 
-const getEvents = (homeId) => db.ref(`homeStatus/${homeId}/events`).limitToFirst(100).once('value')
+const getEvents = (homeId) =>
+  db.ref(`homeStatus/${homeId}/events`).limitToFirst(100).once('value')
 
 export const getMessages = homeId => Promise.all([getNotifications(homeId), getEvents(homeId)])
 
 export const subscribeToDeviceStatus = (ref, onSuccess, onFail) =>
   db.ref(ref).on('child_changed', onSuccess, onFail)
+
+export const getDevicesStatus = (ref) => db.ref(ref).once('value')

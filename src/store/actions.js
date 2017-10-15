@@ -21,7 +21,28 @@ export default {
     commit(types.LOG_USER_OUT)
   },
 
-  subscribeToDevicePrimaryStateV2 ({ commit, state }) {
+  getDevicesPrimaryState ({state, commit, getters}) {
+    console.log('ITS DOING SOMETHING')
+    const homeId = getters.selectedHome
+    const devicesViewList = state.homes[homeId].devicesViewList
+    const ref = `homeStatus/${homeId}/deviceStatus`
+    firebase.getDevicesStatus(ref)
+      .then((snap) => {
+        const deviceStatus = snap.val()
+        each(devicesViewList, (device) => {
+          const deviceId = device.ff_id
+          const primaryStateType = devicesViewList[deviceId].metadata.primary
+          const primaryStateStatus = deviceStatus[deviceId][primaryStateType]
+          commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
+            primaryStateStatus,
+            deviceId,
+            homeId
+          })
+        })
+      })
+  },
+
+  subscribeToDevicePrimaryState ({ commit, state }) {
     const homeId = state.selectedHome
     const devicesViewList = state.homes[homeId].devicesViewList
     const ref = `homeStatus/${homeId}/deviceStatus`
@@ -44,26 +65,6 @@ export default {
     firebase.subscribeToDeviceStatus(ref, onSuccess, onFail)
   },
 
-  subscribeToDevicePrimaryState ({ commit, state, getters, dispatch }) {
-    const homeId = state.selectedHome
-    const devicesViewList = state.homes[homeId].devicesViewList
-    for (let deviceId in devicesViewList) {
-      const device = devicesViewList[deviceId]
-      if (device.export_ui) {
-        const primaryActionType = device.metadata.primary
-        const ref = `homeStatus/${homeId}/deviceStatus/${deviceId}/${primaryActionType}`
-        const onSuccess = (snap) => {
-          commit(types.DEVICE_PRIMARY_STATE_UPDATE, { primaryStateStatus: snap.val(), deviceId, homeId })
-        }
-        const onFail = (err) => {
-          console.error(err)
-        }
-        commit(types.ADD_SUBSCRIPTION, ref)
-        firebase.subscribeToDevicePrimaryState(ref, onSuccess, onFail)
-      }
-    }
-  },
-
   changeSelectedHome ({state, commit, dispatch}, newSelectedHomeId) {
     Promise.resolve(commit(types.INITIAL_STATE_IS_LOADING))
     .then(() => dispatch('subscriptionCleanup'))
@@ -73,7 +74,7 @@ export default {
 
   populateDevicesView ({ commit, state, dispatch }, homeId) {
     if (state.homes[homeId].devicesViewList) {
-      dispatch('subscribeToDevicePrimaryStateV2')
+      dispatch('subscribeToDevicePrimaryState')
       commit(types.INITIAL_STATE_NOT_LOADING)
     } else {
       firebase.getDevicesView(homeId)
@@ -81,7 +82,8 @@ export default {
           commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
           return snap.val()
         })
-        .then(() => dispatch('subscribeToDevicePrimaryStateV2'))
+        .then(() => dispatch('getDevicesPrimaryState'))
+        .then(() => dispatch('subscribeToDevicePrimaryState'))
         .then(() => commit(types.INITIAL_STATE_NOT_LOADING))
     }
   },
