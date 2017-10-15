@@ -30,8 +30,12 @@ export default {
   },
 
   [types.SAVE_DEVICE_VIEW_LIST] (state, { devicesViewList, homeId }) {
-    state.devicesView = devicesViewList
-    state.homes[homeId].devicesViewList = devicesViewList
+    state.homes = {
+      ...state.homes,
+      [homeId]: {
+        devicesViewList
+      }
+    }
   },
 
   [types.DEVICE_PRIMARY_STATE_UPDATE] (state, { homeId, deviceId, primaryStateStatus }) {
@@ -39,6 +43,10 @@ export default {
       ...state.homes[homeId].devicesViewList[deviceId],
       primaryStateStatus
     }
+  },
+
+  [types.INITIAL_STATE_NOT_LOADING] (state) {
+    state.appState.isLoadingInitialState = false
   },
 
   [types.CLEANUP_SUBSCRIPTIONS] (state) {

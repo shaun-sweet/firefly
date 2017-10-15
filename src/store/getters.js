@@ -25,7 +25,10 @@ export default {
   },
 
   devicesViewList (state) {
-    return Object.keys(state.devicesView).map(deviceId => state.devicesView[deviceId])
+    if (!state.appState.isLoadingInitialState) {
+      const devicesViewList = state.homes[state.selectedHome].devicesViewList
+      return Object.keys(devicesViewList).map(deviceId => devicesViewList[deviceId])
+    }
   }
 
   // notifications (state, getters) {

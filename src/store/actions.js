@@ -48,6 +48,7 @@ export default {
         return snap.val()
       })
       .then(devicesViewList => dispatch('subscribeToDevicePrimaryState'))
+      .then(() => commit(types.INITIAL_STATE_NOT_LOADING))
   },
 
   subscriptionCleanup ({ state, commit }) {

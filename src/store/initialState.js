@@ -9,13 +9,12 @@ export default function getInitialState () {
       events: {},
       notifications: {}
     },
-    devicesView: {},
     errors: {
       login: ''
     },
     appState: {
       activeSubscriptions: [],
-      isLoadingInitialState: false,
+      isLoadingInitialState: true,
       isLoading: false,
       isFirstLogin: true,
       isAddingZwave: false
