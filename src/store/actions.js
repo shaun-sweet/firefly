@@ -30,14 +30,16 @@ export default {
       .then((snap) => {
         const deviceStatus = snap.val()
         each(devicesViewList, (device) => {
-          const deviceId = device.ff_id
-          const primaryStateType = devicesViewList[deviceId].metadata.primary
-          const primaryStateStatus = deviceStatus[deviceId][primaryStateType]
-          commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
-            primaryStateStatus,
-            deviceId,
-            homeId
-          })
+          if (device.export_ui) {
+            const deviceId = device.ff_id
+            const primaryStateType = devicesViewList[deviceId].metadata.primary
+            const primaryStateStatus = deviceStatus[deviceId][primaryStateType]
+            commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
+              primaryStateStatus,
+              deviceId,
+              homeId
+            })
+          }
         })
       })
   },
