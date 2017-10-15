@@ -8,10 +8,22 @@
         <q-btn color="primary" @click="$refs.deviceMenu.close()">Close</q-btn>
       </div>
     </q-modal>
+    <div class="row search-bar">
+      <div class="col-6">
+        <q-search v-model="searchTerms" placeholder="Search a device"> 
+          <q-autocomplete
+            separator
+            :filter="fuzzyFind"
+            :static-data="{field: 'alias', list: devicesViewList}"
+            @search="fuzzyFind"
+            @selected="selected"
+          />
+        </q-search>
+      </div>
+    </div>
     <div class="row">
       <device 
         v-for="device in devicesViewList"
-        v-if="device.export_ui"
         :key="device.ff_id"
         :title="device.alias"
         :device-id="device.ff_id"
@@ -21,7 +33,7 @@
 </template>
 
 <script>
-
+import Fuse from 'fuse.js'
 import Device from '@/Device'
 export default {
   components: {
@@ -29,12 +41,37 @@ export default {
   },
   computed: {
     devicesViewList () {
-      return this.$store.getters.devicesViewList
+      return this.$store.getters.devicesViewList.sort((a, b) => {
+        if (a.alias < b.alias) return -1
+        if (a.alias > b.alias) return 1
+        return 0
+      })
+    }
+  },
+  methods: {
+    fuzzyFind () {
+      const fuzzyFinder = new Fuse(this.devicesViewList, this.options)
+      return fuzzyFinder.search(this.searchTerms)
+    },
+    selected (item) {
+      return item
     }
   },
   data () {
     return {
-      checked: false
+      searchTerms: '',
+      checked: false,
+      options: {
+        shouldSort: true,
+        threshold: 0.6,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 1,
+        keys: [
+          "alias"
+        ]
+      }
     }
   }
 }
@@ -45,5 +82,7 @@ export default {
   margin-left 0.2em
   cursor pointer
 
+// .search-bar
+//   justify-content center
 
 </style>
