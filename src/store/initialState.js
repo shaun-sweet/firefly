@@ -5,12 +5,6 @@ export default function getInitialState () {
     email: '',
     selectedHome: null,
     homes: {},
-    devices: {
-      // *** homeId is ACTUALLY the homeId as the key that selected home uses to find the correct data
-      homeId: {
-        // deviceId's as keys
-      }
-    },
     messages: {
       events: {},
       notifications: {}
