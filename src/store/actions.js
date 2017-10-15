@@ -22,11 +22,18 @@ export default {
   },
 
   subscribeToDevicePrimaryStateV2 ({ commit, state }) {
-    console.log('hit')
     const homeId = state.selectedHome
+    const devicesViewList = state.homes[homeId].devicesViewList
     const ref = `homeStatus/${homeId}/deviceStatus`
     const onSuccess = (snap) => {
       const deviceId = snap.key
+      const primaryStateType = devicesViewList[deviceId].metadata.primary
+      const primaryStateStatus = snap.val()[primaryStateType]
+      commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
+        primaryStateStatus,
+        deviceId,
+        homeId
+      })
       console.log(snap.val())
       console.log(deviceId)
     }
@@ -66,7 +73,7 @@ export default {
 
   populateDevicesView ({ commit, state, dispatch }, homeId) {
     if (state.homes[homeId].devicesViewList) {
-      dispatch('subscribeToDevicePrimaryState')
+      dispatch('subscribeToDevicePrimaryStateV2')
       commit(types.INITIAL_STATE_NOT_LOADING)
     } else {
       firebase.getDevicesView(homeId)
@@ -74,9 +81,8 @@ export default {
           commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
           return snap.val()
         })
-        .then(() => dispatch('subscribeToDevicePrimaryState'))
+        .then(() => dispatch('subscribeToDevicePrimaryStateV2'))
         .then(() => commit(types.INITIAL_STATE_NOT_LOADING))
-        .then((params) => dispatch('subscribeToDevicePrimaryStateV2'))
     }
   },
 
