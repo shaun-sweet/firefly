@@ -15,6 +15,7 @@ export default function getInitialState () {
     },
     appState: {
       activeSubscriptions: [],
+      isLoadingInitialState: false,
       isLoading: false,
       isFirstLogin: true,
       isAddingZwave: false

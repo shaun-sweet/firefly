@@ -21,8 +21,9 @@ export default {
     commit(types.LOG_USER_OUT)
   },
 
-  subscribeToDevicePrimaryState ({ commit, state }, devicesViewList) {
+  subscribeToDevicePrimaryState ({ commit, state, getters }) {
     const homeId = state.selectedHome
+    const devicesViewList = state.homes[homeId].devicesViewList
     for (let deviceId in devicesViewList) {
       const device = devicesViewList[deviceId]
       if (device.export_ui) {
@@ -46,7 +47,7 @@ export default {
         commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
         return snap.val()
       })
-      .then(devicesViewList => dispatch('subscribeToDevicePrimaryState', devicesViewList))
+      .then(devicesViewList => dispatch('subscribeToDevicePrimaryState'))
   },
 
   subscriptionCleanup ({ state, commit }) {
