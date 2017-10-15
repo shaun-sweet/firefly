@@ -10,7 +10,8 @@
     </q-modal>
     <div class="row">
       <device 
-        v-for="device in devicesViewList" 
+        v-for="device in devicesViewList"
+        v-if="device.export_ui"
         :key="device.ff_id"
         :title="device.alias"
         :device-id="device.ff_id"
