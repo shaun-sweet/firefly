@@ -56,5 +56,9 @@ export default {
 
   [types.ADD_SUBSCRIPTION] (state, payload) {
     state.appState.activeSubscriptions.push(payload)
+  },
+
+  [types.INITIAL_STATE_IS_LOADING] (state) {
+    state.appState.isLoadingInitialState = true
   }
 }

@@ -63,6 +63,7 @@
     "purify-css": "^1.2.6",
     "shelljs": "^0.7.0",
     "standard": "^10.0.3",
+    "standard-loader": "^6.0.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "sw-precache-webpack-plugin": "^0.11.4",

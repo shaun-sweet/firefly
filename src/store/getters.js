@@ -20,15 +20,20 @@ export default {
     return state.selectedHome
   },
 
+  isLoadingInitialState (state) {
+    return state.appState.isLoadingInitialState
+  },
+
   defaultHome (state) {
     return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
   },
 
-  devicesViewList (state) {
-    if (!state.appState.isLoadingInitialState) {
+  devicesViewList (state, getters) {
+    if (!getters.isLoadingInitialState) {
       const devicesViewList = state.homes[state.selectedHome].devicesViewList
       return Object.keys(devicesViewList).map(deviceId => devicesViewList[deviceId])
     }
+    return []
   }
 
   // notifications (state, getters) {

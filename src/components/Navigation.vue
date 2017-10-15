@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import { SET_SELECTED_HOME } from 'types'
 export default {
   beforeUpdate () {
     if (!this.selectedHome) {
@@ -54,10 +53,8 @@ export default {
     }
   },
   methods: {
-    onChange (selectedHomeId) {
-      this.$store.commit(SET_SELECTED_HOME, selectedHomeId)
-      this.$store.dispatch('subscriptionCleanup')
-      this.$store.dispatch('populateDevicesView', this.$store.state.selectedHome)
+    onChange (newSelectedHomeId) {
+      this.$store.dispatch('changeSelectedHome', newSelectedHomeId)
     }
   },
   computed: {

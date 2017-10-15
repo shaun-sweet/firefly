@@ -29,8 +29,8 @@ export const getUserHomes = (userId) =>
   db
     .ref(`users/${userId}/homes`).once('value')
 
-export const getDevicesView = (homeId) => db.ref(`homeStatus/${homeId}/deviceViews`)
-  .once('value')
+export const getDevicesView = (homeId) =>
+  db.ref(`homeStatus/${homeId}/deviceViews`).once('value')
 
 export const subscribeToDevicePrimaryState = (ref, onSuccess, onFail) => {
   db
@@ -57,3 +57,6 @@ const getNotifications = (homeId) => db.ref(`homeStatus/${homeId}/notifications`
 const getEvents = (homeId) => db.ref(`homeStatus/${homeId}/events`).limitToFirst(100).once('value')
 
 export const getMessages = homeId => Promise.all([getNotifications(homeId), getEvents(homeId)])
+
+export const subscribeToDeviceStatus = (ref, onSuccess, onFail) =>
+  db.ref(ref).on('child_changed', onSuccess, onFail)

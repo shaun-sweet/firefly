@@ -21,7 +21,23 @@ export default {
     commit(types.LOG_USER_OUT)
   },
 
-  subscribeToDevicePrimaryState ({ commit, state, getters }) {
+  subscribeToDevicePrimaryStateV2 ({ commit, state }) {
+    console.log('hit')
+    const homeId = state.selectedHome
+    const ref = `homeStatus/${homeId}/deviceStatus`
+    const onSuccess = (snap) => {
+      const deviceId = snap.key
+      console.log(snap.val())
+      console.log(deviceId)
+    }
+    const onFail = (err) => {
+      console.error(err)
+    }
+    commit(types.ADD_SUBSCRIPTION, ref)
+    firebase.subscribeToDeviceStatus(ref, onSuccess, onFail)
+  },
+
+  subscribeToDevicePrimaryState ({ commit, state, getters, dispatch }) {
     const homeId = state.selectedHome
     const devicesViewList = state.homes[homeId].devicesViewList
     for (let deviceId in devicesViewList) {
@@ -41,14 +57,27 @@ export default {
     }
   },
 
+  changeSelectedHome ({state, commit, dispatch}, newSelectedHomeId) {
+    Promise.resolve(commit(types.INITIAL_STATE_IS_LOADING))
+    .then(() => dispatch('subscriptionCleanup'))
+      .then(() => commit(types.SET_SELECTED_HOME, newSelectedHomeId))
+      .then(() => dispatch('populateDevicesView', newSelectedHomeId))
+  },
+
   populateDevicesView ({ commit, state, dispatch }, homeId) {
-    firebase.getDevicesView(homeId)
-      .then((snap) => {
-        commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
-        return snap.val()
-      })
-      .then(devicesViewList => dispatch('subscribeToDevicePrimaryState'))
-      .then(() => commit(types.INITIAL_STATE_NOT_LOADING))
+    if (state.homes[homeId].devicesViewList) {
+      dispatch('subscribeToDevicePrimaryState')
+      commit(types.INITIAL_STATE_NOT_LOADING)
+    } else {
+      firebase.getDevicesView(homeId)
+        .then((snap) => {
+          commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
+          return snap.val()
+        })
+        .then(() => dispatch('subscribeToDevicePrimaryState'))
+        .then(() => commit(types.INITIAL_STATE_NOT_LOADING))
+        .then((params) => dispatch('subscribeToDevicePrimaryStateV2'))
+    }
   },
 
   subscriptionCleanup ({ state, commit }) {

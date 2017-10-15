@@ -1,4 +1,4 @@
-var
+var // eslint-disable-line one-var
   path = require('path'),
   webpack = require('webpack'),
   config = require('../config'),
@@ -35,14 +35,19 @@ module.exports = {
   },
   module: {
     rules: [
-      { // eslint
+      {
+        // set up standard-loader as a preloader
         enforce: 'pre',
-        test: /\.(vue|js)$/,
-        loader: 'eslint-loader',
-        include: projectRoot,
-        exclude: /node_modules/,
+        test: /\.jsx?$/,
+        loader: 'standard-loader',
+        exclude: /(node_modules|bower_components)/,
         options: {
-          formatter: require('eslint-friendly-formatter')
+          // Emit errors instead of warnings (default = false)
+          error: false,
+          // enable snazzy output (default = true)
+          snazzy: true,
+          // other config options to be passed through to standard e.g.
+          parser: 'babel-eslint'
         }
       },
       {
