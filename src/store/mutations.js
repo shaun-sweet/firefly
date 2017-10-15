@@ -33,6 +33,7 @@ export default {
     state.homes = {
       ...state.homes,
       [homeId]: {
+        ...state.homes[homeId],
         devicesViewList
       }
     }
