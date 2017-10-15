@@ -22,7 +22,6 @@ export default {
   },
 
   getDevicesPrimaryState ({state, commit, getters}) {
-    console.log('ITS DOING SOMETHING')
     const homeId = getters.selectedHome
     const devicesViewList = state.homes[homeId].devicesViewList
     const ref = `homeStatus/${homeId}/deviceStatus`
@@ -57,8 +56,6 @@ export default {
         deviceId,
         homeId
       })
-      console.log(snap.val())
-      console.log(deviceId)
     }
     const onFail = (err) => {
       console.error(err)
@@ -69,7 +66,7 @@ export default {
 
   changeSelectedHome ({state, commit, dispatch}, newSelectedHomeId) {
     Promise.resolve(commit(types.INITIAL_STATE_IS_LOADING))
-    .then(() => dispatch('subscriptionCleanup'))
+      .then(() => dispatch('subscriptionCleanup'))
       .then(() => commit(types.SET_SELECTED_HOME, newSelectedHomeId))
       .then(() => dispatch('populateDevicesView', newSelectedHomeId))
   },
