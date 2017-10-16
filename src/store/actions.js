@@ -38,6 +38,10 @@ export default {
               deviceId,
               homeId
             })
+            commit(types.ADD_AUTOCOMPLETE_FIELDS, {
+              homeId,
+              deviceId
+            })
           }
         })
       })

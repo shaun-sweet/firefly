@@ -39,6 +39,16 @@ export default {
     }
   },
 
+  [types.ADD_AUTOCOMPLETE_FIELDS] (state, {homeId, deviceId}) {
+    const primaryStateStatus = state.homes[homeId].devicesViewList[deviceId].primaryStateStatus
+    const alias = state.homes[homeId].devicesViewList[deviceId].alias
+    state.homes[homeId].devicesViewList[deviceId] = {
+      ...state.homes[homeId].devicesViewList[deviceId],
+      stamp: primaryStateStatus,
+      label: alias
+    }
+  },
+
   [types.DEVICE_PRIMARY_STATE_UPDATE] (state, { homeId, deviceId, primaryStateStatus }) {
     state.homes[homeId].devicesViewList[deviceId] = {
       ...state.homes[homeId].devicesViewList[deviceId],

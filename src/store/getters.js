@@ -31,13 +31,7 @@ export default {
   devicesViewList (state, getters) {
     if (!getters.isLoadingInitialState) {
       const devicesViewList = state.homes[state.selectedHome].devicesViewList
-      const devicesArray = Object.keys(devicesViewList).map((deviceId) => {
-        const device = devicesViewList[deviceId]
-        // this is what auto complete fuzzy finder search feature needs to display the properties
-        device.stamp = device.primaryStateStatus
-        device.label = device.alias
-        return device
-      })
+      const devicesArray = Object.keys(devicesViewList).map((deviceId) => devicesViewList[deviceId])
       return devicesArray.filter((device) => device.export_ui)
     }
     return []
