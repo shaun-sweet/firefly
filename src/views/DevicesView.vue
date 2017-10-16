@@ -27,6 +27,7 @@
         :key="device.ff_id"
         :title="device.alias"
         :device-id="device.ff_id"
+        :device-metadata="device.metadata"
       />
     </div>
   </div>

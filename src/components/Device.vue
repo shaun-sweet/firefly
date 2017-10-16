@@ -4,29 +4,34 @@
       <q-card-main>
         {{ title }}
         <q-icon class="options-menu" name="ion-android-more-vertical" />
-        <q-toggle class="pull-right" v-model="switchState" />
+        <q-toggle v-if="isPrimaryCommadable" class="pull-right" v-model="primaryState" />
+        <span v-if="!isPrimaryCommadable" class="caption pull-right">{{ notCommandableStatus }}</span>
       </q-card-main>
     </q-card>
   </div>
 </template>
 
 <script>
+import * as firebase from 'src/firebase'
+
 export default {
   props: [
     'title',
-    'deviceId'
+    'deviceId',
+    'deviceMetadata'
   ],
   computed: {
-    switchState: {
+    primaryState: {
       get () {
         const state = this.$store.state
+        const device = state.homes[state.selectedHome].devicesViewList[this.deviceId]
         const deviceState = state.homes[state.selectedHome].devicesViewList[this.deviceId].primaryStateStatus
         return this.isActive(deviceState)
       },
       set (newVal) {
         const state = this.$store.state
         const payload = {
-          command: newVal ? 'on' : 'off',
+          command: newVal ? this.primaryOnCommand : this.primaryOffCommand,
           homeId: state.selectedHome,
           deviceId: this.deviceId
         }
@@ -36,13 +41,53 @@ export default {
           deviceId: this.deviceId,
           primaryStateStatus: payload.command
         })
-        this.$store.dispatch('toggleLight', payload)
+        firebase.issueCommand(payload)
+      }
+    },
+    notCommandableStatus () {
+      const trueText = this.deviceMetadata.actions[this.primaryAction].text_mapping.Open[0]
+      const falseText = this.deviceMetadata.actions[this.primaryAction].text_mapping.Closed[0]
+      return this.primaryState ? trueText : falseText
+    },
+    primaryAction () {
+      return this.deviceMetadata.primary
+    },
+    isPrimaryCommadable () {
+      return this.deviceMetadata.actions[this.primaryAction].can_command
+    },
+    canRequest () {
+      return this.deviceMetadata.actions[this.primaryAction].can_request
+    },
+    primaryDescription () {
+      return this.deviceMetadata.actions[this.primaryAction].context
+    },
+    primaryOnCommand () {
+      if (this.isPrimaryCommadable) {
+        return this.deviceMetadata.actions[this.primaryAction].on_command
+      }
+      return null
+    },
+    primaryOffCommand () {
+      if (this.isPrimaryCommadable) {
+        return this.deviceMetadata.actions[this.primaryAction].off_command
+      }
+      return null
+    }
+  },
+  data () {
+    return {
+      // deviceMetadata: this.$store.state.homes[this.$store.state.selectedHome].devicesViewList[this.deviceId].metadata,
+      statusMap: {
+        on: true,
+        off: false,
+        open: true,
+        close: false
       }
     }
   },
   methods: {
     isActive (status) {
-      return (status === 'on')
+      return this.statusMap[status]
     }
   }
 }

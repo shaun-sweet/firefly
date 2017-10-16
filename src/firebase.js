@@ -31,10 +31,6 @@ export const getUserHomes = (userId) =>
 export const getDevicesView = (homeId) =>
   db.ref(`homeStatus/${homeId}/deviceViews`).once('value')
 
-export const toggleLight = ({ homeId, deviceId, command }) => {
-  db.ref(`homeStatus/${homeId}/commands/${deviceId}`).set(command)
-}
-
 export const subscriptionCleanup = (subLocation) => db.ref(subLocation).off()
 
 export const zWaveCommand = (payload) => {
@@ -51,5 +47,8 @@ export const getMessages = homeId => Promise.all([getNotifications(homeId), getE
 
 export const subscribeToDeviceStatus = (ref, onSuccess, onFail) =>
   db.ref(ref).on('child_changed', onSuccess, onFail)
+
+export const issueCommand = ({homeId, deviceId, command}) =>
+  db.ref(`homeStatus/${homeId}/commands/${deviceId}`).set(command)
 
 export const getDevicesStatus = (ref) => db.ref(ref).once('value')
