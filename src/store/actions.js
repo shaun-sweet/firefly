@@ -1,6 +1,7 @@
 import * as types from './mutation-types'
 import * as firebase from 'src/firebase'
 import each from 'lodash/each'
+import router from 'src/router'
 
 export default {
   getInitialAppState ({ commit, getters, dispatch, state }) {
@@ -13,6 +14,7 @@ export default {
       .then(snap => commit(types.SAVE_USER_HOMES, snap.val()))
       .then(() => commit(types.SET_SELECTED_HOME, getters.defaultHome))
       .then(() => dispatch('populateDevicesView', state.selectedHome))
+      .then(() => router.push('/devices'))
   },
 
   logOut ({ commit, dispatch }) {
@@ -99,10 +101,6 @@ export default {
     })
     // Removes local store of what the current subscriptions are
     commit('CLEANUP_SUBSCRIPTIONS')
-  },
-
-  toggleLight (_, payload) {
-    return firebase.toggleLight(payload)
   }
 }
 // for each device... metadata > primary (which points to the type of action that is the primary)

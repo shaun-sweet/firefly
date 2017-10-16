@@ -36,7 +36,6 @@ Vue.use(Quasar, {
 onAuthStateChange((user) => {
   if (user) {
     store.dispatch('getInitialAppState')
-    router.push('/devices')
   }
 })
 
