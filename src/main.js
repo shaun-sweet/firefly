@@ -7,7 +7,34 @@
 import { onAuthStateChange } from 'src/firebase'
 import Vue from 'vue'
 import store from 'src/store'
-import Quasar, * as All from 'quasar'
+import Quasar, {
+  QBtn,
+  QCard,
+  QCardMain,
+  QField,
+  QIcon,
+  QToggle,
+  QAutocomplete,
+  QSearch,
+  QModal,
+  QInput,
+  QToolbar,
+  QItemMain,
+  QItemSide,
+  QSideLink,
+  QListHeader,
+  QSelect,
+  QList,
+  QLayout,
+  QToolbarTitle,
+  QCardTitle,
+  QItem,
+  QTab,
+  QTabs,
+  QTabPane,
+  QItemSeparator,
+  QModalLayout
+} from 'quasar'
 import router from './router'
 import 'quasar-extras/material-icons'
 import 'quasar-extras/ionicons'
@@ -21,13 +48,39 @@ require(`quasar/dist/quasar.${__THEME}.css`) // eslint-disable-line no-undef
 
 Vue.config.productionTip = false
 Vue.use(Quasar, {
-  components: All,
-  directives: All
+  components: {
+    QBtn,
+    QCard,
+    QCardMain,
+    QField,
+    QIcon,
+    QToggle,
+    QAutocomplete,
+    QSearch,
+    QModal,
+    QInput,
+    QToolbar,
+    QItemMain,
+    QItemSide,
+    QSideLink,
+    QListHeader,
+    QSelect,
+    QList,
+    QLayout,
+    QToolbarTitle,
+    QCardTitle,
+    QItem,
+    QTab,
+    QTabs,
+    QTabPane,
+    QItemSeparator,
+    QModalLayout
+  }
 })
 
-// if (__THEME === 'mat') {
-  // require('quasar-extras/roboto-font')
-// }
+if (__THEME === 'mat') { // eslint-disable-line no-undef
+  require('quasar-extras/roboto-font')
+}
 // import 'quasar-extras/material-icons'
 // import 'quasar-extras/ionicons'
 // import 'quasar-extras/fontawesome'
