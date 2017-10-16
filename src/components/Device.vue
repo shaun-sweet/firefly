@@ -5,7 +5,7 @@
         {{ title }}
         <q-icon class="options-menu" name="ion-android-more-vertical" />
         <q-toggle v-if="isPrimaryCommadable" class="pull-right" v-model="primaryStateBool" />
-        <span v-if="!isPrimaryCommadable" class="caption pull-right">{{ notCommandableStatus }}</span>
+        <span v-if="!isPrimaryCommadable" :style="primaryStateStyle" class="caption pull-right">{{ notCommandablePrimaryStatus }}</span>
       </q-card-main>
     </q-card>
   </div>
@@ -22,6 +22,22 @@ export default {
     'deviceMetadata'
   ],
   computed: {
+    primaryStateStyle () {
+      const primaryAction = this.deviceMetadata.actions[this.primaryAction]
+      const colorMapping = get(primaryAction, 'color_mapping', null)
+      var color = ''
+      if (colorMapping !== null) {
+        for (var key in colorMapping) {
+          let mapping = colorMapping[key]
+          if (mapping.includes(this.primaryStateText)) {
+            color = key
+          }
+        }
+      }
+      return {
+        color
+      }
+    },
     primaryStateText () {
       const state = this.$store.state
       const device = state.homes[state.selectedHome].devicesViewList[this.deviceId]
@@ -51,11 +67,11 @@ export default {
         firebase.issueCommand(payload)
       }
     },
-    notCommandableStatus () {
+    notCommandablePrimaryStatus () {
       const primaryAction = this.deviceMetadata.actions[this.primaryAction]
       const textMapping = get(primaryAction, 'text_mapping', null)
       var displayText
-      if (typeof(textMapping) !== null) {
+      if (textMapping !== null) {
         for (let key in textMapping) {
           let mapping = textMapping[key]
           if (mapping.includes(this.primaryStateText)) {
