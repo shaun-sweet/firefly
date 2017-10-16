@@ -4,7 +4,7 @@
       <q-card-main>
         {{ title }}
         <q-icon class="options-menu" name="ion-android-more-vertical" />
-        <q-toggle v-if="isPrimaryCommadable" class="pull-right" v-model="primaryState" />
+        <q-toggle v-if="isPrimaryCommadable" class="pull-right" v-model="primaryStateBool" />
         <span v-if="!isPrimaryCommadable" class="caption pull-right">{{ notCommandableStatus }}</span>
       </q-card-main>
     </q-card>
@@ -22,7 +22,13 @@ export default {
     'deviceMetadata'
   ],
   computed: {
-    primaryState: {
+    primaryStateText () {
+      const state = this.$store.state
+      const device = state.homes[state.selectedHome].devicesViewList[this.deviceId]
+      const devicePrimaryStateText = device.primaryStateStatus
+      return devicePrimaryStateText
+    },
+    primaryStateBool: {
       get () {
         const state = this.$store.state
         const device = state.homes[state.selectedHome].devicesViewList[this.deviceId]
@@ -47,9 +53,18 @@ export default {
     },
     notCommandableStatus () {
       const primaryAction = this.deviceMetadata.actions[this.primaryAction]
-      const trueText = get(primaryAction, 'text_mapping.Open[0]', null)
-      const falseText = get(primaryAction, 'text_mapping.Closed[0]', null)
-      return this.primaryState ? trueText : falseText
+      const textMapping = get(primaryAction, 'text_mapping', null)
+      var displayText
+      if (typeof(textMapping) !== null) {
+        for (let key in textMapping) {
+          let mapping = textMapping[key]
+          if (mapping.includes(this.primaryStateText)) {
+            displayText = key
+          }
+        }
+      }
+      if (displayText) return displayText
+      return this.primaryStateText
     },
     primaryAction () {
       return this.deviceMetadata.primary
