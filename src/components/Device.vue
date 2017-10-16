@@ -13,6 +13,7 @@
 
 <script>
 import * as firebase from 'src/firebase'
+import get from 'lodash/get'
 
 export default {
   props: [
@@ -25,8 +26,8 @@ export default {
       get () {
         const state = this.$store.state
         const device = state.homes[state.selectedHome].devicesViewList[this.deviceId]
-        const deviceState = state.homes[state.selectedHome].devicesViewList[this.deviceId].primaryStateStatus
-        return this.isActive(deviceState)
+        const devicePrimaryState = device.primaryStateStatus
+        return this.isActive(devicePrimaryState)
       },
       set (newVal) {
         const state = this.$store.state
@@ -45,15 +46,16 @@ export default {
       }
     },
     notCommandableStatus () {
-      const trueText = this.deviceMetadata.actions[this.primaryAction].text_mapping.Open[0]
-      const falseText = this.deviceMetadata.actions[this.primaryAction].text_mapping.Closed[0]
+      const primaryAction = this.deviceMetadata.actions[this.primaryAction]
+      const trueText = get(primaryAction, 'text_mapping.Open[0]', null)
+      const falseText = get(primaryAction, 'text_mapping.Closed[0]', null)
       return this.primaryState ? trueText : falseText
     },
     primaryAction () {
       return this.deviceMetadata.primary
     },
     isPrimaryCommadable () {
-      return this.deviceMetadata.actions[this.primaryAction].can_command
+      return get(this.deviceMetadata.actions[this.primaryAction], 'can_command', null)
     },
     canRequest () {
       return this.deviceMetadata.actions[this.primaryAction].can_request
@@ -76,7 +78,6 @@ export default {
   },
   data () {
     return {
-      // deviceMetadata: this.$store.state.homes[this.$store.state.selectedHome].devicesViewList[this.deviceId].metadata,
       statusMap: {
         on: true,
         off: false,
@@ -87,6 +88,7 @@ export default {
   },
   methods: {
     isActive (status) {
+      if (typeof(status) === 'boolean') return status
       return this.statusMap[status]
     }
   }

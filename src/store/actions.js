@@ -85,7 +85,11 @@ export default {
     } else {
       firebase.getDevicesView(homeId)
         .then((snap) => {
-          commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: snap.val(), homeId })
+          const devicesViewList = snap.val()
+          each(devicesViewList, (device) => {
+            device.primaryStateStatus = false
+          })
+          commit(types.SAVE_DEVICE_VIEW_LIST, { devicesViewList: devicesViewList, homeId })
           return snap.val()
         })
         .then(() => dispatch('getDevicesPrimaryState'))

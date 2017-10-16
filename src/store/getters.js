@@ -36,14 +36,4 @@ export default {
     }
     return []
   }
-
-  // notifications (state, getters) {
-  //   const selectedHome = state.homes[getters.selectedHome]
-  //   return Object.keys(selectedHome.notifications).map(id => selectedHome.notifications[id])
-  // },
-
-  // events (state, getters) {
-  //   const selectedHome = state.homes[getters.selectedHome]
-  //   return Object.keys(selectedHome.events).map(id => selectedHome.events[id])
-  // }
 }
