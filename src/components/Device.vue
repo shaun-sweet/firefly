@@ -64,16 +64,10 @@ export default {
       return this.deviceMetadata.actions[this.primaryAction].context
     },
     primaryOnCommand () {
-      if (this.isPrimaryCommadable) {
-        return this.deviceMetadata.actions[this.primaryAction].on_command
-      }
-      return null
+      return get(this.deviceMetadata.actions[this.primaryAction], 'on_command', null)
     },
     primaryOffCommand () {
-      if (this.isPrimaryCommadable) {
-        return this.deviceMetadata.actions[this.primaryAction].off_command
-      }
-      return null
+      return get(this.deviceMetadata.actions[this.primaryAction], 'off_command', null)
     }
   },
   data () {
