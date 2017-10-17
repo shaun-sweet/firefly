@@ -15,11 +15,11 @@
     </q-list-header>
     <q-side-link item to="/devices">
       <q-item-side icon="ion-radio-waves" />
-      <q-item-main label="Devices" sublabel="{count w state on?}" />
+      <q-item-main label="Devices"/>
     </q-side-link>
     <q-side-link item to="/routines">
       <q-item-side icon="ion-clipboard" />
-      <q-item-main label="Routines" sublabel="{or nothing?}" />
+      <q-item-main label="Routines"/>
     </q-side-link>
     <q-side-link item to="/messages">
       <q-item-side icon="ion-paper-airplane" />
