@@ -27,16 +27,14 @@ export default {
       const colorMapping = get(primaryAction, 'color_mapping', null)
       var color = ''
       if (colorMapping !== null) {
-        for (var key in colorMapping) {
+        for (let key in colorMapping) {
           let mapping = colorMapping[key]
           if (mapping.includes(this.primaryStateText)) {
             color = key
           }
         }
       }
-      return {
-        color
-      }
+      return { color }
     },
     primaryStateText () {
       const state = this.$store.state
