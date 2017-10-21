@@ -1,3 +1,4 @@
+import get from 'lodash/get'
 export default {
   user (state) {
     return {
@@ -29,11 +30,8 @@ export default {
   },
 
   devicesViewList (state, getters) {
-    if (!getters.isLoadingInitialState) {
-      const devicesViewList = state.homes[state.selectedHome].devicesViewList
-      const devicesArray = Object.keys(devicesViewList).map((deviceId) => devicesViewList[deviceId])
-      return devicesArray.filter((device) => device.export_ui)
-    }
-    return []
+    const devicesViewList = get(state.homes[state.selectedHome], 'devicesViewList', [])
+    const devicesArray = Object.keys(devicesViewList).map((deviceId) => devicesViewList[deviceId])
+    return devicesArray.filter((device) => device.export_ui)
   }
 }
