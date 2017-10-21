@@ -2,8 +2,10 @@
   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
     <q-card>
       <q-card-main>
-        {{ title }}
-        <q-icon class="options-menu" name="ion-android-more-vertical" />
+        <span @click="onClickHandler()" class="click-target">
+          {{ title }}
+          <q-icon class="options-menu" name="ion-android-more-vertical" />
+        </span>
         <q-toggle v-if="isPrimaryCommadable" class="pull-right" v-model="primaryStateBool" />
         <span v-if="!isPrimaryCommadable" :style="primaryStateStyle" class="caption pull-right">{{ notCommandablePrimaryStatus }}</span>
       </q-card-main>
@@ -19,7 +21,8 @@ export default {
   props: [
     'title',
     'deviceId',
-    'deviceMetadata'
+    'deviceMetadata',
+    'onClickHandler'
   ],
   computed: {
     primaryStateStyle () {
@@ -119,5 +122,10 @@ export default {
 </script>
 
 <style  lang="stylus" scoped>
-
+.options-menu
+  padding-right 1em
+  font-size 20px
+  
+.click-target
+  cursor pointer
 </style>

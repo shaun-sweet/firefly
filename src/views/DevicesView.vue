@@ -27,6 +27,7 @@
         :key="device.ff_id"
         :title="device.alias"
         :device-id="device.ff_id"
+        :on-click-handler="$refs.deviceMenu.open"
         :device-metadata="device.metadata"
       />
     </div>
@@ -82,8 +83,5 @@ export default {
 .options-menu 
   margin-left 0.2em
   cursor pointer
-
-// .search-bar
-//   justify-content center
 
 </style>
