@@ -37,6 +37,4 @@ export default {
 </script>
 
 <style lang="stylus">
-body
-  padding-right 15px
 </style>
