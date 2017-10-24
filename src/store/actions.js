@@ -55,7 +55,6 @@ export default {
       const deviceId = snap.key
       const primaryStateType = devicesViewList[deviceId].metadata.primary
       const deviceState = snap.val()
-      console.log(deviceState)
       const primaryStateStatus = deviceState[primaryStateType]
       commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
         primaryStateStatus,

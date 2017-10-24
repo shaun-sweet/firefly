@@ -1,11 +1,21 @@
 <template>
-  <div></div>
+  <q-card>
+    <q-card-title>
+
+    </q-card-title>
+    <q-card-separator></q-card-separator>
+    <q-card-main>
+
+    </q-card-main>
+  </q-card>
 </template>
 
 <script>
 export default {
   props: [
-    'type'
+    'type',
+    'name',
+    'description'
   ],
   data () {
     return {}
