@@ -37,4 +37,6 @@ export default {
 </script>
 
 <style lang="stylus">
+body.with-modal
+  padding-right 0px !important
 </style>
