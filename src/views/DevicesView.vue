@@ -27,7 +27,7 @@
         :key="device.ff_id"
         :title="device.alias"
         :device-id="device.ff_id"
-        :on-click-handler="$refs.deviceMenu.open"
+        :on-click-handler="onDeviceMenuHandler"
         :device-metadata="device.metadata"
       />
     </div>
@@ -51,6 +51,9 @@ export default {
     }
   },
   methods: {
+    onDeviceMenuHandler () {
+      this.$refs.deviceMenu.open()
+    },
     fuzzyFind () {
       const fuzzyFinder = new Fuse(this.devicesViewList, this.options)
       return fuzzyFinder.search(this.searchTerms)
