@@ -1,6 +1,6 @@
 <template>
   <div class="layout-padding">
-    <q-modal ref="deviceMenu">
+    <q-modal @close="closeDeviceMenuHandler()" ref="deviceMenu">
       <div class="layout-padding">
         <h4>
           Device Menu
@@ -51,11 +51,19 @@ export default {
     }
   },
   methods: {
-    onDeviceMenuHandler () {
+    onDeviceMenuHandler (deviceId, deviceMetadata) {
+      const payload = {
+        deviceId,
+        deviceMetadata
+      }
+      this.$store.dispatch('openDeviceMenu', payload)
       this.$refs.deviceMenu.open()
     },
+    closeDeviceMenuHandler () {
+      this.$store.dispatch('closeDeviceMenu')
+    },
     fuzzyFind () {
-      const fuzzyFinder = new Fuse(this.devicesViewList, this.options)
+      const fuzzyFinder = new Fuse(this.devicesViewList, this.fuzzyFindoptions)
       return fuzzyFinder.search(this.searchTerms)
     },
     selected (item) {
@@ -66,7 +74,7 @@ export default {
     return {
       searchTerms: '',
       checked: false,
-      options: {
+      fuzzyFindoptions: {
         shouldSort: true,
         threshold: 0.6,
         location: 0,

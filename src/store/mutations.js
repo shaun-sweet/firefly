@@ -70,5 +70,27 @@ export default {
 
   [types.INITIAL_STATE_IS_LOADING] (state) {
     state.appState.isLoadingInitialState = true
+  },
+
+  [types.CLEAR_DEVICE_MENU_STATE] (state) {
+    state.appState.activeModalDeviceMenu = {
+      deviceId: null,
+      deviceMetadata: {},
+      deviceStatus: {}
+    }
+  },
+
+  [types.SET_DEVICE_MENU_STATE] (state, {deviceId, deviceMetadata, deviceStatus}) {
+    const activeModalDeviceMenu = state.appState.activeModalDeviceMenu
+    activeModalDeviceMenu.deviceId = deviceId
+    activeModalDeviceMenu.deviceMetadata = deviceMetadata
+    activeModalDeviceMenu.deviceStatus = deviceStatus
+  },
+
+  [types.DEVICE_STATE_UPDATE] (state, payload) {
+    state.appState.activeModalDeviceMenu.deviceStatus = {
+      ...state.appState.activeModalDeviceMenu.deviceStatus,
+      ...payload
+    }
   }
 }

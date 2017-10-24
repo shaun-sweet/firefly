@@ -13,6 +13,11 @@ export default function getInitialState () {
       login: ''
     },
     appState: {
+      activeModalDeviceMenu: {
+        deviceId: null,
+        deviceMetadata: {},
+        deviceStatus: {}
+      },
       activeSubscriptions: [],
       isLoadingInitialState: true,
       isLoading: false,

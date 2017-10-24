@@ -2,7 +2,7 @@
   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
     <q-card>
       <q-card-main>
-        <span @click="onClickHandler()" class="click-target">
+        <span @click="onClickHandler(deviceId, deviceMetadata)" class="click-target">
           {{ title }}
           <q-icon class="options-menu" name="ion-android-more-vertical" />
         </span>
