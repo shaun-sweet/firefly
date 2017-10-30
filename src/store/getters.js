@@ -1,4 +1,5 @@
 import get from 'lodash/get'
+import values from 'lodash/values'
 export default {
   user (state) {
     return {
@@ -33,5 +34,18 @@ export default {
     const devicesViewList = get(state.homes[state.selectedHome], 'devicesViewList', [])
     const devicesArray = Object.keys(devicesViewList).map((deviceId) => devicesViewList[deviceId])
     return devicesArray.filter((device) => device.export_ui)
+  },
+
+  deviceModalActions (state) {
+    const actions = values(get(state.appState.activeModalDeviceMenu.deviceMetadata, 'actions', {}))
+    return actions
+  },
+
+  deviceModalStatus (state) {
+    return get(state.appState.activeModalDeviceMenu, 'deviceStatus', {})
+  },
+
+  modalDeviceId (state) {
+    return state.appState.activeModalDeviceMenu.deviceId
   }
 }

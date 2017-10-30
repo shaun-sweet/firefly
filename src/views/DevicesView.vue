@@ -1,12 +1,19 @@
 <template>
   <div class="layout-padding">
-    <q-modal @close="closeDeviceMenuHandler()" ref="deviceMenu">
-      <div class="layout-padding">
-        <h4>
-          Device Menu
-        </h4>
-        <q-btn color="primary" @click="$refs.deviceMenu.close()">Close</q-btn>
-      </div>
+    <q-modal 
+      class="device-modal"
+      :content-css="{minWidth: '60vw', padding: '1em'}" 
+      @close="closeDeviceMenuHandler()" 
+      ref="deviceMenu"
+    >
+      <!-- <div class="layout-padding"> -->
+        <action
+          v-for="(action, index) in deviceModalActions"
+          :key="index"
+          :actionMetadata="action"
+         />
+        <q-btn class="close-btn" color="primary" @click="$refs.deviceMenu.close()">Close</q-btn>
+      <!-- </div> -->
     </q-modal>
     <div class="row search-bar">
       <div class="col-6">
@@ -37,9 +44,12 @@
 <script>
 import Fuse from 'fuse.js'
 import Device from '@/Device'
+import Action from '@/Action'
+
 export default {
   components: {
-    Device
+    Device,
+    Action
   },
   computed: {
     devicesViewList () {
@@ -48,6 +58,9 @@ export default {
         if (a.alias > b.alias) return 1
         return 0
       })
+    },
+    deviceModalActions () {
+      return this.$store.getters.deviceModalActions
     }
   },
   methods: {
@@ -94,5 +107,8 @@ export default {
 .options-menu 
   margin-left 0.2em
   cursor pointer
+
+.close-btn
+  margin-left 8px
 
 </style>

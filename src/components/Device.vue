@@ -16,6 +16,7 @@
 <script>
 import * as firebase from 'src/firebase'
 import get from 'lodash/get'
+import { isActive } from 'src/utils/deviceHelper'
 
 export default {
   props: [
@@ -50,7 +51,7 @@ export default {
         const state = this.$store.state
         const device = state.homes[state.selectedHome].devicesViewList[this.deviceId]
         const devicePrimaryState = device.primaryStateStatus
-        return this.isActive(devicePrimaryState)
+        return isActive(devicePrimaryState)
       },
       set (newVal) {
         const state = this.$store.state
@@ -103,20 +104,7 @@ export default {
     }
   },
   data () {
-    return {
-      statusMap: {
-        on: true,
-        off: false,
-        open: true,
-        close: false
-      }
-    }
-  },
-  methods: {
-    isActive (status) {
-      if (typeof(status) === 'boolean') return status
-      return this.statusMap[status]
-    }
+    return {}
   }
 }
 </script>

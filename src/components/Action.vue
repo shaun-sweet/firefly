@@ -1,22 +1,91 @@
 <template>
   <q-card>
-    <q-card-title>
-
+    <div class="row">
+    <q-card-title class="col-6">
+      <h6>{{ title }}</h6>
+      <span slot="subtitle" class="context-text">{{ context }}</span>
     </q-card-title>
-    <q-card-separator></q-card-separator>
-    <q-card-main>
-
+    <q-card-main class="col-6 status-text-container">
+      <span class="status-text">
+        <q-toggle v-if="isSwitch" class="pull-right" v-model="switchStateBool" />
+        <span 
+          v-if="!isCommandable"
+          class="caption pull-right"
+        >
+          {{ deviceStatus }}
+        </span>
+      </span>
     </q-card-main>
+
+    </div>
   </q-card>
 </template>
 
 <script>
+import { isActive } from 'src/utils/deviceHelper'
+import * as firebase from 'src/firebase'
+import get from 'lodash/get'
+
 export default {
   props: [
-    'type',
-    'name',
-    'description'
+    'actionMetadata'
   ],
+  computed: {
+    isSwitch () {
+      return this.actionMetadata.type === 'switch'
+    },
+    onCommand () {
+      return get(this.actionMetadata, 'on_command', null)
+    },
+    offCommand () {
+      return get(this.actionMetadata, 'off_command', null)
+    },
+    isCommandable () {
+      return this.actionMetadata.can_command
+    },
+    statusKey () {
+      return this.actionMetadata.request
+    },
+    actionType () {
+      return this.actionMetadata.type
+    },
+    title () {
+      return this.actionMetadata.title
+    },
+    context () {
+      return this.actionMetadata.context
+    },
+    switchStateBool: {
+      get () {
+        return isActive(this.deviceStatus)
+      },
+
+      set (newVal) {
+        const state = this.$store.state
+        const deviceId = this.$store.getters.modalDeviceId
+        const command = newVal ? this.onCommand : this.offCommand
+        const homeId = state.selectedHome
+        const payload = {
+          command,
+          homeId,
+          deviceId
+        }
+
+        this.$store.commit('DEVICE_STATE_UPDATE', {
+          [this.statusKey]: command
+        })
+        firebase.issueCommand(payload)
+      }
+    },
+    deviceStatus: {
+      get () {
+        return this.$store.getters.deviceModalStatus[this.statusKey]
+      },
+      set () {
+
+      }
+    }
+  },
   data () {
     return {}
   }
@@ -24,4 +93,14 @@ export default {
 </script>
 
 <style  lang="stylus" scoped>
+.context-text
+  margin-bottom 0px
+  font-size 12px
+
+.status-text-container
+  display flex
+  justify-content flex-end
+  align-items center
+  padding 16px
 </style>
+
