@@ -53,9 +53,9 @@
     <div class="row">
       <device 
         v-for="device in devicesViewList"
-        :key="device.ff_id"
+        :key="device.ffUid"
         :title="device.alias"
-        :device-id="device.ff_id"
+        :device-id="device.ffUid"
         :on-click-handler="onDeviceMenuHandler"
         :device-metadata="device.metadata"
       />

@@ -31,9 +31,8 @@ export default {
   },
 
   devicesViewList (state, getters) {
-    const devicesViewList = get(state.homes[state.selectedHome], 'devicesViewList', [])
-    const devicesArray = Object.keys(devicesViewList).map((deviceId) => devicesViewList[deviceId])
-    return devicesArray.filter((device) => device.export_ui)
+    const devicesViewList = values(get(state.homes[state.selectedHome], 'devicesViewList', []))
+    return devicesViewList.filter((device) => device.exportUI)
   },
 
   deviceModalActions (state) {

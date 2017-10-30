@@ -30,8 +30,8 @@ export default {
       .then((snap) => {
         const deviceStatus = snap.val()
         each(devicesViewList, (device) => {
-          if (device.export_ui) {
-            const deviceId = device.ff_id
+          if (device.exportUI) {
+            const deviceId = device.ffUid
             const primaryStateType = devicesViewList[deviceId].metadata.primary
             const primaryStateStatus = deviceStatus[deviceId][primaryStateType]
             commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
@@ -130,7 +130,7 @@ export default {
 }
 // for each device... metadata > primary (which points to the type of action that is the primary)
 //  actions > actionType (eg. alarm, battery, contact (like if a contact sensor has contact or not))
-// so an on/off device will have a type === "switch"
+// so an on/oF_F device will have a type === "switch"
 // action title = label for title when pulling up the modal
 // can_command = is changable by the user (vs state reporting ie. if proxy sensor is going off or not)
 // can_request = can be used as a trigger (typically true)

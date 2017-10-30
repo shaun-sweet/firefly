@@ -35,25 +35,25 @@ export default {
       return this.actionMetadata.type === 'switch'
     },
     onCommand () {
-      return get(this.actionMetadata, 'on_command', null)
+      return get(this.actionMetadata, 'onCommand', null)
     },
     offCommand () {
-      return get(this.actionMetadata, 'off_command', null)
+      return get(this.actionMetadata, 'offCommand', null)
     },
     isCommandable () {
-      return this.actionMetadata.can_command
+      return get(this.actionMetadata, 'canCommand', null)
     },
     statusKey () {
-      return this.actionMetadata.request
+      return get(this.actionMetadata, 'request', null)
     },
     actionType () {
-      return this.actionMetadata.type
+      return get(this.actionMetadata, 'type', null)
     },
     title () {
-      return this.actionMetadata.title
+      return get(this.actionMetadata, 'title', null)
     },
     context () {
-      return this.actionMetadata.context
+      return get(this.actionMetadata, 'context', null)
     },
     switchStateBool: {
       get () {

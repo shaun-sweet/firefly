@@ -59,7 +59,7 @@ export default {
         }).reverse()
         this.events = Object.keys(eventsObj).map((id) => {
           eventsObj[id].id = id
-          eventsObj[id].deviceAlias = get(state, `homes.${state.selectedHome}.devicesViewList.${eventsObj[id].ff_id}.alias`)
+          eventsObj[id].deviceAlias = get(state, `homes.${state.selectedHome}.devicesViewList.${eventsObj[id].ffUid}.alias`)
           return eventsObj[id]
         }).reverse()
       })

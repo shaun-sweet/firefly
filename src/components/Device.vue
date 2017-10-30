@@ -7,7 +7,9 @@
           <q-icon class="options-menu" name="ion-android-more-vertical" />
         </span>
         <q-toggle v-if="isPrimaryCommadable" class="pull-right" v-model="primaryStateBool" />
-        <span v-if="!isPrimaryCommadable" :style="primaryStateStyle" class="caption pull-right">{{ notCommandablePrimaryStatus }}</span>
+        <span v-if="!isPrimaryCommadable" :style="primaryStateStyle" class="caption pull-right">
+          {{ notCommandablePrimaryStatus }}
+        </span>
       </q-card-main>
     </q-card>
   </div>
@@ -28,7 +30,7 @@ export default {
   computed: {
     primaryStateStyle () {
       const primaryAction = this.deviceMetadata.actions[this.primaryAction]
-      const colorMapping = get(primaryAction, 'color_mapping', null)
+      const colorMapping = get(primaryAction, 'colorMapping', null)
       var color = ''
       if (colorMapping !== null) {
         for (let key in colorMapping) {
@@ -71,7 +73,7 @@ export default {
     },
     notCommandablePrimaryStatus () {
       const primaryAction = this.deviceMetadata.actions[this.primaryAction]
-      const textMapping = get(primaryAction, 'text_mapping', null)
+      const textMapping = get(primaryAction, 'textMapping', null)
       var displayText
       if (textMapping !== null) {
         for (let key in textMapping) {
@@ -88,19 +90,19 @@ export default {
       return this.deviceMetadata.primary
     },
     isPrimaryCommadable () {
-      return get(this.deviceMetadata.actions[this.primaryAction], 'can_command', null)
+      return get(this.deviceMetadata.actions[this.primaryAction], 'canCommand', null)
     },
     canRequest () {
-      return this.deviceMetadata.actions[this.primaryAction].can_request
+      return this.deviceMetadata.actions[this.primaryAction].canRequest
     },
     primaryDescription () {
       return this.deviceMetadata.actions[this.primaryAction].context
     },
     primaryOnCommand () {
-      return get(this.deviceMetadata.actions[this.primaryAction], 'on_command', null)
+      return get(this.deviceMetadata.actions[this.primaryAction], 'onCommand', null)
     },
     primaryOffCommand () {
-      return get(this.deviceMetadata.actions[this.primaryAction], 'off_command', null)
+      return get(this.deviceMetadata.actions[this.primaryAction], 'offCommand', null)
     }
   },
   data () {
