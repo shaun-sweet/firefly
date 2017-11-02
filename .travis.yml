@@ -8,4 +8,4 @@ cache:
   - node_modules
 
 after_success:
-  - firebase deploy --token=${FIREBASE_TOKEN}
+  - firebase deploy --token=${FIREBASE_DEPLOY_API_TOKEN}
