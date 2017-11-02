@@ -71,7 +71,6 @@ export default {
       },
 
       set (newVal) {
-        console.log(newVal)
         const state = this.$store.state
         const deviceId = this.$store.getters.modalDeviceId
         const homeId = state.selectedHome
