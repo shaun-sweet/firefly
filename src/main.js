@@ -33,7 +33,8 @@ import Quasar, {
   QTabs,
   QTabPane,
   QItemSeparator,
-  QModalLayout
+  QModalLayout,
+  QSlider
 } from 'quasar'
 import router from './router'
 import 'quasar-extras/material-icons'
@@ -74,7 +75,8 @@ Vue.use(Quasar, {
     QTabs,
     QTabPane,
     QItemSeparator,
-    QModalLayout
+    QModalLayout,
+    QSlider
   }
 })
 

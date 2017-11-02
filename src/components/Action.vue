@@ -6,15 +6,22 @@
       <span slot="subtitle" class="context-text">{{ context }}</span>
     </q-card-title>
     <q-card-main class="col-6 status-text-container">
-      <span class="status-text">
         <q-toggle v-if="isSwitch" class="pull-right" v-model="switchStateBool" />
+        <q-slider
+          v-if="isSlider"
+          v-model="sliderValue"
+          :min="actionMetadata.minLevel"
+          :max="actionMetadata.maxLevel"
+          :step="actionMetadata.levelStep"
+          label
+          snap
+        />
         <span 
           v-if="!isCommandable"
           class="caption pull-right"
         >
-          {{ deviceStatus }}
+          {{ actionStatus }}
         </span>
-      </span>
     </q-card-main>
 
     </div>
@@ -22,7 +29,7 @@
 </template>
 
 <script>
-import { isActive } from 'src/utils/deviceHelper'
+import { isActive, setActionTypeDefaultState } from 'src/utils/deviceHelper'
 import * as firebase from 'src/firebase'
 import get from 'lodash/get'
 
@@ -31,6 +38,9 @@ export default {
     'actionMetadata'
   ],
   computed: {
+    isSlider () {
+      return this.actionMetadata.type === 'slider'
+    },
     isSwitch () {
       return this.actionMetadata.type === 'switch'
     },
@@ -55,9 +65,35 @@ export default {
     context () {
       return get(this.actionMetadata, 'context', null)
     },
+    sliderValue: {
+      get () {
+        return this.actionStatus
+      },
+
+      set (newVal) {
+        console.log(newVal)
+        const state = this.$store.state
+        const deviceId = this.$store.getters.modalDeviceId
+        const homeId = state.selectedHome
+        const command = {
+          [this.actionMetadata.command]: {
+            [this.actionMetadata.commandProp]: newVal
+          }
+        }
+        const payload = {
+          command,
+          homeId,
+          deviceId
+        }
+        this.$store.commit('DEVICE_STATE_UPDATE', {
+          [this.statusKey]: newVal
+        })
+        firebase.issueCommand(payload)
+      }
+    },
     switchStateBool: {
       get () {
-        return isActive(this.deviceStatus)
+        return isActive(this.actionStatus)
       },
 
       set (newVal) {
@@ -77,7 +113,7 @@ export default {
         firebase.issueCommand(payload)
       }
     },
-    deviceStatus: {
+    actionStatus: {
       get () {
         return this.$store.getters.deviceModalStatus[this.statusKey]
       },
@@ -86,8 +122,12 @@ export default {
       }
     }
   },
+  methods: {
+    
+  },
   data () {
-    return {}
+    return {
+    }
   }
 }
 </script>
