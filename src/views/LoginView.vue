@@ -44,9 +44,12 @@ export default {
     },
     login () {
       // TODO: for dev only, remove for production
-      let email = 'sweetone06@gmail.com'
-      let password = 'destroy'
-      if (this.email && this.password) {
+      let email
+      let password
+      if (process.env.NODE_ENV !== 'production') {
+        email= 'sweetone06@gmail.com'
+        password = 'destroy'
+      } else {
         email = this.email
         password = this.password
       }
