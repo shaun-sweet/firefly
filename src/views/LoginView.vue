@@ -3,7 +3,7 @@
     <div class="layout-padding">
       <form>
         <q-field>
-          <q-input icon="ion-email" type="email" stack-label="Email Address" placeholder="Just click Login for dev purposes" v-model="email" />
+          <q-input icon="ion-email" type="email" stack-label="Email Address" v-model="email" />
         </q-field>
         <q-field>
           <q-input v-model="password" stack-label="Password" type="password">
