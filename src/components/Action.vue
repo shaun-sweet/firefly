@@ -7,15 +7,16 @@
     </q-card-title>
     <q-card-main class="col-6 status-text-container">
         <q-toggle v-if="isSwitch" class="pull-right" v-model="switchStateBool" />
-        <q-slider
-          v-if="isSlider"
-          v-model="sliderValue"
-          :min="actionMetadata.minLevel"
-          :max="actionMetadata.maxLevel"
-          :step="actionMetadata.levelStep"
-          label
-          snap
-        />
+        <div @mouseup="handleSliderFirebaseCommand()" class="slider-container" v-if="isSlider">
+          <q-slider
+            v-model="sliderValue"
+            :min="actionMetadata.minLevel"
+            :max="actionMetadata.maxLevel"
+            :step="actionMetadata.levelStep"
+            label
+            snap
+          />
+        </div>
         <span 
           v-if="!isCommandable"
           class="caption pull-right"
@@ -37,6 +38,24 @@ export default {
   props: [
     'actionMetadata'
   ],
+  methods: {
+    handleSliderFirebaseCommand () {
+      const state = this.$store.state
+      const deviceId = this.$store.getters.modalDeviceId
+      const homeId = state.selectedHome
+      const command = {
+        [this.actionMetadata.command]: {
+          [this.actionMetadata.commandProp]: this.sliderValue
+        }
+      }
+      const payload = {
+        command,
+        homeId,
+        deviceId
+      }
+      firebase.issueCommand(payload)
+    }
+  },
   computed: {
     isSlider () {
       return this.actionMetadata.type === 'slider'
@@ -71,23 +90,9 @@ export default {
       },
 
       set (newVal) {
-        const state = this.$store.state
-        const deviceId = this.$store.getters.modalDeviceId
-        const homeId = state.selectedHome
-        const command = {
-          [this.actionMetadata.command]: {
-            [this.actionMetadata.commandProp]: newVal
-          }
-        }
-        const payload = {
-          command,
-          homeId,
-          deviceId
-        }
         this.$store.commit('DEVICE_STATE_UPDATE', {
           [this.statusKey]: newVal
         })
-        firebase.issueCommand(payload)
       }
     },
     switchStateBool: {
@@ -121,9 +126,6 @@ export default {
       }
     }
   },
-  methods: {
-    
-  },
   data () {
     return {
     }
@@ -141,5 +143,8 @@ export default {
   justify-content flex-end
   align-items center
   padding 16px
+
+.slider-container
+  flex 1
 </style>
 
