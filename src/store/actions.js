@@ -33,7 +33,8 @@ export default {
           if (device.exportUI) {
             const deviceId = device.ffUid
             const primaryStateType = devicesViewList[deviceId].metadata.primary
-            const primaryStateStatus = deviceStatus[deviceId][primaryStateType]
+            const primaryStateRequest = devicesViewList[deviceId].metadata[primaryStateType].request
+            const primaryStateStatus = deviceStatus[deviceId][primaryStateRequest]
             commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
               primaryStateStatus,
               deviceId,
