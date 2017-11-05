@@ -17,7 +17,7 @@
             snap
           />
         </div>
-        <span  v-if="!isCommandable" :style="primaryStateStyle" class="caption pull-right">
+        <span  v-if="!isCommandable" :style="stateStyle" class="caption pull-right">
           {{ notCommandableStatus }}
         </span>
     </q-card-main>
