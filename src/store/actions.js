@@ -34,7 +34,7 @@ export default {
             const deviceId = device.ffUid
             const deviceMetadata = devicesViewList[deviceId].metadata
             const primaryStateType = deviceMetadata.primary
-            if (primaryStateType !== undefined) {
+            if (deviceMetadata[primaryStateType] !== undefined) {
               const primaryStateRequest = deviceMetadata[primaryStateType].request
               const primaryStateStatus = deviceStatus[deviceId][primaryStateRequest]
               commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
