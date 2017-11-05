@@ -57,7 +57,8 @@ export default {
     const devicesViewList = state.homes[homeId].devicesViewList
     const onSuccess = (snap) => {
       const deviceId = snap.key
-      const primaryStateType = devicesViewList[deviceId].metadata.primary
+      const deviceMetadata = devicesViewList[deviceId].metadata
+      const primaryStateType = deviceMetadata.primary
       const primaryStateRequest = deviceMetadata.actions[primaryStateType].request
       const deviceState = snap.val()
       const primaryStateStatus = deviceState[primaryStateRequest]
