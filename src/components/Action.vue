@@ -17,11 +17,8 @@
             snap
           />
         </div>
-        <span 
-          v-if="!isCommandable"
-          class="caption pull-right"
-        >
-          {{ actionStatus }}
+        <span  v-if="!isCommandable" class="caption pull-right">
+          {{ notCommandableStatus }}
         </span>
     </q-card-main>
 
@@ -57,6 +54,20 @@ export default {
     }
   },
   computed: {
+    notCommandableStatus () {
+      const textMapping = get(this.actionMetadata, 'textMapping', null)
+      var displayText
+      if (textMapping !== null) {
+        for (let key in textMapping) {
+          let mapping = textMapping[key]
+          if (mapping.includes(this.actionStatus)) {
+            displayText = key
+          }
+        }
+      }
+      if (displayText) return displayText
+      return this.actionStatus
+    },
     isSlider () {
       return this.actionMetadata.type === 'slider'
     },
