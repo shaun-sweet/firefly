@@ -17,7 +17,7 @@
             snap
           />
         </div>
-        <span  v-if="!isCommandable" class="caption pull-right">
+        <span  v-if="!isCommandable" :style="primaryStateStyle" class="caption pull-right">
           {{ notCommandableStatus }}
         </span>
     </q-card-main>
@@ -54,6 +54,19 @@ export default {
     }
   },
   computed: {
+    stateStyle () {
+      const colorMapping = get(this.actionMetadata, 'colorMapping', null)
+      var color = ''
+      if (colorMapping !== null) {
+        for (let key in colorMapping) {
+          let mapping = colorMapping[key]
+          if (mapping.includes(this.actionStatus)) {
+            color = key
+          }
+        }
+      }
+      return { color }
+    },
     notCommandableStatus () {
       const textMapping = get(this.actionMetadata, 'textMapping', null)
       var displayText
