@@ -34,17 +34,19 @@ export default {
             const deviceId = device.ffUid
             const deviceMetadata = devicesViewList[deviceId].metadata
             const primaryStateType = deviceMetadata.primary
-            const primaryStateRequest = deviceMetadata[primaryStateType].request
-            const primaryStateStatus = deviceStatus[deviceId][primaryStateRequest]
-            commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
-              primaryStateStatus,
-              deviceId,
-              homeId
-            })
-            commit(types.ADD_AUTOCOMPLETE_FIELDS, {
-              homeId,
-              deviceId
-            })
+            if (deviceMetadata[primaryStateType].request !== undefined) {
+              const primaryStateRequest = deviceMetadata[primaryStateType].request
+              const primaryStateStatus = deviceStatus[deviceId][primaryStateRequest]
+              commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
+                primaryStateStatus,
+                deviceId,
+                homeId
+              })
+              commit(types.ADD_AUTOCOMPLETE_FIELDS, {
+                homeId,
+                deviceId
+              })
+            }
           }
         })
       })
