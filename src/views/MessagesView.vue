@@ -28,7 +28,8 @@
             :key="event.id"
             :device="event.deviceAlias" 
             :state="getValue(event.event)" 
-            :timestamp="event.time" />
+            :timestamp="event.time" 
+          />
           </q-list>
       </q-tab-pane>
     </div>

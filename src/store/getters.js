@@ -1,5 +1,7 @@
 import get from 'lodash/get'
 import values from 'lodash/values'
+import find from 'lodash/find'
+
 export default {
   user (state) {
     return {
@@ -52,7 +54,15 @@ export default {
     return values(state.messages.notifications).reverse()
   },
 
-  events (state) {
-    return values(state.messages.events).reverse()
+  events (state, getters) {
+    const events = values(state.messages.events).reverse()
+    return events.map((event) => {
+      const ffId = event.ff_id
+      const device = find(getters.devicesViewList, (device) => {
+        return device.ffUid === ffId
+      })
+      event.deviceAlias = device.alias
+      return event
+    })
   }
 }
