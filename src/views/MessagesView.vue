@@ -49,7 +49,10 @@ export default {
     NotificationMessage
   },
   beforeCreate () {
-    this.$store.dispatch('subscribeToMessages')
+    const eventsRef = `homeStatus/${this.$store.getters.selectedHome}/events`
+    if (!this.$store.state.appState.activeSubscriptions.includes(eventsRef)) {
+      this.$store.dispatch('subscribeToMessages')
+    }
   },
   methods: {
     getValue (event) {

@@ -54,7 +54,7 @@ export default {
         deviceId
       }
       firebase.issueCommand(payload)
-    }, 100)
+    }, 200)
   },
   computed: {
     isSlider () {
