@@ -92,5 +92,19 @@ export default {
       ...state.appState.activeModalDeviceMenu.deviceStatus,
       ...payload
     }
+  },
+
+  [types.NOTIFICATION_UPDATE] (state, payload) {
+    state.messages.notifications = {
+      ...state.messages.notifications,
+      ...payload
+    }
+  },
+
+  [types.EVENT_UPDATE] (state, payload) {
+    state.messages.events = {
+      ...state.messages.events,
+      ...payload
+    }
   }
 }

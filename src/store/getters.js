@@ -46,5 +46,13 @@ export default {
 
   modalDeviceId (state) {
     return state.appState.activeModalDeviceMenu.deviceId
+  },
+
+  notifications (state) {
+    return values(state.messages.notifications).reverse()
+  },
+
+  events (state) {
+    return values(state.messages.events).reverse()
   }
 }

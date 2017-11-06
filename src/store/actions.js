@@ -17,6 +17,35 @@ export default {
       .then(() => router.push('/devices'))
   },
 
+  subscribeToNotifications ({ commit, state, getters }) {
+    const homeId = getters.selectedHome
+    const onSuccess = (snap) => {
+      commit(types.NOTIFICATION_UPDATE, snap.val())
+    }
+    const onFail = (err) => {
+      console.error(err)
+    }
+    firebase.subscribeToNotifications(homeId, onSuccess, onFail)
+    commit(types.ADD_SUBSCRIPTION, `homeStatus/${homeId}/notifications`)
+  },
+
+  subscribeToEvents ({ commit, state, getters }) {
+    const homeId = getters.selectedHome
+    const onSuccess = (snap) => {
+      commit(types.EVENT_UPDATE, snap.val())
+    }
+    const onFail = (err) => {
+      console.error(err)
+    }
+    firebase.subscribeToEvents(homeId, onSuccess, onFail)
+    commit(types.ADD_SUBSCRIPTION, `homeStatus/${homeId}/events`)
+  },
+
+  subscribeToMessages ({ dispatch }) {
+    dispatch('subscribeToNotifications')
+    dispatch('subscribeToEvents')
+  },
+
   logOut ({ commit, dispatch }) {
     dispatch('subscriptionCleanup')
     firebase.logout()
