@@ -7,16 +7,15 @@
     </q-card-title>
     <q-card-main class="col-6 status-text-container">
         <q-toggle v-if="isSwitch" class="pull-right" v-model="switchStateBool" />
-        <div @mouseup="handleSliderFirebaseCommand()" class="slider-container" v-if="isSlider">
-          <q-slider
-            v-model="sliderValue"
-            :min="actionMetadata.minLevel"
-            :max="actionMetadata.maxLevel"
-            :step="actionMetadata.levelStep"
-            label
-            snap
-          />
-        </div>
+        <q-slider
+          v-model="sliderValue"
+          v-if="isSlider"
+          :min="actionMetadata.minLevel"
+          :max="actionMetadata.maxLevel"
+          :step="actionMetadata.levelStep"
+          label
+          snap
+        />
         <span 
           v-if="!isCommandable"
           class="caption pull-right"
@@ -33,13 +32,14 @@
 import { isActive, setActionTypeDefaultState } from 'src/utils/deviceHelper'
 import * as firebase from 'src/firebase'
 import get from 'lodash/get'
+import debounce from 'lodash/debounce'
 
 export default {
   props: [
     'actionMetadata'
   ],
   methods: {
-    handleSliderFirebaseCommand () {
+    handleSliderFirebaseCommand: debounce(function () {
       const state = this.$store.state
       const deviceId = this.$store.getters.modalDeviceId
       const homeId = state.selectedHome
@@ -54,7 +54,7 @@ export default {
         deviceId
       }
       firebase.issueCommand(payload)
-    }
+    }, 100)
   },
   computed: {
     isSlider () {
@@ -93,6 +93,7 @@ export default {
         this.$store.commit('DEVICE_STATE_UPDATE', {
           [this.statusKey]: newVal
         })
+        this.handleSliderFirebaseCommand()
       }
     },
     switchStateBool: {
