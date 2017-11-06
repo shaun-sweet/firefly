@@ -38,10 +38,10 @@ export const zWaveCommand = (payload) => {
 }
 
 export const subscribeToNotifications = (homeId, onSuccess, onFail) =>
-  db.ref(`homeStatus/${homeId}/notifications`).limitToFirst(100).on('value', onSuccess, onFail)
+  db.ref(`homeStatus/${homeId}/notifications`).limitToLast(100).on('value', onSuccess, onFail)
 
 export const subscribeToEvents = (homeId, onSuccess, onFail) =>
-  db.ref(`homeStatus/${homeId}/events`).limitToFirst(100).on('value', onSuccess, onFail)
+  db.ref(`homeStatus/${homeId}/events`).limitToLast(100).on('value', onSuccess, onFail)
 
 export const subscribeToDeviceStatus = (homeId, onSuccess, onFail) =>
   db.ref(`homeStatus/${homeId}/deviceStatus`).on('child_changed', onSuccess, onFail)
