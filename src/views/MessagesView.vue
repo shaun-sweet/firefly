@@ -40,6 +40,7 @@
 import EventMessage from '@/EventMessage'
 import NotificationMessage from '@/NotificationMessage'
 import { getMessages } from 'src/firebase'
+import { mapGetters } from 'vuex'
 import get from 'lodash/get'
 
 export default {
@@ -48,21 +49,7 @@ export default {
     NotificationMessage
   },
   beforeCreate () {
-    const state = this.$store.state
-    getMessages(state.selectedHome)
-      .then((snaps) => {
-        const notificationsObj = snaps[0].val()
-        const eventsObj = snaps[1].val()
-        this.notifications = Object.keys(notificationsObj).map((id) => {
-          notificationsObj[id].id = id
-          return notificationsObj[id]
-        }).reverse()
-        this.events = Object.keys(eventsObj).map((id) => {
-          eventsObj[id].id = id
-          eventsObj[id].deviceAlias = get(state, `homes.${state.selectedHome}.devicesViewList.${eventsObj[id].ffUid}.alias`)
-          return eventsObj[id]
-        }).reverse()
-      })
+    this.$store.dispatch('subscribeToMessages')
   },
   methods: {
     getValue (event) {
@@ -73,11 +60,15 @@ export default {
       return formattedString
     }
   },
+  computed: {
+    ...mapGetters([
+      'notifications',
+      'events'
+    ])
+  },
   data () {
     return {
-      selectedTab: 'notifications',
-      notifications: [],
-      events: []
+      selectedTab: 'notifications'
     }
   }
 }

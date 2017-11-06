@@ -37,13 +37,11 @@ export const zWaveCommand = (payload) => {
   db.ref(`homeStatus/${payload.homeId}/commands/service_zwave`).set(payload.command)
 }
 
-const getNotifications = (homeId) =>
-  db.ref(`homeStatus/${homeId}/notifications`).limitToFirst(100).once('value')
+export const subscribeToNotifications = (homeId, onSuccess, onFail) =>
+  db.ref(`homeStatus/${homeId}/notifications`).limitToFirst(100).on('value', onSuccess, onFail)
 
-const getEvents = (homeId) =>
-  db.ref(`homeStatus/${homeId}/events`).limitToFirst(100).once('value')
-
-export const getMessages = homeId => Promise.all([getNotifications(homeId), getEvents(homeId)])
+export const subscribeToEvents = (homeId, onSuccess, onFail) =>
+  db.ref(`homeStatus/${homeId}/events`).limitToFirst(100).on('value', onSuccess, onFail)
 
 export const subscribeToDeviceStatus = (homeId, onSuccess, onFail) =>
   db.ref(`homeStatus/${homeId}/deviceStatus`).on('child_changed', onSuccess, onFail)
