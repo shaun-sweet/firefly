@@ -39,6 +39,7 @@ jobs:
           name: Deploy Dev to Firebase
           command: |
             if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              ./node_modules/.bin/firebase use dev
               ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive
             fi
       - deploy:
