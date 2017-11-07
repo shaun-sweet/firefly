@@ -1,5 +1,5 @@
 # Firefly Client
-### Build Status: [![Build Status](https://travis-ci.com/shaun-sweet/firefly.svg?token=74neAvgp5t22bqyuF5Jk&branch=master)](https://travis-ci.com/shaun-sweet/firefly)
+### Build Status: [![CircleCI](https://circleci.com/gh/shaun-sweet/firefly/tree/master.svg?style=svg)](https://circleci.com/gh/shaun-sweet/firefly/tree/master)
 ## Build Setup
 
 ``` bash
