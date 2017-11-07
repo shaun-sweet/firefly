@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "firefly-dev-ui"
+    "default": "firefly-dev-ui",
+    "master": "firefly-beta-cdb9d"
   }
 }
