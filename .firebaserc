@@ -1,6 +1,6 @@
 {
   "projects": {
     "dev": "firefly-dev-ui",
-    "master": "firefly-beta-cdb9d"
+    "master": "my-firefly"
   }
 }
