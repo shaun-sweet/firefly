@@ -35,4 +35,9 @@ jobs:
         
       # run tests!
       - run: npm run build
-      - run: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+      - deploy:
+          name: Deploy Dev to Firebase
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+            fi
