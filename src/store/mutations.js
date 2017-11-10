@@ -8,6 +8,10 @@ export default {
     state.homes = payload
   },
 
+  [types.SAVE_USER_DATA] (state, payload) {
+    state.userData = payload
+  },
+
   [types.LOG_USER_OUT] (state) {
     let reset = initialState()
     for (let k in state) {
