@@ -25,6 +25,7 @@ export const logout = () => firebase.auth().signOut()
 
 export const getCurrentUser = () => firebase.auth().currentUser
 
+// TODO: Usse userData.homes instead of this call.
 export const getUserHomes = (userId) =>
   db.ref(`users/${userId}/homes`).once('value')
 
