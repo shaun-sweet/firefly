@@ -58,13 +58,16 @@ export default {
     const homeId = getters.selectedHome
     const devicesViewList = state.homes[homeId].devicesViewList
     firebase.getDevicesStatus(homeId)
-      .then((snap) => {
-        const deviceStatus = snap.val()
-        each(devicesViewList, (device) => {
-          if (device.exportUI) {
-            const deviceId = device.ffUid
-            const primaryStateType = devicesViewList[deviceId].metadata.primary
-            const primaryStateStatus = deviceStatus[deviceId][primaryStateType]
+    .then((snap) => {
+      const deviceStatus = snap.val()
+      each(devicesViewList, (device) => {
+        if (device.exportUI) {
+          const deviceId = device.ffUid
+          const deviceMetadata = devicesViewList[deviceId].metadata
+          const primaryStateType = deviceMetadata.primary
+          if (deviceMetadata.actions[primaryStateType] !== undefined) {
+            const primaryStateRequest = deviceMetadata.actions[primaryStateType].request
+            const primaryStateStatus = deviceStatus[deviceId][primaryStateRequest]
             commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
               primaryStateStatus,
               deviceId,
@@ -75,8 +78,9 @@ export default {
               deviceId
             })
           }
-        })
+        }
       })
+    })
   },
 
   subscribeToDeviceState ({ commit, state }) {
@@ -84,9 +88,11 @@ export default {
     const devicesViewList = state.homes[homeId].devicesViewList
     const onSuccess = (snap) => {
       const deviceId = snap.key
-      const primaryStateType = devicesViewList[deviceId].metadata.primary
+      const deviceMetadata = devicesViewList[deviceId].metadata
+      const primaryStateType = deviceMetadata.primary
+      const primaryStateRequest = deviceMetadata.actions[primaryStateType].request
       const deviceState = snap.val()
-      const primaryStateStatus = deviceState[primaryStateType]
+      const primaryStateStatus = deviceState[primaryStateRequest]
       commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
         primaryStateStatus,
         deviceId,
