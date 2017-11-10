@@ -6,18 +6,19 @@
         <span slot="subtitle" class="context-text">{{ context }}</span>
       </q-card-title>
       <q-card-main class="col-6 status-text-container">
-        <q-toggle v-if="isSwitch" class="pull-right" v-model="switchStateBool"/>
-        <div @mouseup="handleSliderFirebaseCommand()" class="slider-container" v-if="isSlider">
-          <q-slider
-            v-model="sliderValue"
-            :min="actionMetadata.minLevel"
-            :max="actionMetadata.maxLevel"
-            :step="actionMetadata.levelStep"
-            label
-            snap
-          />
-        </div>
-        <span v-if="!isCommandable" :style="stateStyle" class="caption pull-right">
+        <q-toggle v-if="isSwitch" class="pull-right" v-model="switchStateBool" />
+        <q-slider
+          v-model="sliderValue"
+          v-if="isSlider"
+          :min="actionMetadata.minLevel"
+          :max="actionMetadata.maxLevel"
+          :step="actionMetadata.levelStep"
+          label
+          snap
+        />
+        <span v-if="!isCommandable"
+              :style="stateStyle"
+              class="caption pull-right">
           {{ notCommandableStatus }}
         </span>
       </q-card-main>
@@ -27,16 +28,17 @@
 </template>
 
 <script>
-  import {isActive, setActionTypeDefaultState} from 'src/utils/deviceHelper'
+  import { isActive, setActionTypeDefaultState } from 'src/utils/deviceHelper'
   import * as firebase from 'src/firebase'
   import get from 'lodash/get'
+  import debounce from 'lodash/debounce'
 
   export default {
     props: [
       'actionMetadata'
     ],
     methods: {
-      handleSliderFirebaseCommand () {
+      handleSliderFirebaseCommand: debounce(function () {
         const state = this.$store.state
         const deviceId = this.$store.getters.modalDeviceId
         const homeId = state.selectedHome
@@ -51,36 +53,9 @@
           deviceId
         }
         firebase.issueCommand(payload)
-      }
+      }, 200)
     },
     computed: {
-      stateStyle () {
-        const colorMapping = get(this.actionMetadata, 'colorMapping', null)
-        var color = ''
-        if (colorMapping !== null) {
-          for (let key in colorMapping) {
-            let mapping = colorMapping[key]
-            if (mapping.includes(this.actionStatus)) {
-              color = key
-            }
-          }
-        }
-        return {color}
-      },
-      notCommandableStatus () {
-        const textMapping = get(this.actionMetadata, 'textMapping', null)
-        var displayText
-        if (textMapping !== null) {
-          for (let key in textMapping) {
-            let mapping = textMapping[key]
-            if (mapping.includes(this.actionStatus)) {
-              displayText = key
-            }
-          }
-        }
-        if (displayText) return displayText
-        return this.actionStatus
-      },
       isSlider () {
         return this.actionMetadata.type === 'slider'
       },
@@ -117,6 +92,7 @@
           this.$store.commit('DEVICE_STATE_UPDATE', {
             [this.statusKey]: newVal
           })
+          this.handleSliderFirebaseCommand()
         }
       },
       switchStateBool: {
@@ -148,15 +124,43 @@
         set () {
 
         }
+      },
+      stateStyle () {
+        const colorMapping = get(this.actionMetadata, 'colorMapping', null)
+        var color = ''
+        if (colorMapping !== null) {
+          for (let key in colorMapping) {
+            let mapping = colorMapping[key]
+            if (mapping.includes(this.actionStatus)) {
+              color = key
+            }
+          }
+        }
+        return {color}
+      },
+      notCommandableStatus () {
+        const textMapping = get(this.actionMetadata, 'textMapping', null)
+        var displayText
+        if (textMapping !== null) {
+          for (let key in textMapping) {
+            let mapping = textMapping[key]
+            if (mapping.includes(this.actionStatus)) {
+              displayText = key
+            }
+          }
+        }
+        if (displayText) return displayText
+        return this.actionStatus
       }
     },
     data () {
-      return {}
+      return {
+      }
     }
   }
 </script>
 
-<style lang="stylus" scoped>
+<style  lang="stylus" scoped>
   .context-text
     margin-bottom 0px
     font-size 12px
