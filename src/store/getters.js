@@ -28,6 +28,7 @@ export default {
   },
 
   defaultHome (state) {
+    if (state.defaultHome) return state.defaultHome
     return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
   },
 

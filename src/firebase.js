@@ -60,3 +60,6 @@ export const getRoutines = (homeId) =>
 
 export const executeRoutine = ({ homeId, routineId, command }, cbFn) =>
   db.ref(`homeStatus/${homeId}/commands/${routineId}`).set(command, cbFn)
+
+export const getUserData = (userId) =>
+  db.ref(`users/${userId}`).once('value')

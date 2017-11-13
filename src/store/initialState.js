@@ -4,6 +4,7 @@ export default function getInitialState () {
     displayName: '',
     email: '',
     selectedHome: null,
+    defaultHome: '',
     homes: {},
     messages: {
       events: {},

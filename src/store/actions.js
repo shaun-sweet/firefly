@@ -10,7 +10,11 @@ export default {
     const uid = user.uid
     const email = user.email
     const displayName = user.displayName
-    commit(types.SAVE_USER, { uid, email, displayName })
+    firebase.getUserData(uid)
+      .then((snap) => {
+        const defaultHome = get(snap.val(), 'defaultHome', null)
+        commit(types.SAVE_USER, { uid, email, displayName, defaultHome })
+      })
     firebase.getUserHomes(uid)
       .then(snap => commit(types.SAVE_USER_HOMES, snap.val()))
       .then(() => commit(types.SET_SELECTED_HOME, getters.defaultHome))
