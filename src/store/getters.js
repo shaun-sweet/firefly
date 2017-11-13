@@ -28,7 +28,11 @@ export default {
   },
 
   defaultHome (state) {
-    return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
+    let userDefaultHome = state.userData.defaultHome
+    if (userDefaultHome === undefined) {
+      return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
+    }
+    return userDefaultHome
   },
 
   devicesViewList (state, getters) {
