@@ -1,6 +1,6 @@
 {
-  "name": "Firefly",
-  "short_name": "Firefly",
+  "name": "My Firefly Home",
+  "short_name": "My Firefly Home",
   "icons": [
     {
       "src": "/statics/icons/ff_apple_icon_192.png",

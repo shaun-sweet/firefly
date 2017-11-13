@@ -54,3 +54,9 @@ export const getDevicesStatus = (homeId) =>
 
 export const getDeviceStatus = (homeId, deviceId) =>
   db.ref(`homeStatus/${homeId}/deviceStatus/${deviceId}`).once('value')
+
+export const getRoutines = (homeId) =>
+  db.ref(`homeStatus/${homeId}/routineViews`).once('value')
+
+export const executeRoutine = ({ homeId, routineId, command }, cbFn) =>
+  db.ref(`homeStatus/${homeId}/commands/${routineId}`).set(command, cbFn)

@@ -106,5 +106,9 @@ export default {
       ...state.messages.events,
       ...payload
     }
+  },
+
+  [types.SAVE_ROUTINES] (state, payload) {
+    state.routines = payload
   }
 }
