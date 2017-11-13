@@ -1,6 +1,7 @@
 import * as types from './mutation-types'
 import * as firebase from 'src/firebase'
 import each from 'lodash/each'
+import get from 'lodash/get'
 import router from 'src/router'
 
 export default {
@@ -82,16 +83,19 @@ export default {
     const devicesViewList = state.homes[homeId].devicesViewList
     const onSuccess = (snap) => {
       const deviceId = snap.key
-      const primaryStateType = devicesViewList[deviceId].metadata.primary
       const deviceState = snap.val()
-      const primaryStateStatus = deviceState[primaryStateType]
-      commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
-        primaryStateStatus,
-        deviceId,
-        homeId
-      })
-      if (deviceId === state.appState.activeModalDeviceMenu.deviceId) {
-        commit(types.DEVICE_STATE_UPDATE, deviceState)
+      const primaryStateType = get(devicesViewList[deviceId], 'metadata.primary', null)
+      if (primaryStateType !== null) {
+        const primaryStateStatus = deviceState[primaryStateType]
+        commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
+          primaryStateStatus,
+          deviceId,
+          homeId
+        })
+        // if the device is currently in the active modal, also change the modal data
+        if (deviceId === state.appState.activeModalDeviceMenu.deviceId) {
+          commit(types.DEVICE_STATE_UPDATE, deviceState)
+        }
       }
     }
     const onFail = (err) => {
