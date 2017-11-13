@@ -61,5 +61,9 @@ export default {
       event.deviceAlias = device.alias
       return event
     })
+  },
+
+  routines (state) {
+    return values(state.routines)
   }
 }

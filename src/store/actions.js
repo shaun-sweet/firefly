@@ -148,6 +148,15 @@ export default {
     }
   },
 
+  getRoutines ({ state, commit }) {
+    const homeId = state.selectedHome
+    firebase.getRoutines(homeId)
+      .then((snap) => {
+        const routines = snap.val()
+        commit(types.SAVE_ROUTINES, routines)
+      })
+  },
+
   subscriptionCleanup ({ state, commit }) {
     // Removes firebase subscriptions
     each(state.appState.activeSubscriptions, (subLocation) => {

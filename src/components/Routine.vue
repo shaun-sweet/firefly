@@ -5,7 +5,6 @@
         {{name}}
       </q-card-title>
       <q-card-main>
-        {something else?}
       </q-card-main>
     </q-card>
   </div>
@@ -13,13 +12,17 @@
 
 <script>
 export default {
-  props: ['name'],
+  props: ['name', 'routineId', 'icon', 'command'],
   data () {
     return {}
   },
   methods: {
     activateRoutine () {
-      this.$emit('activateRoutine', `${this.name} routine has activated`)
+      this.$emit('activateRoutine', {
+        msg: `${this.name} routine has activated`,
+        routineId: this.routineId,
+        command: this.command
+      })
     }
   }
 }

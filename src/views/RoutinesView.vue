@@ -2,9 +2,13 @@
   <div class="layout-padding routines-view">
     <div class="row">
       <routine 
-        :key="routine"
+        v-if="routine.export_ui"
+        :key="routine.ff_id"
         v-for="routine in routines"
-        :name="routine.name"
+        :name="routine.alias"
+        :routineId="routine.ff_id"
+        :command="routine.command"
+        :icon="routine.icon"
         v-on:activateRoutine="activateRoutine"
       />
     </div>
@@ -14,34 +18,34 @@
 <script>
 import { Toast } from 'quasar'
 import Routine from '@/Routine'
+import { mapGetters } from 'vuex'
+import { executeRoutine } from 'src/firebase'
 
 export default {
   components: {
     Routine
   },
-  data () {
-    return {
-      routines: [
-        {
-          name: 'Piano',
-          type: 'test'
-        },
-        {
-          name: 'Cooking',
-          type: 'test'
-        },
-        {
-          name: 'Getting Home',
-          type: 'test'
-        }
-      ]
-    }
+  beforeMount() {
+    this.$store.dispatch('getRoutines')
+  },
+  computed: {
+    ...mapGetters([
+      'routines',
+      'selectedHome'
+    ])
   },
   methods: {
-    activateRoutine (msg) {
-      Toast.create.positive({
-        html: msg || 'Routine Activated',
-        icon: 'ion-ios-checkmark'
+    activateRoutine ({ msg, routineId, command }) {
+      const homeId = this.selectedHome
+      executeRoutine({ routineId, homeId, command }, (err) => {
+        if (err) {
+          console.error(err)
+        } else {
+          Toast.create.positive({
+            html: msg || 'Routine Activated',
+            icon: 'ion-ios-checkmark'
+          })
+        }
       })
     }
   }
