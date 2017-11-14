@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "firefly-dev-ui"
+    "dev": "firefly-dev-ui",
+    "master": "my-firefly"
   }
 }

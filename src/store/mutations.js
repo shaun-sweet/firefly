@@ -19,6 +19,7 @@ export default {
     state.id = payload.uid
     state.email = payload.email
     state.displayName = payload.displayName
+    state.defaultHome = payload.defaultHome
   },
 
   [types.ERROR_LOGIN] (state, payload) {
@@ -106,5 +107,9 @@ export default {
       ...state.messages.events,
       ...payload
     }
+  },
+
+  [types.SAVE_ROUTINES] (state, payload) {
+    state.routines = payload
   }
 }

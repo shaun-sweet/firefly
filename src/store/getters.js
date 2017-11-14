@@ -1,6 +1,5 @@
 import get from 'lodash/get'
 import values from 'lodash/values'
-import find from 'lodash/find'
 
 export default {
   user (state) {
@@ -29,6 +28,7 @@ export default {
   },
 
   defaultHome (state) {
+    if (state.defaultHome) return state.defaultHome
     return Object.keys(state.homes).filter(home => state.homes[home].role === 'owner')[0]
   },
 
@@ -57,12 +57,14 @@ export default {
   events (state, getters) {
     const events = values(state.messages.events).reverse()
     return events.map((event) => {
-      const ffId = event.ff_id
-      const device = find(getters.devicesViewList, (device) => {
-        return device.ffUid === ffId
-      })
+      const deviceId = event.ff_id
+      const device = get(state.homes[getters.selectedHome], `devicesViewList.${deviceId}`, 'Device has no name')
       event.deviceAlias = device.alias
       return event
     })
+  },
+
+  routines (state) {
+    return values(state.routines)
   }
 }

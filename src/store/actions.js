@@ -1,6 +1,7 @@
 import * as types from './mutation-types'
 import * as firebase from 'src/firebase'
 import each from 'lodash/each'
+import get from 'lodash/get'
 import router from 'src/router'
 
 export default {
@@ -9,7 +10,11 @@ export default {
     const uid = user.uid
     const email = user.email
     const displayName = user.displayName
-    commit(types.SAVE_USER, { uid, email, displayName })
+    firebase.getUserData(uid)
+      .then((snap) => {
+        const defaultHome = get(snap.val(), 'defaultHome', null)
+        commit(types.SAVE_USER, { uid, email, displayName, defaultHome })
+      })
     firebase.getUserHomes(uid)
       .then(snap => commit(types.SAVE_USER_HOMES, snap.val()))
       .then(() => commit(types.SET_SELECTED_HOME, getters.defaultHome))
@@ -82,16 +87,19 @@ export default {
     const devicesViewList = state.homes[homeId].devicesViewList
     const onSuccess = (snap) => {
       const deviceId = snap.key
-      const primaryStateType = devicesViewList[deviceId].metadata.primary
       const deviceState = snap.val()
-      const primaryStateStatus = deviceState[primaryStateType]
-      commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
-        primaryStateStatus,
-        deviceId,
-        homeId
-      })
-      if (deviceId === state.appState.activeModalDeviceMenu.deviceId) {
-        commit(types.DEVICE_STATE_UPDATE, deviceState)
+      const primaryStateType = get(devicesViewList[deviceId], 'metadata.primary', null)
+      if (primaryStateType !== null) {
+        const primaryStateStatus = deviceState[primaryStateType]
+        commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
+          primaryStateStatus,
+          deviceId,
+          homeId
+        })
+        // if the device is currently in the active modal, also change the modal data
+        if (deviceId === state.appState.activeModalDeviceMenu.deviceId) {
+          commit(types.DEVICE_STATE_UPDATE, deviceState)
+        }
       }
     }
     const onFail = (err) => {
@@ -146,6 +154,15 @@ export default {
         .then(() => dispatch('subscribeToDeviceState'))
         .then(() => commit(types.INITIAL_STATE_NOT_LOADING))
     }
+  },
+
+  getRoutines ({ state, commit }) {
+    const homeId = state.selectedHome
+    firebase.getRoutines(homeId)
+      .then((snap) => {
+        const routines = snap.val()
+        commit(types.SAVE_ROUTINES, routines)
+      })
   },
 
   subscriptionCleanup ({ state, commit }) {
