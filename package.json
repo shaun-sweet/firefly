@@ -5,6 +5,7 @@
   "author": "Shaun Sweet",
   "scripts": {
     "clean": "node build/script.clean.js",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
     "start": "node build/script.dev.js",
     "lint": "standard --fix 'src/**/*.js'",
     "build": "node build/script.build.js",
@@ -26,6 +27,8 @@
     "vuex": "^2.5.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^4.3.0",
+    "@commitlint/config-angular": "^4.3.0",
     "autoprefixer": "^6.4.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^7.2.3",
@@ -87,5 +90,8 @@
       "html"
     ],
     "parser": "babel-eslint"
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-angular"]
   }
 }
