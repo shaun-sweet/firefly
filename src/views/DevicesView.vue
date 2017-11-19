@@ -42,7 +42,6 @@
         </q-tab-pane>
     </q-tabs>
     
-      
     </q-modal>
     <div class="row search-bar">
       <div class="col-6">
