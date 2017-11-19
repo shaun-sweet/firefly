@@ -70,8 +70,6 @@
     "progress-bar-webpack-plugin": "^1.10.0",
     "purify-css": "^1.2.6",
     "shelljs": "^0.7.0",
-    "standard": "^10.0.3",
-    "standard-loader": "^6.0.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "sw-precache-webpack-plugin": "^0.11.4",
@@ -84,15 +82,6 @@
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.20.0",
     "webpack-merge": "^4.1.0"
-  },
-  "standard": {
-    "ignore": [
-      "/src/main.js"
-    ],
-    "plugsin": [
-      "html"
-    ],
-    "parser": "babel-eslint"
   },
   "commitlint": {
     "extends": [
