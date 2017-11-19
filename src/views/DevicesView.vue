@@ -32,7 +32,7 @@
           </q-list>
           <form>
             <q-field>
-              <q-input :placeholder="modalDeviceAlias" type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
+              <q-input type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
             </q-field>
             <q-field>
               <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
@@ -105,8 +105,10 @@ export default {
         deviceId,
         deviceMetadata
       }
-      this.$store.dispatch('openDeviceMenu', payload)
-      this.$refs.deviceMenu.open()
+      this.$store.dispatch('openDeviceMenu', payload).then(() => {
+        this.$refs.deviceMenu.open()
+        this.deviceSettings.alias = this.modalDeviceAlias
+      })
     },
     closeDeviceMenuHandler () {
       this.$store.dispatch('closeDeviceMenu')
@@ -131,6 +133,7 @@ export default {
       }
       issueCommand(payload)
       this.$refs.deviceMenu.close()
+      this.deviceSettings.alias = ''
     }
   },
   data () {
