@@ -7,11 +7,12 @@
     "clean": "node build/script.clean.js",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "start": "node build/script.dev.js",
-    "lint": "standard --fix 'src/**/*.js'",
+    "lint": "eslint --ext js,vue ./src --fix",
     "build": "node build/script.build.js",
     "deploy": "npm run local-build && cd /home/shaun/projects/firefly/public/dev/ && firebase deploy --only hosting",
     "local-build": "node build/script.build.js && rm -r /home/shaun/projects/firefly/public/dev/ && mkdir /home/shaun/projects/firefly/public/dev/ &&  mv dist/* /home/shaun/projects/firefly/public/dev/",
     "test": "npm run build",
+    "linting": "eslint --ext js,vue ./src --fix",
     "precommit": "npm run lint"
   },
   "dependencies": {
@@ -41,15 +42,16 @@
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.0",
     "es6-promise": "^4.1.1",
-    "eslint": "^4.10.0",
+    "eslint": "^4.11.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.9.0",
-    "eslint-plugin-html": "^3.2.2",
+    "eslint-plugin-html": "^4.0.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^3.14.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -64,10 +66,10 @@
     "opn": "^5.0.0",
     "optimize-css-assets-webpack-plugin": "^3.0.0",
     "postcss-loader": "^1.0.0",
+    "prettier-standard": "^7.0.3",
     "progress-bar-webpack-plugin": "^1.10.0",
     "purify-css": "^1.2.6",
     "shelljs": "^0.7.0",
-    "standard": "^10.0.3",
     "standard-loader": "^6.0.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
@@ -82,16 +84,9 @@
     "webpack-hot-middleware": "^2.20.0",
     "webpack-merge": "^4.1.0"
   },
-  "standard": {
-    "ignore": [
-      "/src/main.js"
-    ],
-    "plugsin": [
-      "html"
-    ],
-    "parser": "babel-eslint"
-  },
   "commitlint": {
-    "extends": ["@commitlint/config-angular"]
+    "extends": [
+      "@commitlint/config-angular"
+    ]
   }
 }

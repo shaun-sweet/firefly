@@ -10,7 +10,6 @@
       <q-tab slot="title" name="actions" label="Actions" default></q-tab>
       <q-tab slot="title" name="settings" label="Settings" ></q-tab>
       <q-icon @click="$refs.deviceMenu.close()" class="x-close-button" name="ion-close" />
-      <div class="main-content">
 
         <q-tab-pane name="actions">
           <q-list class="actions" no-border>
@@ -31,11 +30,18 @@
               <h5>Settings</h5>
             </q-list-header>
           </q-list>
+          <form>
+            <q-field>
+              <q-input type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
+            </q-field>
+            <q-field>
+              <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
+              <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
+            </q-field>
+          </form>
         </q-tab-pane>
-      </div>
     </q-tabs>
     
-      
     </q-modal>
     <div class="row search-bar">
       <div class="col-6">
@@ -64,9 +70,11 @@
 </template>
 
 <script>
-import Fuse from "fuse.js";
-import Device from "@/Device";
-import Action from "@/Action";
+import Fuse from 'fuse.js'
+import Device from '@/Device'
+import Action from '@/Action'
+import { issueCommand } from 'src/firebase'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -74,38 +82,60 @@ export default {
     Action
   },
   computed: {
-    devicesViewList() {
+    devicesViewList () {
       return this.$store.getters.devicesViewList.sort((a, b) => {
-        if (a.alias < b.alias) return -1;
-        if (a.alias > b.alias) return 1;
-        return 0;
-      });
+        if (a.alias < b.alias) return -1
+        if (a.alias > b.alias) return 1
+        return 0
+      })
     },
-    deviceModalActions() {
-      return this.$store.getters.deviceModalActions;
-    }
+    deviceModalActions () {
+      return this.$store.getters.deviceModalActions
+    },
+    ...mapGetters([
+      'selectedHome',
+      'modalDeviceId',
+      'modalDeviceAlias'
+    ])
   },
   methods: {
-    onDeviceMenuHandler(deviceId, deviceMetadata) {
+    onDeviceMenuHandler (deviceId, deviceMetadata) {
       const payload = {
         deviceId,
         deviceMetadata
-      };
-      this.$store.dispatch("openDeviceMenu", payload);
-      this.$refs.deviceMenu.open();
+      }
+      this.$store.dispatch('openDeviceMenu', payload).then(() => {
+        this.$refs.deviceMenu.open()
+        this.deviceSettings.alias = this.modalDeviceAlias
+      })
     },
-    closeDeviceMenuHandler() {
-      this.$store.dispatch("closeDeviceMenu");
+    closeDeviceMenuHandler () {
+      this.$store.dispatch('closeDeviceMenu')
     },
-    fuzzyFind() {
-      const fuzzyFinder = new Fuse(this.devicesViewList, this.fuzzyFindoptions);
-      return fuzzyFinder.search(this.searchTerms);
+    fuzzyFind () {
+      const fuzzyFinder = new Fuse(this.devicesViewList, this.fuzzyFindoptions)
+      return fuzzyFinder.search(this.searchTerms)
     },
-    selected(item) {
-      return item;
+    selected (item) {
+      return item
+    },
+    onSaveHandler () {
+      const command = {
+        set_alias: {
+          alias: this.deviceSettings.alias
+        }
+      }
+      const payload = {
+        homeId: this.selectedHome,
+        deviceId: this.modalDeviceId,
+        command
+      }
+      issueCommand(payload)
+      this.$refs.deviceMenu.close()
+      this.deviceSettings.alias = ''
     }
   },
-  data() {
+  data () {
     return {
       selectedTab: '',
       searchTerms: '',
@@ -118,14 +148,17 @@ export default {
         maxPatternLength: 32,
         minMatchCharLength: 1,
         keys: ['alias']
+      },
+      deviceSettings: {
+        alias: ''
       }
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>
-.options-menu 
+.options-menu
   margin-left 0.2em
   cursor pointer
 
@@ -136,7 +169,7 @@ export default {
   color white
   cursor pointer
 
-.close-btn 
-  margin-left 8px
 
+.close-btn
+  margin-left 8px
 </style>

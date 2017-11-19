@@ -40,9 +40,7 @@
 <script>
 import EventMessage from '@/EventMessage'
 import NotificationMessage from '@/NotificationMessage'
-import { getMessages } from 'src/firebase'
 import { mapGetters } from 'vuex'
-import get from 'lodash/get'
 
 export default {
   components: {

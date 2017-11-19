@@ -77,15 +77,17 @@ export default {
     state.appState.activeModalDeviceMenu = {
       deviceId: null,
       deviceMetadata: {},
-      deviceStatus: {}
+      deviceStatus: {},
+      deviceAlias: ''
     }
   },
 
-  [types.SET_DEVICE_MENU_STATE] (state, {deviceId, deviceMetadata, deviceStatus}) {
+  [types.SET_DEVICE_MENU_STATE] (state, {deviceId, deviceMetadata, deviceStatus, deviceAlias}) {
     const activeModalDeviceMenu = state.appState.activeModalDeviceMenu
     activeModalDeviceMenu.deviceId = deviceId
     activeModalDeviceMenu.deviceMetadata = deviceMetadata
     activeModalDeviceMenu.deviceStatus = deviceStatus
+    activeModalDeviceMenu.deviceAlias = deviceAlias
   },
 
   [types.DEVICE_STATE_UPDATE] (state, payload) {

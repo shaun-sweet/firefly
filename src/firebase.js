@@ -18,48 +18,56 @@ const db = firebase.database()
 export const attemptLogin = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password)
 
-export const onAuthStateChange = (cb) =>
-  firebase.auth().onAuthStateChanged(cb)
+export const onAuthStateChange = cb => firebase.auth().onAuthStateChanged(cb)
 
 export const logout = () => firebase.auth().signOut()
 
 export const getCurrentUser = () => firebase.auth().currentUser
 
-export const getUserHomes = (userId) =>
+export const getUserHomes = userId =>
   db.ref(`users/${userId}/homes`).once('value')
 
-export const getDevicesView = (homeId) =>
+export const getDevicesView = homeId =>
   db.ref(`homeStatus/${homeId}/deviceViews`).once('value')
 
-export const subscriptionCleanup = (subLocation) => db.ref(subLocation).off()
+export const subscriptionCleanup = subLocation => db.ref(subLocation).off()
 
-export const zWaveCommand = (payload) => {
-  db.ref(`homeStatus/${payload.homeId}/commands/service_zwave`).set(payload.command)
+export const zWaveCommand = payload => {
+  db
+    .ref(`homeStatus/${payload.homeId}/commands/service_zwave`)
+    .set(payload.command)
 }
 
 export const subscribeToNotifications = (homeId, onSuccess, onFail) =>
-  db.ref(`homeStatus/${homeId}/notifications`).limitToLast(100).on('value', onSuccess, onFail)
+  db
+    .ref(`homeStatus/${homeId}/notifications`)
+    .limitToLast(100)
+    .on('value', onSuccess, onFail)
 
 export const subscribeToEvents = (homeId, onSuccess, onFail) =>
-  db.ref(`homeStatus/${homeId}/events`).limitToLast(100).on('value', onSuccess, onFail)
+  db
+    .ref(`homeStatus/${homeId}/events`)
+    .limitToLast(100)
+    .on('value', onSuccess, onFail)
 
 export const subscribeToDeviceStatus = (homeId, onSuccess, onFail) =>
-  db.ref(`homeStatus/${homeId}/deviceStatus`).on('child_changed', onSuccess, onFail)
+  db
+    .ref(`homeStatus/${homeId}/deviceStatus`)
+    .on('child_changed', onSuccess, onFail)
 
-export const issueCommand = ({homeId, deviceId, command}) =>
+export const issueCommand = ({ homeId, deviceId, command }) =>
   db.ref(`homeStatus/${homeId}/commands/${deviceId}`).set(command)
 
-export const getDevicesStatus = (homeId) =>
+export const getDevicesStatus = homeId =>
   db.ref(`homeStatus/${homeId}/deviceStatus`).once('value')
 
 export const getDeviceStatus = (homeId, deviceId) =>
   db.ref(`homeStatus/${homeId}/deviceStatus/${deviceId}`).once('value')
 
-export const getRoutines = (homeId) =>
+export const getRoutines = homeId =>
   db.ref(`homeStatus/${homeId}/routineViews`).once('value')
 
 export const executeRoutine = ({ homeId, routineId, command }, cbFn) =>
   db.ref(`homeStatus/${homeId}/commands/${routineId}`).set(command, cbFn)
 
-export const getUserData = (userId) =>
-  db.ref(`users/${userId}`).once('value')
+export const getUserData = userId => db.ref(`users/${userId}`).once('value')
