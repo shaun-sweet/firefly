@@ -153,20 +153,18 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.options-menu {
-  margin-left: 0.2em;
-  cursor: pointer;
-}
+.options-menu
+  margin-left 0.2em
+  cursor pointer
 
-.x-close-button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  color: white;
-  cursor: pointer;
-}
+.x-close-button
+  position absolute
+  top 8px
+  right 8px
+  color white
+  cursor pointer
 
-.close-btn {
-  margin-left: 8px;
-}
+
+.close-btn
+  margin-left 8px
 </style>
