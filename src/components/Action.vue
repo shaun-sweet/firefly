@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { isActive, setActionTypeDefaultState } from 'src/utils/deviceHelper'
+import { isActive } from 'src/utils/deviceHelper'
 import * as firebase from 'src/firebase'
 import get from 'lodash/get'
 import debounce from 'lodash/debounce'

@@ -25,7 +25,7 @@ export default {
   components: {
     Routine
   },
-  beforeMount() {
+  beforeMount () {
     this.$store.dispatch('getRoutines')
   },
   computed: {
