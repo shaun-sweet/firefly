@@ -50,6 +50,10 @@ export default {
     return state.appState.activeModalDeviceMenu.deviceId
   },
 
+  modalDeviceAlias (state) {
+    return get(state.appState.activeModalDeviceMenu, 'deviceAlias', '')
+  },
+
   notifications (state) {
     return values(state.messages.notifications).reverse()
   },

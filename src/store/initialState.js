@@ -18,7 +18,8 @@ export default function getInitialState () {
       activeModalDeviceMenu: {
         deviceId: null,
         deviceMetadata: {},
-        deviceStatus: {}
+        deviceStatus: {},
+        deviceAlias: ''
       },
       activeSubscriptions: [],
       isLoadingInitialState: true,

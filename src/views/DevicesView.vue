@@ -10,7 +10,6 @@
       <q-tab slot="title" name="actions" label="Actions" default></q-tab>
       <q-tab slot="title" name="settings" label="Settings" ></q-tab>
       <q-icon @click="$refs.deviceMenu.close()" class="x-close-button" name="ion-close" />
-      <div class="main-content">
 
         <q-tab-pane name="actions">
           <q-list class="actions" no-border>
@@ -29,19 +28,18 @@
           <q-list class="settings" no-border>
             <q-list-header>
               <h5>Settings</h5>
-              <form>
-                <q-field>
-                  <q-input type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
-                </q-field>
-                <q-field>
-                  <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
-                  <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
-                </q-field>
-              </form>
             </q-list-header>
           </q-list>
+          <form>
+            <q-field>
+              <q-input :placeholder="modalDeviceAlias" type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
+            </q-field>
+            <q-field>
+              <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
+              <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
+            </q-field>
+          </form>
         </q-tab-pane>
-      </div>
     </q-tabs>
     
       
@@ -77,6 +75,7 @@ import Fuse from 'fuse.js'
 import Device from '@/Device'
 import Action from '@/Action'
 import { issueCommand } from 'src/firebase'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -93,7 +92,12 @@ export default {
     },
     deviceModalActions () {
       return this.$store.getters.deviceModalActions
-    }
+    },
+    ...mapGetters([
+      'selectedHome',
+      'modalDeviceId',
+      'modalDeviceAlias'
+    ])
   },
   methods: {
     onDeviceMenuHandler (deviceId, deviceMetadata) {
@@ -115,15 +119,14 @@ export default {
       return item
     },
     onSaveHandler () {
-      const getters = this.$store.getters
       const command = {
         set_alias: {
           alias: this.deviceSettings.alias
         }
       }
       const payload = {
-        homeId: getters.selectedHome,
-        deviceId: getters.modalDeviceId,
+        homeId: this.selectedHome,
+        deviceId: this.modalDeviceId,
         command
       }
       issueCommand(payload)

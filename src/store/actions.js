@@ -113,14 +113,16 @@ export default {
     firebase.subscribeToDeviceStatus(homeId, onSuccess, onFail)
   },
 
-  openDeviceMenu ({ commit, state }, { deviceId, deviceMetadata }) {
+  openDeviceMenu ({ commit, state, getters }, { deviceId, deviceMetadata }) {
     const homeId = state.selectedHome
     firebase.getDeviceStatus(homeId, deviceId).then(snap => {
       const deviceStatus = snap.val()
+      const deviceAlias = state.homes[getters.selectedHome].devicesViewList[deviceId].alias
       const payload = {
         deviceId,
         deviceStatus,
-        deviceMetadata
+        deviceMetadata,
+        deviceAlias
       }
       commit(types.SET_DEVICE_MENU_STATE, payload)
     })
