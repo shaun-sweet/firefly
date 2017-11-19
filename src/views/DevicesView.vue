@@ -29,6 +29,15 @@
           <q-list class="settings" no-border>
             <q-list-header>
               <h5>Settings</h5>
+              <form>
+                <q-field>
+                  <q-input type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
+                </q-field>
+                <q-field>
+                  <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
+                  <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
+                </q-field>
+              </form>
             </q-list-header>
           </q-list>
         </q-tab-pane>
@@ -64,9 +73,10 @@
 </template>
 
 <script>
-import Fuse from "fuse.js";
-import Device from "@/Device";
-import Action from "@/Action";
+import Fuse from 'fuse.js'
+import Device from '@/Device'
+import Action from '@/Action'
+import { issueCommand } from 'src/firebase'
 
 export default {
   components: {
@@ -74,38 +84,53 @@ export default {
     Action
   },
   computed: {
-    devicesViewList() {
+    devicesViewList () {
       return this.$store.getters.devicesViewList.sort((a, b) => {
-        if (a.alias < b.alias) return -1;
-        if (a.alias > b.alias) return 1;
-        return 0;
-      });
+        if (a.alias < b.alias) return -1
+        if (a.alias > b.alias) return 1
+        return 0
+      })
     },
-    deviceModalActions() {
-      return this.$store.getters.deviceModalActions;
+    deviceModalActions () {
+      return this.$store.getters.deviceModalActions
     }
   },
   methods: {
-    onDeviceMenuHandler(deviceId, deviceMetadata) {
+    onDeviceMenuHandler (deviceId, deviceMetadata) {
       const payload = {
         deviceId,
         deviceMetadata
-      };
-      this.$store.dispatch("openDeviceMenu", payload);
-      this.$refs.deviceMenu.open();
+      }
+      this.$store.dispatch('openDeviceMenu', payload)
+      this.$refs.deviceMenu.open()
     },
-    closeDeviceMenuHandler() {
-      this.$store.dispatch("closeDeviceMenu");
+    closeDeviceMenuHandler () {
+      this.$store.dispatch('closeDeviceMenu')
     },
-    fuzzyFind() {
-      const fuzzyFinder = new Fuse(this.devicesViewList, this.fuzzyFindoptions);
-      return fuzzyFinder.search(this.searchTerms);
+    fuzzyFind () {
+      const fuzzyFinder = new Fuse(this.devicesViewList, this.fuzzyFindoptions)
+      return fuzzyFinder.search(this.searchTerms)
     },
-    selected(item) {
-      return item;
+    selected (item) {
+      return item
+    },
+    onSaveHandler () {
+      const getters = this.$store.getters
+      const command = {
+        set_alias: {
+          alias: this.deviceSettings.alias
+        }
+      }
+      const payload = {
+        homeId: getters.selectedHome,
+        deviceId: getters.modalDeviceId,
+        command
+      }
+      issueCommand(payload)
+      this.$refs.deviceMenu.close()
     }
   },
-  data() {
+  data () {
     return {
       selectedTab: '',
       searchTerms: '',
@@ -118,25 +143,30 @@ export default {
         maxPatternLength: 32,
         minMatchCharLength: 1,
         keys: ['alias']
+      },
+      deviceSettings: {
+        alias: ''
       }
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>
-.options-menu 
-  margin-left 0.2em
-  cursor pointer
+.options-menu {
+  margin-left: 0.2em;
+  cursor: pointer;
+}
 
-.x-close-button
-  position absolute
-  top 8px
-  right 8px
-  color white
-  cursor pointer
+.x-close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: white;
+  cursor: pointer;
+}
 
-.close-btn 
-  margin-left 8px
-
+.close-btn {
+  margin-left: 8px;
+}
 </style>
