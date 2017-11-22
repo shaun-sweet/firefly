@@ -1,6 +1,5 @@
 {
   "name": "firefly",
-  "version": "1.0.0",
   "description": "Home Automation",
   "author": "Shaun Sweet",
   "scripts": {
@@ -14,6 +13,9 @@
     "test": "npm run build",
     "linting": "eslint --ext js,vue ./src --fix",
     "precommit": "npm run lint"
+  },
+  "release": {
+    "branch": "next"
   },
   "dependencies": {
     "babel-runtime": "^6.25.0",
@@ -69,6 +71,8 @@
     "prettier-standard": "^7.0.3",
     "progress-bar-webpack-plugin": "^1.10.0",
     "purify-css": "^1.2.6",
+    "semantic-release": "^8.2.0",
+    "semantic-release-github": "^3.0.0",
     "shelljs": "^0.7.0",
     "standard-loader": "^6.0.1",
     "stylus": "^0.54.5",
