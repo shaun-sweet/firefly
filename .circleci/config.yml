@@ -34,12 +34,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - tests:
-        name: Run jest test suite
-        command: npm run test
-      - build:
-        name: Build source code
-        command: npm run build
+      - run: npm run test
+      - run: npm run build
       - deploy:
           name: Deploy Dev to Firebase
           command: |
