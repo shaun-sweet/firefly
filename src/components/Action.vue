@@ -16,11 +16,12 @@
           label
           snap
         />
-        <span 
+        <span
           v-if="!isCommandable"
           class="caption pull-right"
+          :style="actionStyle"
         >
-          {{ actionStatus }}
+          {{ actionMappedStatus }}
         </span>
     </q-card-main>
 
@@ -117,6 +118,33 @@ export default {
         })
         firebase.issueCommand(payload)
       }
+    },
+    actionMappedStatus () {
+      const textMapping = get(this.actionMetadata, 'textMapping', null)
+      var displayText
+      if (textMapping !== null) {
+        for (let key in textMapping) {
+          let mapping = textMapping[key]
+          if (mapping.includes(this.actionStatus)) {
+            displayText = key
+          }
+        }
+      }
+      if (displayText) return displayText
+      return this.actionStatus
+    },
+    actionStyle () {
+      const colorMapping = get(this.actionMetadata, 'colorMapping', null)
+      var color = ''
+      if (colorMapping !== null) {
+        for (let key in colorMapping) {
+          let mapping = colorMapping[key]
+          if (mapping.includes(this.actionStatus)) {
+            color = key
+          }
+        }
+      }
+      return { color }
     },
     actionStatus: {
       get () {

@@ -1,13 +1,16 @@
 <template>
   <q-list no-border link inset-delimiter>
     <q-list-header>
-      {{ emailAddress }}
+      <p>
+        {{ displayName }}
+      </p>
+      {{ emailAddress}}
     </q-list-header>
     <q-list-header>
-    <q-select 
+    <q-select
       separator
       id="homeSelector"
-      v-model="selectedHome" 
+      v-model="selectedHome"
       stack-label="Selected Home"
       @change="onChange"
       :options="homesList" />
@@ -63,6 +66,9 @@ export default {
     },
     emailAddress () {
       return this.$store.getters.user.email
+    },
+    displayName () {
+      return this.$store.getters.user.displayName
     }
   },
   data () {
