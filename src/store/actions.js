@@ -9,8 +9,8 @@ export default {
     const user = firebase.getCurrentUser()
     const uid = user.uid
     const email = user.email
-    const displayName = user.displayName
     firebase.getUserData(uid).then(snap => {
+      const displayName = get(snap.val(), 'displayName', null)
       const defaultHome = get(snap.val(), 'defaultHome', null)
       commit(types.SAVE_USER, { uid, email, displayName, defaultHome })
     })
@@ -66,16 +66,19 @@ export default {
         if (device.exportUI) {
           const deviceId = device.ffUid
           const primaryStateType = devicesViewList[deviceId].metadata.primary
-          const primaryStateStatus = deviceStatus[deviceId][primaryStateType]
-          commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
-            primaryStateStatus,
-            deviceId,
-            homeId
-          })
-          commit(types.ADD_AUTOCOMPLETE_FIELDS, {
-            homeId,
-            deviceId
-          })
+          if (devicesViewList[deviceId].metadata.actions[primaryStateType] !== undefined) {
+            const primaryStateRequest = devicesViewList[deviceId].metadata.actions[primaryStateType].request
+            const primaryStateStatus = deviceStatus[deviceId][primaryStateRequest]
+            commit(types.DEVICE_PRIMARY_STATE_UPDATE, {
+              primaryStateStatus,
+              deviceId,
+              homeId
+            })
+            commit(types.ADD_AUTOCOMPLETE_FIELDS, {
+              homeId,
+              deviceId
+            })
+          }
         }
       })
     })
