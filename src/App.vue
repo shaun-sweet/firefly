@@ -26,7 +26,7 @@
       <small>Firefly </small>
 
       <div style="display:block">
-      <q-btn ref="target" flat v-show="messages.length > 0">
+      <q-btn ref="target" flat v-if="messages.length > 0">
         <i>Messages</i>
         <q-tooltip>
           <div v-for="message in messages">
