@@ -74,7 +74,7 @@
         return this.locationStatus.security.status
       },
       messages () {
-        return values(this.locationStatus.messages)
+        return values(this.locationStatus.statusMessages)
       }
     },
     filters: {
