@@ -47,8 +47,8 @@ export default {
       let email
       let password
       if (process.env.NODE_ENV !== 'production') {
-        email = 'test@zpriddy.com'
-        password = '4llN1ght!'
+        email = 'sweetone06@gmail.com'
+        password = 'destroy'
       } else {
         email = this.email
         password = this.password
