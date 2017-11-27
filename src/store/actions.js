@@ -157,7 +157,7 @@ export default {
 
   populateDevicesView ({ commit, state, dispatch }, homeId) {
     // checks for cached data and skips firebase call if cached
-    if (state.homes[homeId].devicesViewList) {
+    if (state.homes[homeId].devicesViewList && !state.forceRefresh) {
       dispatch('subscribeToDeviceState')
       commit(types.INITIAL_STATE_NOT_LOADING)
     } else {

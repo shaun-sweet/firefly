@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import * as types from './mutation-types'
 import initialState from './initialState'
+import store from 'src/store'
 
 export default {
 
@@ -28,6 +29,7 @@ export default {
 
   [types.SET_SELECTED_HOME] (state, selectedHome) {
     state.selectedHome = selectedHome
+    state.locationStatus.lastMetadataUpdate = 0
   },
 
   [types.SAVE_DEVICE_VIEW_LIST] (state, { devicesViewList, homeId }) {
@@ -38,6 +40,7 @@ export default {
         devicesViewList
       }
     }
+    state.forceRefresh = false
   },
 
   [types.ADD_AUTOCOMPLETE_FIELDS] (state, {homeId, deviceId}) {
@@ -112,7 +115,14 @@ export default {
   },
 
   [types.LOCATION_UPDATE] (state, payload) {
+    const oldUpdateTime = state.locationStatus.lastMetadataUpdate
     state.locationStatus = payload
+    // On metadata change it triggers twice, once on value deleted and once on the new time value. On value delete it will set
+    // the old value to undefined, so we only want to trigger when the undefined becomes a value otherwise we trigger twice.
+    if (payload.lastMetadataUpdate !== oldUpdateTime && oldUpdateTime !== 0 && payload.lastMetadataUpdate !== undefined) {
+      state.forceRefresh = true
+      store.dispatch('populateDevicesView', state.selectedHome)
+    }
   },
 
   [types.SAVE_ROUTINES] (state, payload) {
