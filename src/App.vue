@@ -73,19 +73,11 @@
       alarmStatus () {
         if (this.locationStatus.security !== undefined) {
           return this.locationStatus.security.status
-        } else {
-          return 'Unknown'
         }
+        return 'Unknown'
       },
       messages () {
         return values(this.locationStatus.statusMessages)
-      }
-    },
-    filters: {
-      capitalize: function (value) {
-        if (!value) return ''
-        value = value.toString()
-        return value.charAt(0).toUpperCase() + value.slice(1)
       }
     },
     data () {
