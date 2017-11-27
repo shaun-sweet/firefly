@@ -11,6 +11,10 @@ export default function getInitialState () {
       notifications: {}
     },
     locationStatus: {
+      security: {
+        status: 'unknown'
+      },
+      mode: 'unknown'
     },
     routines: {},
     errors: {
