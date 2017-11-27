@@ -42,7 +42,7 @@ export default {
     const onFail = err => {
       console.error(err)
     }
-    const ref = `homeStatus/${homeId}/deviceStatus`
+    const ref = `homeStatus/${homeId}/locationStatus`
     commit(types.ADD_SUBSCRIPTION, ref)
     firebase.subscribeToLocationStatus(homeId, onSuccess, onFail)
   },
