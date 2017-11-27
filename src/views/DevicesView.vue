@@ -1,9 +1,9 @@
 <template>
   <div class="layout-padding">
-    <q-modal 
+    <q-modal
       class="device-modal"
-      :content-css="{minWidth: '60vw'}" 
-      @close="closeDeviceMenuHandler()" 
+      :content-css="{minWidth: '60vw'}"
+      @close="closeDeviceMenuHandler()"
       ref="deviceMenu"
     >
     <q-tabs no-pane-border v-model="selectedTab">
@@ -37,15 +37,16 @@
             <q-field>
               <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
               <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
+              <q-btn color="red" icon="ion-ios-trash" @click.prevent="onDeleteHandler()">Delete</q-btn>
             </q-field>
           </form>
         </q-tab-pane>
     </q-tabs>
-    
+
     </q-modal>
     <div class="row search-bar">
       <div class="col-6">
-        <q-search v-model="searchTerms" placeholder="Search a device"> 
+        <q-search v-model="searchTerms" placeholder="Search a device">
           <q-autocomplete
             separator
             :filter="fuzzyFind"
@@ -57,7 +58,7 @@
       </div>
     </div>
     <div class="row">
-      <device 
+      <device
         v-for="device in devicesViewList"
         :key="device.ffUid"
         :title="device.alias"
@@ -133,6 +134,16 @@ export default {
       issueCommand(payload)
       this.$refs.deviceMenu.close()
       this.deviceSettings.alias = ''
+    },
+    onDeleteHandler () {
+      const command = 'delete'
+      const payload = {
+        homeId: this.selectedHome,
+        deviceId: this.modalDeviceId,
+        command
+      }
+      issueCommand(payload)
+      this.$refs.deviceMenu.close()
     }
   },
   data () {
