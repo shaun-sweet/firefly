@@ -6,9 +6,17 @@ export default function getInitialState () {
     selectedHome: null,
     defaultHome: '',
     homes: {},
+    forceRefresh: false,
     messages: {
       events: {},
       notifications: {}
+    },
+    locationStatus: {
+      lastMetadataUpdate: 0,
+      security: {
+        status: 'unknown'
+      },
+      mode: 'unknown'
     },
     routines: {},
     errors: {

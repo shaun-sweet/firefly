@@ -5,9 +5,9 @@
     <q-field>
       <q-input
         icon="ion-email"
-        type="email"
+        type="text"
         stack-label="Full Name"
-        v-model="form.fullname" />
+        v-model="form.fullName" />
 
     </q-field>
     <q-field>
@@ -27,8 +27,8 @@ export default {
   data () {
     return {
       form: {
-        fullName: '',
-        email: ''
+        fullName: this.$store.getters.user.displayName,
+        email: this.$store.getters.user.email
       }
     }
   }

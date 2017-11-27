@@ -55,6 +55,11 @@ export const subscribeToDeviceStatus = (homeId, onSuccess, onFail) =>
     .ref(`homeStatus/${homeId}/deviceStatus`)
     .on('child_changed', onSuccess, onFail)
 
+export const subscribeToLocationStatus = (homeId, onSuccess, onFail) =>
+  db
+    .ref(`homeStatus/${homeId}/locationStatus`)
+    .on('value', onSuccess, onFail)
+
 export const issueCommand = ({ homeId, deviceId, command }) =>
   db.ref(`homeStatus/${homeId}/commands/${deviceId}`).set(command)
 

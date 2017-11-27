@@ -34,7 +34,8 @@ import Quasar, {
   QTabPane,
   QItemSeparator,
   QModalLayout,
-  QSlider
+  QSlider,
+  QTooltip
 } from 'quasar'
 import router from './router'
 import 'quasar-extras/material-icons'
@@ -76,7 +77,8 @@ Vue.use(Quasar, {
     QTabPane,
     QItemSeparator,
     QModalLayout,
-    QSlider
+    QSlider,
+    QTooltip
   }
 })
 
@@ -100,4 +102,10 @@ new Vue({
   router,
   store,
   render: h => h(require('./App'))
+})
+
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.slice(1)
 })

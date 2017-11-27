@@ -2,7 +2,7 @@
   <div @click="activateRoutine()" class="routine col-xs-12 col-sm-12 col-md-3 col-lg-2">
     <q-card>
       <q-card-title>
-        {{name}}
+        {{name | capitalize}}
       </q-card-title>
       <q-card-main>
       </q-card-main>
