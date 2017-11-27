@@ -71,7 +71,11 @@
         return this.locationStatus.mode
       },
       alarmStatus () {
-        return this.locationStatus.security.status
+        if (this.locationStatus.security !== undefined) {
+          return this.locationStatus.security.status
+        } else {
+          return 'Unknown'
+        }
       },
       messages () {
         return values(this.locationStatus.statusMessages)
