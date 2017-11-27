@@ -111,6 +111,10 @@ export default {
     }
   },
 
+  [types.LOCATION_UPDATE] (state, payload) {
+    state.locationStatus = payload
+  },
+
   [types.SAVE_ROUTINES] (state, payload) {
     state.routines = payload
   }

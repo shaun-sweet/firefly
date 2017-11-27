@@ -10,6 +10,8 @@ export default function getInitialState () {
       events: {},
       notifications: {}
     },
+    locationStatus: {
+    },
     routines: {},
     errors: {
       login: ''

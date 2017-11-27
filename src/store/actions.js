@@ -34,6 +34,19 @@ export default {
     commit(types.ADD_SUBSCRIPTION, `homeStatus/${homeId}/notifications`)
   },
 
+  subscribeToLocationStatus ({ commit, state }) {
+    const homeId = state.selectedHome
+    const onSuccess = snap => {
+      commit(types.LOCATION_UPDATE, snap.val())
+    }
+    const onFail = err => {
+      console.error(err)
+    }
+    const ref = `homeStatus/${homeId}/deviceStatus`
+    commit(types.ADD_SUBSCRIPTION, ref)
+    firebase.subscribeToLocationStatus(homeId, onSuccess, onFail)
+  },
+
   subscribeToEvents ({ commit, state, getters }) {
     const homeId = getters.selectedHome
     const onSuccess = snap => {
@@ -163,6 +176,7 @@ export default {
         })
         .then(() => dispatch('getDevicesPrimaryState'))
         .then(() => dispatch('subscribeToDeviceState'))
+        .then(() => dispatch('subscribeToLocationStatus'))
         .then(() => commit(types.INITIAL_STATE_NOT_LOADING))
     }
   },

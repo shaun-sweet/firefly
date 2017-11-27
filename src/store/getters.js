@@ -68,6 +68,10 @@ export default {
     })
   },
 
+  locationStatus (state) {
+    return state.locationStatus
+  },
+
   routines (state) {
     return values(state.routines)
   }
