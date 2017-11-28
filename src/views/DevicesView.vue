@@ -6,43 +6,67 @@
       @close="closeDeviceMenuHandler()"
       ref="deviceMenu"
     >
-    <q-tabs no-pane-border v-model="selectedTab">
-      <q-tab slot="title" name="actions" label="Actions" default></q-tab>
-      <q-tab slot="title" name="settings" label="Settings" ></q-tab>
-      <q-icon @click="$refs.deviceMenu.close()" class="x-close-button" name="ion-close" />
+      <q-tabs no-pane-border v-model="selectedTab">
+        <q-tab slot="title" name="controls" label="Controls" default></q-tab>
+        <q-tab slot="title" name="settings" label="Settings" ></q-tab>
+        <q-tab slot="title" name="about" label="About" ></q-tab>
+        <q-icon @click="$refs.deviceMenu.close()" class="x-close-button desktop-only" name="ion-close" />
 
-        <q-tab-pane name="actions">
-          <q-list class="actions" no-border>
-            <div class="actions-container">
-              <action
-                v-for="(action, index) in deviceModalActions"
-                :key="index"
-                :actionMetadata="action"
-              />
-              <q-btn class="close-btn" color="primary" @click="$refs.deviceMenu.close()">Close</q-btn>
-            </div>
+          <q-tab-pane name="controls">
+            <q-list class="controls" no-border>
+              <q-list-header>
+                <h5>Controls</h5>
+              </q-list-header>
+              <div class="controls-container">
+                <action
+                  v-for="(action, index) in deviceModalActions"
+                  :key="index"
+                  :actionMetadata="action"
+                />
+                <q-btn class="close-btn desktop-only" color="primary" @click="$refs.deviceMenu.close()">Close</q-btn>
+              </div>
+              </q-list>
+          </q-tab-pane>
+
+          <q-tab-pane name="settings">
+            <q-list class="settings" no-border>
+              <q-list-header>
+                <h5>Settings</h5>
+              </q-list-header>
             </q-list>
-        </q-tab-pane>
+            <form>
+              <q-field>
+                <q-input type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
+              </q-field>
+              <q-field>
+                <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
+                <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
+                <q-btn class="delete-device-btn float-right gt-xs" color="red" icon="ion-ios-trash" @click.prevent="onDeleteHandler()">Delete</q-btn>
+              </q-field>
+            </form>
+          </q-tab-pane>
 
-        <q-tab-pane name="settings">
-          <q-list class="settings" no-border>
-            <q-list-header>
-              <h5>Settings</h5>
-            </q-list-header>
-          </q-list>
-          <form>
-            <q-field>
-              <q-input type="text" stack-label="Device Alias" v-model="deviceSettings.alias" />
-            </q-field>
-            <q-field>
-              <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
-              <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
-              <q-btn color="red" icon="ion-ios-trash" @click.prevent="onDeleteHandler()">Delete</q-btn>
-            </q-field>
-          </form>
-        </q-tab-pane>
-    </q-tabs>
+          <q-tab-pane name="about">
+            <q-list class="about" no-border>
+              <q-list-header>
+                <h5>About</h5>
+              </q-list-header>
+              <p>Device Alias:</p>
+              <p>Device UUID:</p>
+              <p>Device Info:</p>
+            </q-list>
+          </q-tab-pane>
+      </q-tabs>
 
+      <q-btn
+        round
+        color="primary"
+        @click="$refs.deviceMenu.close()"
+        class="fixed mobile-only"
+        style="left: 18px; bottom: 18px"
+        >
+        <q-icon name="ion-arrow-left-c" />
+      </q-btn>
     </q-modal>
     <div class="row search-bar">
       <div class="col-6">
