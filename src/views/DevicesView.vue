@@ -170,7 +170,7 @@ export default {
       Dialog.create({
         title: 'Confirm',
         icon: 'done_all',
-        message: 'Modern HTML5 Single Page Application front-end framework on steroids.',
+        message: `Are you sure you want to delete ${this.modalDeviceAlias}?`,
         buttons: [
           {
             color: 'blue',
