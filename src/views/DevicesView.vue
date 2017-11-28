@@ -40,7 +40,7 @@
             <q-field>
               <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
               <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
-              <q-btn class="delete-device-btn float-right gt-xs" color="red" icon="ion-ios-trash" @click.prevent="onDeleteHandler()">Delete</q-btn>
+              <q-btn class="delete-device-btn float-right gt-lg" color="red" icon="ion-ios-trash" @click.prevent="onDeleteHandler()">Delete</q-btn>
             </q-field>
           </form>
         </q-tab-pane>
@@ -97,6 +97,7 @@
 import Fuse from 'fuse.js'
 import Device from '@/Device'
 import Action from '@/Action'
+import { Dialog, Toast } from 'quasar'
 import { issueCommand } from 'src/firebase'
 import { mapGetters } from 'vuex'
 
@@ -165,8 +166,27 @@ export default {
         deviceId: this.modalDeviceId,
         command
       }
-      issueCommand(payload)
-      this.$refs.deviceMenu.close()
+      const closeDeviceModal = this.$refs.deviceMenu.close
+      Dialog.create({
+        title: 'Confirm',
+        icon: 'done_all',
+        message: 'Modern HTML5 Single Page Application front-end framework on steroids.',
+        buttons: [
+          {
+            color: 'blue',
+            label: 'Take me out of here!'
+          },
+          {
+            label: 'OK',
+            color: 'negative',
+            handler: () => {
+              issueCommand(payload)
+              closeDeviceModal()
+              Toast.create.positive(`${this.modalDeviceAlias} has been deleted.`)
+            }
+          }
+        ]
+      })
     }
   },
   data () {
