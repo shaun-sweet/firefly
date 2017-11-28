@@ -6,7 +6,7 @@
       @close="closeDeviceMenuHandler()"
       ref="deviceMenu"
     >
-      <q-tabs no-pane-border v-model="selectedTab">
+      <q-tabs class="tab-container" no-pane-border v-model="selectedTab">
         <q-tab slot="title" name="controls" label="Controls" default></q-tab>
         <q-tab slot="title" name="settings" label="Settings" ></q-tab>
         <q-tab slot="title" name="about" label="About" ></q-tab>
@@ -207,4 +207,6 @@ export default {
 .close-btn
   margin-left 8px
 
+.tab-container
+  padding-bottom 3.3em
 </style>
