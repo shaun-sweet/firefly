@@ -51,6 +51,9 @@
               <q-list-header>
                 <h5>About</h5>
               </q-list-header>
+              <p>Device Alias:</p>
+              <p>Device UUID:</p>
+              <p>Device Info:</p>
             </q-list>
           </q-tab-pane>
       </q-tabs>
