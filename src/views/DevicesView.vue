@@ -40,7 +40,7 @@
             <q-field>
               <q-btn color="primary" icon="ion-ios-checkmark-outline" @click.prevent="onSaveHandler()">Save</q-btn>
               <q-btn outline icon="ion-ios-arrow-thin-left" @click.prevent="$refs.deviceMenu.close()">Cancel</q-btn>
-              <q-btn class="delete-device-btn float-right gt-lg" color="red" icon="ion-ios-trash" @click.prevent="onDeleteHandler()">Delete</q-btn>
+              <q-btn class="delete-device-btn float-right gt-md" color="red" icon="ion-ios-trash" @click.prevent="onDeleteHandler()">Delete</q-btn>
             </q-field>
           </form>
         </q-tab-pane>
