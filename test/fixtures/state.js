@@ -1,32 +1,6 @@
-export const initialState = {
-  id: null,
-  displayName: '',
-  email: '',
-  selectedHome: null,
-  defaultHome: '',
-  homes: {},
-  messages: {
-    events: {},
-    notifications: {}
-  },
-  routines: {},
-  errors: {
-    login: ''
-  },
-  appState: {
-    activeModalDeviceMenu: {
-      deviceId: null,
-      deviceMetadata: {},
-      deviceStatus: {},
-      deviceAlias: ''
-    },
-    activeSubscriptions: [],
-    isLoadingInitialState: true,
-    isLoading: false,
-    isFirstLogin: true,
-    isAddingZwave: false
-  }
-}
+import getInitialState from '../../src/store/initialState'
+
+export const initialState = getInitialState();
 
 export const testState = {
   id: 'abc',
