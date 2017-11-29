@@ -37,7 +37,11 @@ export const testState = {
   homes: {
     'abc123': {
       nickname: 'home 1',
-      role: null
+      role: null,
+      devicesViewList: [
+        {exportUI:'device1'},
+        {exportUI:'device2'}
+      ]
     },
     'def123': {
       nickname: 'home 2',
@@ -45,7 +49,7 @@ export const testState = {
     }
   },
   messages: {
-    events: {},
+    events: { },
     notifications: {
       status: 'ok',
       altStatus: 'updating'
@@ -61,9 +65,16 @@ export const testState = {
   appState: {
     activeModalDeviceMenu: {
       deviceId: 'xyz123',
-      deviceMetadata: {},
-      deviceStatus: {},
-      deviceAlias: ''
+      deviceMetadata: {
+        actions: {
+          test1:'test action',
+          test2:'test action 2'
+        }
+      },
+      deviceStatus: {
+        status: 'ok'
+      },
+      deviceAlias: 'test alias'
     },
     activeSubscriptions: [],
     isLoadingInitialState: false,

@@ -41,20 +41,33 @@ describe('getters.js', () => {
     let defaultHome = 'def123';
     expect(getters.defaultHome(testState)).toEqual(defaultHome)
   });
-  xit('should return devicesViewList',() => {
-    // pending test
+  it('should return devicesViewList',() => {
+    const expectedResult = [{exportUI:'device1'}, {exportUI:'device2'}];
+    expect(getters.devicesViewList(testState, getters)).toEqual(expectedResult);
+    const state = {...testState};
+    state.selectedHome='def123';
+    expect(getters.devicesViewList(state, getters)).toEqual([]);
   });
-  xit('should return deviceModalActions', () => {
-
+  it('should return deviceModalActions', () => {
+    const expectedResult = ['test action', 'test action 2']
+    expect(getters.deviceModalActions(testState)).toEqual(expectedResult);
+    expect(getters.deviceModalActions(initialState)).toEqual([])
   });
-  xit('should return deviceModalStatus', () => {
+  it('should return deviceModalStatus', () => {
+    const expectedResult = {
+      status: 'ok'
+    }
+    expect(getters.deviceModalStatus(testState)).toEqual(expectedResult);
+    expect(getters.deviceModalStatus(initialState)).toEqual({});
 
   });
   it('should return modalDeviceId', () => {
     expect(getters.modalDeviceId(testState)).toBe('xyz123')
   });
-  xit('should return modalDeviceAlias', () => {
-
+  it('should return modalDeviceAlias', () => {
+    const expectedResult = 'test alias'
+    expect(getters.modalDeviceAlias(testState)).toEqual(expectedResult);
+    expect(getters.modalDeviceAlias(initialState)).toEqual('');
   });
   it('should return notifications in reverse order', () => {
     const {altStatus, status} = testState.messages.notifications;
@@ -63,7 +76,7 @@ describe('getters.js', () => {
     expect(getters.notifications(testState)).toEqual(expectedResult)
   });
   xit('should return the array of events', () => {
-
+    // not sure what this should look like
   });
   it('should return the routines values', () => {
     const {a, b} = testState.routines;
