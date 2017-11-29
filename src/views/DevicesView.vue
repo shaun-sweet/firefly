@@ -50,9 +50,17 @@
             <q-list-header>
               <h5>About</h5>
             </q-list-header>
-            <p>Device Alias:</p>
-            <p>Device UUID:</p>
+
+            <p>Device Alias: {{ modalDeviceAlias }}</p>
+            <p>Device UUID: {{ modalDeviceId }}</p>
             <p>Device Info:</p>
+            <q-list
+              no-border
+              separator>
+                <q-item v-for="(value, key) in deviceModalStatus" tag="p" class="device-view__item">
+                  <strong>{{key.toUpperCase()}}</strong>: {{value}}
+                </q-item>
+            </q-list>
           </q-list>
         </q-tab-pane>
       </q-tabs>
@@ -120,7 +128,8 @@ export default {
     ...mapGetters([
       'selectedHome',
       'modalDeviceId',
-      'modalDeviceAlias'
+      'modalDeviceAlias',
+      'deviceModalStatus'
     ])
   },
   methods: {
@@ -229,4 +238,7 @@ export default {
 
 .tab-container
   padding-bottom 3.3em
+
+.device-view__item
+  margin-bottom 0
 </style>
