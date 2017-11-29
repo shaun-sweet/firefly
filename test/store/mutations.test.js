@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as types from 'src/store/mutation-types'
 import mutations from 'src/store/mutations'
 import {initialState, testState} from '../fixtures/state'
 
@@ -19,13 +20,13 @@ describe('mutations', () => {
       id: 'abc',
       nickname: 'test home'
     }
-    store.commit('SAVE_USER_HOMES', homes)
+    store.commit(types.SAVE_USER_HOMES, homes)
     expect(store.state.homes).toEqual(homes)
   });
 
   it('should LOG_USER_OUT and reset state', () => {
     store.replaceState(testState);
-    store.commit('LOG_USER_OUT')
+    store.commit(types.LOG_USER_OUT)
     expect(store.state).toEqual(initialState);
   });
 
@@ -42,7 +43,7 @@ describe('mutations', () => {
       displayName: user.displayName,
       defaultHome: user.defaultHome
     }
-    store.commit('SAVE_USER', user)
+    store.commit(types.SAVE_USER, user)
     const {id, email, displayName, defaultHome} = store.state
     const result = {id, email, displayName, defaultHome}
     expect(result).toEqual(expectedResult);
@@ -52,7 +53,7 @@ describe('mutations', () => {
     const messages = {
       errorMsg: 'Error Message'
     }
-    store.commit('ERROR_LOGIN', messages)
+    store.commit(types.ERROR_LOGIN, messages)
     expect(store.state.errors.login).toBe(messages.errorMsg)
   })
 
@@ -69,7 +70,7 @@ describe('mutations', () => {
         {exportUI:'device1'}
       ]
     }
-    store.commit('SAVE_DEVICE_VIEW_LIST', device)
+    store.commit(types.SAVE_DEVICE_VIEW_LIST, device)
     // need explination on what this mutiation does
     expect(store.state.homes[device.homeID].devicesViewList).toEqual(device.devicesViewList)
 
@@ -85,27 +86,27 @@ describe('mutations', () => {
 
   it('should set INITIAL_STATE_NOT_LOADING to false', () => {
     expect(store.state.appState.isLoadingInitialState).toBe(true)
-    store.commit('INITIAL_STATE_NOT_LOADING')
+    store.commit(types.INITIAL_STATE_NOT_LOADING)
     expect(store.state.appState.isLoadingInitialState).toBe(false)
   })
 
   it('should CLEANUP_SUBSCRIPTIONS state', () => {
     store.state.appState.activeSubscriptions = ['test']
-    store.commit('CLEANUP_SUBSCRIPTIONS')
+    store.commit(types.CLEANUP_SUBSCRIPTIONS)
     expect(store.state.appState.activeSubscriptions).toEqual([])
   })
 
   it('should ADD_SUBSCRIPTION to state', () => {
     store.state.appState.activeSubscriptions = ['test']
     const subscription = 'sub1'
-    store.commit('ADD_SUBSCRIPTION', subscription)
+    store.commit(types.ADD_SUBSCRIPTION, subscription)
     expect(store.state.appState.activeSubscriptions).toEqual(['test', subscription])
 
   })
 
   it('should set loading state to true on INITIAL_STATE_IS_LOADING', () => {
     store.state.appState.isLoadingInitialState = false
-    store.commit('INITIAL_STATE_IS_LOADING')
+    store.commit(types.INITIAL_STATE_IS_LOADING)
     expect(store.state.appState.isLoadingInitialState).toBe(true)
   })
 
@@ -118,7 +119,7 @@ describe('mutations', () => {
     }
 
     store.replaceState(testState);
-    store.commit('CLEAR_DEVICE_MENU_STATE')
+    store.commit(types.CLEAR_DEVICE_MENU_STATE)
     expect(store.state.appState.activeModalDeviceMenu).toEqual(clearedState)
   })
 
@@ -128,7 +129,7 @@ describe('mutations', () => {
       deviceMetadata: 'metadata1',
       deviceStatus: 'ok',
       deviceAlias: 'alias1'}
-    store.commit('SET_DEVICE_MENU_STATE', payload)
+    store.commit(types.SET_DEVICE_MENU_STATE, payload)
     const result = store.state.appState.activeModalDeviceMenu
     expect(result).toEqual(payload)
   })
@@ -146,7 +147,7 @@ describe('mutations', () => {
     const update = {
       testStatus: 'test'
     }
-    store.commit('NOTIFICATION_UPDATE', update)
+    store.commit(types.NOTIFICATION_UPDATE, update)
     expect(store.state.messages.notifications).toEqual({
       ...notifications,
       ...update
@@ -162,7 +163,7 @@ describe('mutations', () => {
     const update = {
       e3: 'loading'
     }
-    store.commit('EVENT_UPDATE', update)
+    store.commit(types.EVENT_UPDATE, update)
     expect(store.state.messages.events).toEqual({
       ...events,
       ...update

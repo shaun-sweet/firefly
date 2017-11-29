@@ -1,4 +1,4 @@
-import getInitialState from '../../src/store/initialState'
+import getInitialState from 'src/store/initialState'
 
 export const initialState = getInitialState();
 
