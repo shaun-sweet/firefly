@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout template should render the default layout template 1`] = `
+<q-layout>
+  <q-toolbar>
+    <q-toolbar-title>
+      
+      Title
+    
+    </q-toolbar-title>
+  </q-toolbar>
+   
+  <router-view />
+</q-layout>
+`;

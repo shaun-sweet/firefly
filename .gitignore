@@ -7,3 +7,4 @@ npm-debug.log*
 cordova/platforms
 cordova/plugins
 package-lock.json
+coverage/
