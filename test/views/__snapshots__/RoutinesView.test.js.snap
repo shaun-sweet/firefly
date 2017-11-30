@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RoutinesView should render the RoutinesView correctly 1`] = `
+<div
+  class="layout-padding routines-view"
+>
+  <div
+    class="row"
+  >
+    <!---->
+    <!---->
+  </div>
+</div>
+`;
