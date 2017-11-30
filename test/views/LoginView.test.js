@@ -20,6 +20,7 @@ describe('LoginView', () => {
     state = {...testState}
     actions = {
       logOut: jest.fn(),
+      login: jest.fn()
     }
     mutations = {
       ERROR_LOGIN: jest.fn()
@@ -59,6 +60,7 @@ describe('LoginView', () => {
     // })
     spy = jest.fn()
     wrapper.vm.login = spy
+    wrapper.update()
     wrapper.setData(email, password)
     wrapper.findAll('q-btn').at(0).trigger('click');
     expect(spy).toHaveBeenCalled();
