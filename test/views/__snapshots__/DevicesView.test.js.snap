@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DevicesView should render the DevicesView correctly 1`] = `
+<div
+  class="layout-padding"
+>
+  <q-modal
+    class="device-modal"
+    content-css="[object Object]"
+  >
+    <q-tabs
+      no-pane-border=""
+    >
+      <q-tab
+        default="default"
+        label="Actions"
+        name="actions"
+      />
+       
+      <q-tab
+        label="Settings"
+        name="settings"
+      />
+       
+      <q-icon
+        class="x-close-button"
+        name="ion-close"
+      />
+       
+      <q-tab-pane
+        name="actions"
+      >
+        <q-list
+          class="actions"
+          no-border=""
+        >
+          <div
+            class="actions-container"
+          >
+            <!---->
+            <!---->
+             
+            <q-btn
+              class="close-btn"
+              color="primary"
+            >
+              Close
+            </q-btn>
+          </div>
+        </q-list>
+      </q-tab-pane>
+       
+      <q-tab-pane
+        name="settings"
+      >
+        <q-list
+          class="settings"
+          no-border=""
+        >
+          <q-list-header>
+            <h5>
+              Settings
+            </h5>
+          </q-list-header>
+        </q-list>
+         
+        <form>
+          <q-field>
+            <q-input
+              stack-label="Device Alias"
+              type="text"
+            />
+          </q-field>
+           
+          <q-field>
+            <q-btn
+              color="primary"
+              icon="ion-ios-checkmark-outline"
+            >
+              Save
+            </q-btn>
+             
+            <q-btn
+              icon="ion-ios-arrow-thin-left"
+              outline=""
+            >
+              Cancel
+            </q-btn>
+          </q-field>
+        </form>
+      </q-tab-pane>
+    </q-tabs>
+  </q-modal>
+   
+  <div
+    class="row search-bar"
+  >
+    <div
+      class="col-6"
+    >
+      <q-search
+        placeholder="Search a device"
+      >
+        <q-autocomplete
+          filter="function boundFn(a) {
+    var l = arguments.length;
+    return l
+      ? l > 1
+        ? fn.apply(ctx, arguments)
+        : fn.call(ctx, a)
+      : fn.call(ctx)
+  }"
+          separator=""
+          static-data="[object Object]"
+        />
+      </q-search>
+    </div>
+  </div>
+   
+  <div
+    class="row"
+  >
+    <!---->
+    <!---->
+  </div>
+</div>
+`;

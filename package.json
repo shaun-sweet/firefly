@@ -105,7 +105,8 @@
     ],
     "moduleNameMapper": {
       "^src/(.*)$": "<rootDir>/src/$1",
-      "^vue$": "vue/dist/vue.common.js"
+      "^vue$": "vue/dist/vue.common.js",
+      "^@/(.*)$": "<rootDir>/src/components/$1"
     },
     "transform": {
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor",
