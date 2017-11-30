@@ -104,7 +104,13 @@
       "vue"
     ],
     "collectCoverageFrom": [
-      "**/*.{vue}"
+      "**/*.{vue}",
+      "**/*.{js}"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/build/",
+      "<rootDir>/config/",
+      "<rootDir>/coverage/"
     ],
     "transformIgnorePatterns": [
       "node_modules/core-js",
