@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileView should render the view correctly 1`] = `
+<div
+  class="layout-padding"
+>
+  <q-field>
+    <q-input
+      icon="ion-email"
+      stack-label="Full Name"
+      type="email"
+    />
+  </q-field>
+   
+  <q-field>
+    <q-input
+      icon="ion-email"
+      stack-label="Firefly Address (temp)"
+      type="email"
+    />
+  </q-field>
+   
+  <q-btn
+    color="primary"
+    icon="ion-checkmark"
+  >
+    Save
+  </q-btn>
+</div>
+`;
