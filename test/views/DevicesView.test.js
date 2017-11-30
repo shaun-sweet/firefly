@@ -40,7 +40,7 @@ describe('DevicesView', () => {
     expect(spy).toHaveBeenCalled()
   });
 
-  xit('should call closeDeviceMenuHandler when button targeting deviceMenu ref', () => {
+  it('should call closeDeviceMenuHandler when button targeting deviceMenu ref', () => {
     store.hotUpdate({
       actions: { closeDeviceMenu: spy }
     })

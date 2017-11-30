@@ -103,10 +103,22 @@
       "js",
       "vue"
     ],
+    "collectCoverageFrom": [
+      "**/*.{vue}"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/core-js",
+      "node_modules/babel-runtime",
+      "node_modules/lodash",
+      "node_modules/vue"
+    ],
+    "mapCoverage": true,
+
     "moduleNameMapper": {
       "^src/(.*)$": "<rootDir>/src/$1",
       "^vue$": "vue/dist/vue.common.js",
-      "^@/(.*)$": "<rootDir>/src/components/$1"
+      "^@/(.*)$": "<rootDir>/src/components/$1",
+      "quasar": "quasar-framework/dist/quasar.esm.js"
     },
     "transform": {
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor",
