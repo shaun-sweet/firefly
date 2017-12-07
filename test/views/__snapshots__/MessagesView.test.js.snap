@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessagesView should render the MessagesView correctly 1`] = `
+<q-tabs
+  no-pane-border=""
+>
+  <q-tab
+    default="default"
+    label="Notifications"
+    name="notifications"
+  />
+   
+  <q-tab
+    label="Events"
+    name="events"
+  />
+   
+  <div
+    class="main-content"
+  >
+    <q-tab-pane
+      name="notifications"
+    >
+      <q-list
+        class="notifications"
+        no-border=""
+      >
+        <q-list-header
+          class="header"
+        >
+          <h5>
+            Notifications
+          </h5>
+        </q-list-header>
+         
+        <q-item
+          class="row notification"
+        >
+          <div
+            class="device col"
+          >
+            
+          </div>
+           
+          <div
+            class="timestamp col row"
+          >
+            <span
+              class="value"
+            >
+              
+            </span>
+          </div>
+        </q-item>
+        <q-item
+          class="row notification"
+        >
+          <div
+            class="device col"
+          >
+            
+          </div>
+           
+          <div
+            class="timestamp col row"
+          >
+            <span
+              class="value"
+            >
+              
+            </span>
+          </div>
+        </q-item>
+      </q-list>
+    </q-tab-pane>
+     
+    <q-tab-pane
+      name="events"
+    >
+      <q-list
+        class="events"
+        no-border=""
+      >
+        <q-list-header>
+          <h5>
+            Events
+          </h5>
+        </q-list-header>
+         
+      </q-list>
+    </q-tab-pane>
+  </div>
+</q-tabs>
+`;

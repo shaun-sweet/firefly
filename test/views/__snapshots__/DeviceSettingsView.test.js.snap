@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeviceSettingsView should render the view correctly 1`] = `
+<div
+  class="layout-padding"
+>
+  <q-modal>
+    <div
+      class="layout-padding"
+    >
+      <h4>
+        
+        Add Node
+      
+      </h4>
+       
+      <q-btn
+        color="primary"
+      >
+        Close
+      </q-btn>
+    </div>
+  </q-modal>
+   
+  <q-modal>
+    <div
+      class="layout-padding"
+    >
+      <h4>
+        Add Presence Device
+      </h4>
+       
+      <q-btn
+        color="primary"
+      >
+        Close
+      </q-btn>
+    </div>
+  </q-modal>
+   
+  <div
+    class="button-group"
+  >
+    <q-btn
+      big=""
+      color="primary"
+      icon="ion-plus"
+    >
+      Add Zwave Node
+    </q-btn>
+    <br />
+     
+    <q-btn
+      big=""
+      color="faded"
+      icon="ion-android-cancel"
+    >
+      Remove Zwave Node
+    </q-btn>
+    <br />
+     
+    <q-btn
+      big=""
+      color="negative"
+      icon="ion-toggle-filled"
+    >
+      Cancel Zwave Command
+    </q-btn>
+    <br />
+     
+    <q-btn
+      big=""
+      color="amber"
+      icon="ion-toggle-filled"
+    >
+      Repair Zwave Command
+    </q-btn>
+  </div>
+</div>
+`;

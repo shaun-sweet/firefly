@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventMessage should render EventMessage correctly 1`] = `
+<q-item
+  class="event row justify-between"
+>
+  <div
+    class="device"
+  >
+    test device
+  </div>
+   
+  <div
+    class="state"
+  >
+    on
+  </div>
+   
+  <div
+    class="timestamp"
+  >
+    0
+  </div>
+</q-item>
+`;

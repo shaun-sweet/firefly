@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginView should render the LoginView correctly 1`] = `
+<section>
+  <div
+    class="layout-padding"
+  >
+    <form>
+      <q-field>
+        <q-input
+          icon="ion-email"
+          stack-label="Email Address"
+          type="email"
+        />
+      </q-field>
+       
+      <q-field>
+        <q-input
+          stack-label="Password"
+          type="password"
+        />
+      </q-field>
+       
+      <q-field>
+        <q-btn
+          color="primary"
+          icon="ion-person"
+        >
+          Login
+        </q-btn>
+         
+        <q-btn
+          color="primary"
+          icon="ion-person"
+        >
+          Logout
+        </q-btn>
+         
+        <q-btn
+          color="primary"
+          icon="ion-person-add"
+          outline=""
+        >
+           Signup
+        </q-btn>
+         
+        <q-btn
+          color="primary"
+          icon="ion-ios-loop"
+          outline=""
+        >
+           Send Password Reset
+        </q-btn>
+         
+        <q-btn
+          color="primary"
+          icon="ion-checkmark-round"
+          outline=""
+        >
+          Send Email Verification
+        </q-btn>
+      </q-field>
+       
+      <!---->
+    </form>
+  </div>
+</section>
+`;

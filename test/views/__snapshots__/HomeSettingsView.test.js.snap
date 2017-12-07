@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeSettingsView should render the view correctly 1`] = `
+<div
+  class="layout-padding"
+>
+  <q-list
+    no-border=""
+  >
+    <q-list-header>
+      <h5>
+        Owners
+      </h5>
+    </q-list-header>
+     
+    <q-item>
+      <q-item-main
+        class="owners"
+        dense=""
+        link=""
+        multiline=""
+      >
+        <div
+          class="owners-information"
+        >
+          <div
+            class="owner-name"
+          >
+            Display Name: 
+            <span>
+              {Shaun}
+            </span>
+          </div>
+           
+          <div
+            class="owner-email"
+          >
+            Email: 
+            <span>
+              {email@email.com}
+            </span>
+          </div>
+        </div>
+      </q-item-main>
+    </q-item>
+     
+    <q-item-separator />
+  </q-list>
+   
+  <q-list
+    no-border=""
+  >
+    <q-list-header>
+      <h5>
+        Guests
+      </h5>
+    </q-list-header>
+     
+    <q-item>
+      <q-item-main
+        class="guests"
+        dense=""
+        link=""
+        multiline=""
+      >
+        <div
+          class="guests-information"
+        >
+          <div
+            class="guests-name"
+          >
+            Display Name: 
+            <span>
+              {Shaun}
+            </span>
+          </div>
+           
+          <div
+            class="guests-email"
+          >
+            Email: 
+            <span>
+              {email@email.com}
+            </span>
+          </div>
+           
+          <div
+            class="guests-home-nickname"
+          >
+            Home Nickname: 
+            <span>
+              {Zach Priddys Firefly Home}
+            </span>
+          </div>
+        </div>
+      </q-item-main>
+       
+      <q-item-side
+        right=""
+      >
+        <div
+          class="role-selector"
+        >
+          <q-field>
+            <q-select
+              options="[object Object],[object Object]"
+              separator=""
+              stack-label="Role"
+            />
+          </q-field>
+        </div>
+      </q-item-side>
+       
+      <q-item-side
+        icon="ion-ios-trash-outline"
+        right=""
+      />
+    </q-item>
+     
+    <q-item-separator
+      class="separator"
+    />
+     
+    <q-item>
+      <q-item-main
+        class="guests"
+        dense=""
+        link=""
+        multiline=""
+      >
+        <div
+          class="guests-information"
+        >
+          <div
+            class="guests-name"
+          >
+            Display Name: 
+            <span>
+              {Amy}
+            </span>
+          </div>
+           
+          <div
+            class="guests-email"
+          >
+            Email: 
+            <span>
+              {email@email.com}
+            </span>
+          </div>
+           
+          <div
+            class="guests-home-nickname"
+          >
+            Home Nickname: 
+            <span>
+              {Zach Priddys Firefly Home}
+            </span>
+          </div>
+        </div>
+      </q-item-main>
+       
+      <q-item-side
+        right=""
+      >
+        <div
+          class="role-selector"
+        >
+          <q-field>
+            <q-select
+              float-label="Role"
+              options="[object Object],[object Object]"
+              separator=""
+            />
+          </q-field>
+        </div>
+      </q-item-side>
+       
+      <q-item-side
+        icon="ion-ios-trash-outline"
+        right=""
+      />
+    </q-item>
+  </q-list>
+   
+  <q-list
+    no-border=""
+  >
+    <q-list-header
+      id="invite-to-home"
+    >
+      <h5>
+        Pending Invite(s)
+      </h5>
+       
+      <q-btn
+        class="button"
+        color="primary"
+        icon="ion-person-add"
+        outline=""
+        small=""
+      >
+         Invite a Friend!
+      </q-btn>
+    </q-list-header>
+     
+    <q-item>
+      <q-item-main
+        class="owners"
+        dense=""
+        link=""
+        multiline=""
+      >
+        <div
+          class="owners-information"
+        >
+          <div
+            class="owner-name"
+          >
+            Display Name: 
+            <span>
+              {Shaun}
+            </span>
+          </div>
+           
+          <div
+            class="owner-email"
+          >
+            Email: 
+            <span>
+              {email@email.com}
+            </span>
+          </div>
+        </div>
+      </q-item-main>
+    </q-item>
+     
+    <q-item-separator
+      class="separator"
+    />
+  </q-list>
+   
+  <q-modal
+    maximized=""
+  >
+    <q-modal-layout>
+      <q-toolbar>
+        <div
+          class="q-toolbar-title"
+        >
+          
+          Invite a friend
+        
+        </div>
+      </q-toolbar>
+       
+      <q-toolbar>
+        <div
+          class="q-toolbar-title"
+        >
+          
+          Firefly Home Automation
+        
+        </div>
+      </q-toolbar>
+       
+      <div
+        class="layout-padding"
+      >
+        <q-field>
+          <q-input
+            stack-label="Name"
+            type="text"
+          />
+        </q-field>
+         
+        <q-field>
+          <q-input
+            stack-label="Email Address"
+            type="email"
+          />
+        </q-field>
+         
+        <q-field>
+          <q-input
+            stack-label="Home Nickname"
+            type="text"
+          />
+        </q-field>
+         
+        <q-select
+          options="[object Object],[object Object]"
+          separator=""
+          stack-label="Role"
+        />
+         
+        <q-btn
+          color="primary"
+        >
+          Submit
+        </q-btn>
+         
+        <q-btn
+          outline=""
+        >
+          Close
+        </q-btn>
+      </div>
+    </q-modal-layout>
+  </q-modal>
+</div>
+`;

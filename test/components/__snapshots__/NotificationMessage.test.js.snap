@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationMessage should render NotificationMessage correctly 1`] = `
+<q-item
+  class="row notification"
+>
+  <div
+    class="device col"
+  >
+    test trigger
+  </div>
+   
+  <div
+    class="timestamp col row"
+  >
+    <span
+      class="value"
+    >
+      0
+    </span>
+  </div>
+</q-item>
+`;
