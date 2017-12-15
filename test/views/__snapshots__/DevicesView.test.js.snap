@@ -9,12 +9,13 @@ exports[`DevicesView should render the DevicesView correctly 1`] = `
     content-css="[object Object]"
   >
     <q-tabs
+      class="tab-container"
       no-pane-border=""
     >
       <q-tab
         default="default"
-        label="Actions"
-        name="actions"
+        label="Controls"
+        name="controls"
       />
        
       <q-tab
@@ -22,26 +23,37 @@ exports[`DevicesView should render the DevicesView correctly 1`] = `
         name="settings"
       />
        
+      <q-tab
+        label="About"
+        name="about"
+      />
+       
       <q-icon
-        class="x-close-button"
+        class="x-close-button desktop-only"
         name="ion-close"
       />
        
       <q-tab-pane
-        name="actions"
+        name="controls"
       >
         <q-list
-          class="actions"
+          class="controls"
           no-border=""
         >
+          <q-list-header>
+            <h5>
+              Controls
+            </h5>
+          </q-list-header>
+           
           <div
-            class="actions-container"
+            class="controls-container"
           >
             <!---->
             <!---->
              
             <q-btn
-              class="close-btn"
+              class="close-btn desktop-only"
               color="primary"
             >
               Close
@@ -86,10 +98,72 @@ exports[`DevicesView should render the DevicesView correctly 1`] = `
             >
               Cancel
             </q-btn>
+             
+            <q-btn
+              class="delete-device-btn float-right gt-md"
+              color="red"
+              icon="ion-ios-trash"
+            >
+              Delete
+            </q-btn>
           </q-field>
         </form>
       </q-tab-pane>
+       
+      <q-tab-pane
+        name="about"
+      >
+        <q-list
+          class="about"
+          no-border=""
+        >
+          <q-list-header>
+            <h5>
+              About
+            </h5>
+          </q-list-header>
+           
+          <p>
+            Device Alias: test alias
+          </p>
+           
+          <p>
+            Device UUID: xyz123
+          </p>
+           
+          <p>
+            Device Info:
+          </p>
+           
+          <q-list
+            no-border=""
+            separator=""
+          >
+            <q-item
+              class="device-view__item"
+              tag="p"
+            >
+              <strong>
+                STATUS
+              </strong>
+              : ok
+              
+            </q-item>
+          </q-list>
+        </q-list>
+      </q-tab-pane>
     </q-tabs>
+     
+    <q-btn
+      class="fixed mobile-only"
+      color="primary"
+      round=""
+      style="left: 18px; bottom: 18px;"
+    >
+      <q-icon
+        name="ion-arrow-left-c"
+      />
+    </q-btn>
   </q-modal>
    
   <div
