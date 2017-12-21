@@ -178,7 +178,6 @@ export default {
       const closeDeviceModal = this.$refs.deviceMenu.close
       Dialog.create({
         title: 'Confirm',
-        icon: 'done_all',
         message: `Are you sure you want to delete ${this.modalDeviceAlias}?`,
         buttons: [
           {
