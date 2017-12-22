@@ -8,7 +8,7 @@ exports[`ProfileView should render the view correctly 1`] = `
     <q-input
       icon="ion-email"
       stack-label="Full Name"
-      type="email"
+      type="text"
     />
   </q-field>
    
