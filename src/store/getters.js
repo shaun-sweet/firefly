@@ -72,6 +72,14 @@ export default {
     return state.locationStatus
   },
 
+  statusMessages (state) {
+    return values(get(state.locationStatus, 'statusMessages', {}))
+  },
+
+  alarmStatus (state) {
+    return get(state.locationStatus, 'security.status', 'Unknown')
+  },
+
   routines (state) {
     return values(state.routines)
   }

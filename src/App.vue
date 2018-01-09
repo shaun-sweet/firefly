@@ -25,15 +25,15 @@
     <q-toolbar slot="footer" class="justify-around">
       <small>Firefly </small>
 
-      <div style="display:block">
-      <q-btn ref="target" flat v-if="messages.length > 0">
-        <i>Messages</i>
-        <q-tooltip>
-          <div v-for="message in messages">
-            {{message}}
-          </div>
-        </q-tooltip>
-      </q-btn>
+      <div class="messageContainer">
+        <q-btn flat v-if="statusMessages.length > 0">
+          <i>Messages</i>
+          <q-tooltip>
+            <div v-for="(message, key) in statusMessages" :key="key">
+              {{message}}
+            </div>
+          </q-tooltip>
+        </q-btn>
       </div>
 
     </q-toolbar>
@@ -47,37 +47,20 @@
 
 <script>
   import Navigation from '@/Navigation'
-  import values from 'lodash/values'
+  import { mapGetters } from 'vuex'
   export default {
     name: 'app',
     components: {
       Navigation
     },
-    beforeUpdate () {
-      if (!this.selectedHome) {
-        this.selectedHome = this.$store.getters.defaultHome
-      }
-    },
-    methods: {
-      onChange (newSelectedHomeId) {
-        this.$store.dispatch('changeSelectedHome', newSelectedHomeId)
-      }
-    },
     computed: {
-      locationStatus () {
-        return this.$store.getters.locationStatus
-      },
+      ...mapGetters([
+        'statusMessages',
+        'locationStatus',
+        'alarmStatus'
+      ]),
       currentMode () {
         return this.locationStatus.mode
-      },
-      alarmStatus () {
-        if (this.locationStatus.security !== undefined) {
-          return this.locationStatus.security.status
-        }
-        return 'Unknown'
-      },
-      messages () {
-        return values(this.locationStatus.statusMessages)
       }
     },
     data () {
@@ -90,4 +73,7 @@
 <style lang="stylus">
 body.with-modal
   padding-right 0px !important
+
+.messageContainer
+  display block
 </style>

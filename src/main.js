@@ -96,16 +96,16 @@ onAuthStateChange((user) => {
   }
 })
 
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.slice(1)
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#q-app',
   router,
   store,
   render: h => h(require('./App'))
-})
-
-Vue.filter('capitalize', function (value) {
-  if (!value) return ''
-  value = value.toString()
-  return value.charAt(0).toUpperCase() + value.slice(1)
 })

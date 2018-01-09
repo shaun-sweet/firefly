@@ -57,7 +57,7 @@
             <q-list
               no-border
               separator>
-                <q-item v-for="(value, key) in deviceModalStatus" tag="p" class="device-view__item">
+                <q-item v-for="(value, key) in deviceModalStatus" tag="p" :key="key" class="device-view__item">
                   <strong>{{key.toUpperCase()}}</strong>: {{value}}
                 </q-item>
             </q-list>
