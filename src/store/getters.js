@@ -73,7 +73,7 @@ export default {
   },
 
   statusMessages (state) {
-    return values(get(state.locationStatus, 'statusMessages', []))
+    return values(get(state.locationStatus, 'statusMessages', {}))
   },
 
   alarmStatus (state) {
