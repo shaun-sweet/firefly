@@ -1,5 +1,6 @@
 <template>
   <div class="layout-padding">
+    This is a test commit to test dev env
     <q-modal
       class="device-modal"
       :content-css="{minWidth: '60vw'}"
@@ -57,7 +58,12 @@
             <q-list
               no-border
               separator>
-                <q-item v-for="(value, key) in deviceModalStatus" tag="p" :key="key" class="device-view__item">
+                <q-item 
+                  v-for="(value, key) in deviceModalStatus" 
+                  :key="key"
+                  tag="p" 
+                  class="device-view__item"
+                >
                   <strong>{{key.toUpperCase()}}</strong>: {{value}}
                 </q-item>
             </q-list>
