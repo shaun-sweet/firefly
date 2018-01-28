@@ -4,7 +4,7 @@
 // require(`./themes/app.${__THEME}.styl`)
 // 2. or, use next line to activate DEFAULT QUASAR STYLE
 
-import { onAuthStateChange } from 'src/firebase'
+import { onAuthStateChange, Auth } from 'src/firebase'
 import Vue from 'vue'
 import store from 'src/store'
 import Quasar, {
@@ -81,6 +81,8 @@ Vue.use(Quasar, {
     QTooltip
   }
 })
+
+Vue.use(Auth)
 
 if (__THEME === 'mat') { // eslint-disable-line no-undef
   require('quasar-extras/roboto-font')

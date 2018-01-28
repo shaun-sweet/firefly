@@ -12,7 +12,7 @@
         <q-field>
           <q-btn color="primary" icon="ion-person" @click.prevent="login()">Login</q-btn>
           <q-btn color="primary" icon="ion-person" @click="handleLogout()">Logout</q-btn>
-          <q-btn outline color="primary" icon="ion-person-add"> Signup</q-btn>
+          <q-btn outline color="primary" icon="ion-person-add" @click="handleSignup()"> Signup</q-btn>
           <q-btn outline color="primary" icon="ion-ios-loop"> Send Password Reset</q-btn>
           <q-btn outline color="primary" icon="ion-checkmark-round">Send Email Verification</q-btn>
         </q-field>
@@ -38,6 +38,9 @@ export default {
     }
   },
   methods: {
+    handleSignup () {
+      this.$router.push({ name: 'signupView' })
+    },
     handleLogout () {
       this.$store.dispatch('logOut')
       this.isLoggedIn = false

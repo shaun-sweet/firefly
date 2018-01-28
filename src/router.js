@@ -8,6 +8,7 @@ const MessagesView = () => import('views/MessagesView.vue')
 const RoutinesView = () => import('views/RoutinesView.vue')
 const DevicesView = () => import('views/DevicesView.vue')
 const Profile = () => import('views/ProfileView.vue')
+const SignupView = () => import('views/Signup.vue')
 Vue.use(VueRouter)
 
 /*
@@ -64,6 +65,11 @@ const router = new VueRouter({
       name: 'devicesView',
       path: '/devices',
       component: DevicesView
+    },
+    {
+      name: 'signupView',
+      path: '/signup',
+      component: SignupView
     },
     {
       path: '*',

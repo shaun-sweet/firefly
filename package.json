@@ -24,7 +24,7 @@
     "moment": "^2.19.1",
     "promise-polyfill": "^6.0.2",
     "quasar-extras": "0.x",
-    "quasar-framework": "^0.14.6",
+    "quasar-framework": "^0.14.7",
     "vue": "~2.3.4",
     "vue-router": "^2.8.1",
     "vuex": "^2.5.0"
@@ -119,7 +119,6 @@
       "node_modules/vue"
     ],
     "mapCoverage": true,
-
     "moduleNameMapper": {
       "^src/(.*)$": "<rootDir>/src/$1",
       "^vue$": "vue/dist/vue.common.js",

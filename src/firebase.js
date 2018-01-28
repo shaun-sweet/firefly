@@ -15,6 +15,14 @@ firebase.initializeApp(config)
 
 const db = firebase.database()
 
+const auth = firebase.auth()
+
+export const Auth = {
+  install (Vue, options) {
+    Vue.prototype.$auth = auth
+  }
+}
+
 export const attemptLogin = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password)
 
