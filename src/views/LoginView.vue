@@ -2,6 +2,7 @@
   <section @keyup.enter.prevent="login()">
     <div class="layout-padding">
       <form>
+        this is the top of the form
         <q-field>
           <q-input icon="ion-email" type="email" stack-label="Email Address" v-model="email" />
         </q-field>

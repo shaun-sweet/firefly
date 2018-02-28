@@ -84,13 +84,13 @@
     <div class="row search-bar">
       <div class="col-6">
         <q-search v-model="searchTerms" placeholder="Search a device">
-          <q-autocomplete
+          <!-- <q-autocomplete
             separator
             :filter="fuzzyFind"
             :static-data="{field: 'alias', list: devicesViewList}"
             @search="fuzzyFind"
             @selected="selected"
-          />
+          /> -->
         </q-search>
       </div>
     </div>

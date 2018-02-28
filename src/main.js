@@ -3,7 +3,6 @@
 // 1. use next line to activate CUSTOM STYLE (./src/themes)
 // require(`./themes/app.${__THEME}.styl`)
 // 2. or, use next line to activate DEFAULT QUASAR STYLE
-
 import { onAuthStateChange, Auth } from 'src/firebase'
 import Vue from 'vue'
 import store from 'src/store'

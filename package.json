@@ -12,14 +12,18 @@
     "local-build": "node build/script.build.js && rm -r /home/shaun/projects/firefly/public/dev/ && mkdir /home/shaun/projects/firefly/public/dev/ &&  mv dist/* /home/shaun/projects/firefly/public/dev/",
     "test": "jest",
     "linting": "eslint --ext js,vue ./src --fix",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "get-config": "node ./get-config.js"
   },
   "release": {
     "branch": "next"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-runtime": "^6.25.0",
+    "dotenv": "^5.0.1",
     "firebase": "^4.6.0",
+    "fs": "^0.0.1-security",
     "fuse.js": "^3.2.0",
     "moment": "^2.19.1",
     "promise-polyfill": "^6.0.2",
