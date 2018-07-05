@@ -33,7 +33,7 @@
     "@commitlint/cli": "^4.3.0",
     "@commitlint/config-angular": "^4.3.0",
     "autoprefixer": "^6.4.0",
-    "babel-core": "^6.0.0",
+    "babel-core": "6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.0.0",
